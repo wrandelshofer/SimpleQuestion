@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/src/main/SimpleQuestion.iml" filepath="$PROJECT_DIR$/src/main/SimpleQuestion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/java/ch.randelshofer.simplequestion/ch.randelshofer.simplequestion.iml" filepath="$PROJECT_DIR$/src/main/java/ch.randelshofer.simplequestion/ch.randelshofer.simplequestion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/java/org.descheemaecker.nanoxml/org.descheemaecker.nanoxml.iml" filepath="$PROJECT_DIR$/src/main/java/org.descheemaecker.nanoxml/org.descheemaecker.nanoxml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/java/org.ghinkle.syntaxhighlighter/org.ghinkle.syntaxhighlighter.iml" filepath="$PROJECT_DIR$/src/main/java/org.ghinkle.syntaxhighlighter/org.ghinkle.syntaxhighlighter.iml" />
+    </modules>
+  </component>
+</project>

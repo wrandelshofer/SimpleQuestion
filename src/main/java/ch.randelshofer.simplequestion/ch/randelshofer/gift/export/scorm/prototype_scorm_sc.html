@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template_question_sc_sco.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>${chapter}</title>
+<!-- InstanceEndEditable -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<!-- InstanceBeginEditable name="style" -->
+<link href="${stylesheet}" rel="stylesheet" type="text/css" media="all" />
+<!-- InstanceEndEditable --> 
+<!-- InstanceBeginEditable name="head" --> <!-- InstanceEndEditable --> <!-- #BeginEditable "CourseBuilder" --> 
+<script language="JavaScript" src="scripts/behActions.js"></script>
+<script language="JavaScript" src="scripts/behCourseBuilder.js"></script>
+<script language="JavaScript" src="scripts/interactionClass.js"></script>
+<script language="JavaScript" src="scripts/elemIbtnClass.js"></script>
+<!-- #EndEditable --> 
+<script language="JavaScript" src="sco_scripts/sco_stub.js" type="text/JavaScript"></script>
+<script language="JavaScript" src="question_scripts/question_singlechoice.js" type="text/JavaScript"></script>
+<script language="JavaScript" type="text/JavaScript">stub.initialize()</script>
+<!-- InstanceParam name="pageDelimiterRegion" type="boolean" value="false" -->
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" 
+	onLoad="MM_initInteractions()" 
+ 	onUnload="stub.abnormalExit()"
+ 	tracingsrc="style/images/layout.gif" tracingopacity="100">
+<div id="title" style="position:absolute; left:20px; top:20px; width:480px; height:30px; z-index:1"logoRegion" --><span 
+class="chapterTitle"><!-- InstanceBeginEditable name="chapterRegion" -->${chapter}<!-- InstanceEndEditable -->
+  ${middot} </span><span class="pageTitle"><!-- InstanceBeginEditable name="pageRegion" -->${title}<!-- InstanceEndEditable --></span></div>
+<!-- InstanceBeginEditable name="logoRegion" -->
+<div class="logo"></div>
+<!-- InstanceEndEditable -->
+<div id="column2" class="separator_asym_left"></div>
+<div id="content2" class="content_asym_left_text2">
+<!-- InstanceBeginEditable name="column2Region" -->
+<div id="questionInstructions"><strong>${instructions.title}</strong> ${instructions.task}</div>
+<div id="questionNegativeFeedback"><strong class="indent">${instructions.incorrectAnswerTitle}</strong><br>${instructions.incorrectAnswerTask}</div>
+<div id="questionPositiveFeedback"><strong class="indent">${instructions.correctAnswerTitle}</strong><br>${instructions.correctAnswerTask}</div>
+<!-- InstanceEndEditable -->
+</div>
+<div id="content1" class="content_asym_left_text1"><!-- InstanceBeginEditable name="questionRegion" -->
+  <interaction name="g01" object="G01" template="010_Multiple Choice/030_MultCh_ImageRadios_04.agt" includesrc="interactionClass.js,elemIbtnClass.js">
+  <div name="G01Layer"> 
+    <p class="question"><span name="G01question">${question}</span></p>
+    <form name="G01choices" style="padding-left:30px">${answer}</form>
+    <form name="G01controls">
+    </form>
+  </div>
+  <script language="JavaScript">
+<!--
+  // Copyright 1998,1999 Macromedia, Inc. All rights reserved.
+  ${resultProcessing}
+//-->
+</script>
+  <cbi-select object="G01">
+ </interaction>
+  <!-- InstanceEndEditable --></div>
+<div id="questionJudgeButton" class="buttons"><a href="#" onClick="question_continue();return false">${judge}</a></div>
+<div id="questionSkipButton" class="buttons"><a href="#" onClick="question_skip();return false">${skip}</a></div>
+<div id="questionContinueButton" class="buttons"><a href="#" onClick="question_continue();return false">${next}</a></div>
+<div class="footer" ><!-- InstanceBeginEditable name="footerRegion" -->${footer}<!-- InstanceEndEditable --></div>
+</body>
+<!-- InstanceEnd --></html>

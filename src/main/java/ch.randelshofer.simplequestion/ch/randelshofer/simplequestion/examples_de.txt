@@ -1,0 +1,347 @@
+//====================================================
+// BITTE LESEN
+//====================================================
+// Dieses Beispieldokument wird beim Starten des Programms automatisch geladen.
+// Falls Sie mit einem anderen Dokument oder einer leeren Seite beginnen wollen, 
+// können Sie dies in den Einstellungen dieses Programms ändern.
+
+//====================================================
+// Allgemeiner Hinweise zum Moodle GIFT Format:
+//====================================================
+// Fragen werden durch Leerzeilen voneinander getrennt.
+// Wenn eine Frage eine Leerzeile beinhalten soll, schreiben
+// Sie einen Backslash \ (Schrägstrich nach Links) in die Zeile.
+
+
+
+//====================================================
+// Single Choice Fragen
+//====================================================
+
+// ---------------------------------------------------
+// Eine einzige Antwort muss ausgewählt werden. Der
+// Computer zeigt an, dass nur eine Antwort richtig
+// sein kann.
+
+::Beispiel für Single Choice::
+Welches ist die Hauptstadt von Italien? {
+	~Paris#Paris ist die Hauptstadt von Frankreich
+	=Rom
+	~London#London ist die Hauptstadt von England
+}
+
+//====================================================
+// Multiple Choice Fragen
+//====================================================
+
+// ---------------------------------------------------
+// Mehrere Antworten müssen ausgewählt werden. Der
+// Computer zeigt an, dass mehrere Antworten richtig
+// sein können.
+
+::MC Alles richtig::Welche der folgenden Orte sind Hauptstädte?
+{~%100%Rom ~%100%Bern ~%100%Paris}
+
+::MC Alles falsch::Welche der folgenden Orte liegen am Meer?
+{~%0%St. Moritz ~%0%Gstaad ~%0%Arosa}
+
+::MC Nur eine Antwort richtig::Welche der folgenden Orte liegen im Kanton Schwyz?
+{~%0%Kriens ~%100%Seewen ~%0%Zürich}
+
+//====================================================
+// Lückentexte
+//====================================================
+
+// ---------------------------------------------------
+// Lückentext Frage mit Eingabefeld für Text
+
+::Lückentext mit Eingabefeld::
+Die Hauptstadt der Schweiz ist {=Bern}.
+
+
+// ---------------------------------------------------
+// Lückentext Frage mit Auswahlfeld
+
+::Lückentext mit Auswahlfeld::
+{
+	~Paris
+	=Rom
+	~London
+} ist die Hauptstadt von Italien.
+
+
+// ---------------------------------------------------
+// Lückentext Frage mit Eingabefeld für Text, 
+// mehrere alternative Schreibweisen
+
+::Lückentext mit alternativen Schreibweisen::
+{
+	=Moskau
+	=Mockba
+} ist die Hauptstadt von Russland.
+
+
+// ---------------------------------------------------
+// Lückentext Fragen mit Eingabefeld für Zahlen
+
+::Numerischer Lückentext::
+In welchem Jahr wurde Einstein geboren? {#1879}
+
+::Numerische Lücke mit Toleranzbereich::
+Was ist der Wert von PI (auf 3 Dezimalstellen)? {#3.1415:0.0005}
+
+::Numerische Lücke mit Unter- und Obergrenze::
+Was ist der Wert von PI (auf 3 Dezimalstellen)? {#3.141..3.142}
+
+
+// ---------------------------------------------------
+// Lückentext mit mehreren Lücken
+
+::Hauptstädte::
+Die Hauptstadt von Italien ist {=Rom} und die Hauptstadt von Russland ist {=Moskau =Mockba}.
+
+
+//====================================================
+// Zuordnungsfragen
+//====================================================
+
+// ---------------------------------------------------
+// Zuordnungsfrage
+
+::Hauptstadt::
+Ordnen Sie die Hauptstädte den Ländern zu:
+{
+	=Paris -> Frankreich
+	=Rom -> Italien
+	=London -> Grossbritannien
+}
+
+
+//====================================================
+// Wahr/Falsch Frage
+//====================================================
+
+Rom ist die Hauptstadt von Frankreich. {FALSE}
+
+Moskau ist die Hauptstadt von Russland. {TRUE}
+
+//====================================================
+// Externes SCORM Objekt einbinden
+//
+// Mit folgender Anweisung wird ein SCORM Sharable
+// Content Object in einen Test eingebunden:
+//{%scorm:Dateipfad des Content Packages?id=SCO-ID}
+
+
+
+
+//=============================================================================
+// Weitere Beispiele auf Englisch:
+
+//  EXAMPLE QUESTIONS for the GIFT import filter
+//  by Paul Tsuchido Shew, January 2004.
+//  http://moodle.org/question/format/gift/examples.txt
+
+//-----------------------------------------//
+//        EXAMPLES FROM DESCRIPTION
+//-----------------------------------------//
+
+Who's buried in Grant's tomb? {~Grant ~Jefferson =no one}
+
+Grant is {~buried =entombed ~living} in Grant's tomb.
+
+Grant is buried in Grant's tomb.{FALSE}
+
+Who's buried in Grant's tomb?{=no one =nobody}
+
+When was Ulysses S. Grant born?{#1822:1}
+
+
+//-----------------------------------------//
+//       EXAMPLES FROM DOCUMENTATION
+//-----------------------------------------//
+
+// ===Multiple Choice===
+
+Who's buried in Grant's tomb?{~Grant ~Jefferson =no one}
+
+Grant is {~buried =entombed ~living} in Grant's tomb.
+
+The American holiday of Thanksgiving is celebrated on the {
+    ~second
+    ~third
+    =fourth
+} Thursday of November.
+
+Japanese characters originally came from what country? {
+    ~India
+    =China
+    ~Korea
+    ~Egypt}
+
+// ===Short Answer===
+
+Who's buried in Grant's tomb?{=no one =nobody}
+
+Two plus two equals {=four =4}.
+
+// ===True-False===
+
+Grant is buried in Grant's tomb.{F}
+
+The sun rises in the east.{T}
+
+// ===Matching===
+
+Matching Question. {
+    =subquestion1 -> subanswer1
+    =subquestion2 -> subanswer2
+    =subquestion3 -> subanswer3
+    }
+    
+Match the following countries with their corresponding capitals. {
+    =Canada -> Ottawa
+    =Italy  -> Rome
+    =Japan  -> Tokyo
+    =India  -> New Delhi
+    }
+
+// ===Numerical===
+
+When was Ulysses S. Grant born? {#1822}
+
+What is the value of pi (to 3 decimal places)? {#3.1415:0.0005}.
+
+What is the value of pi (to 3 decimal places)? {#3.141..3.142}.
+
+//When was Ulysses S. Grant born? {#
+//    =1822:0
+//    =%50%1822:2}
+
+// OPTIONS 
+
+// ===Line Comments===
+
+// Subheading: Numerical questions below
+What's 2 plus 2? {#4}
+
+
+// ===Question Name===
+
+::Kanji Origins::Japanese characters originally
+came from what country? {=China}
+
+::Thanksgiving Date::The American holiday of Thanksgiving is 
+celebrated on the {~second ~third =fourth} Thursday of November.
+
+// ===Feedback===
+
+What's the answer to this multiple-choice question?{
+~wrong answer#feedback comment on the wrong answer
+~another wrong answer#feedback comment on this wrong answer
+=right answer#Very good!}
+    
+Who's buried in Grant's tomb?{
+=no one#excellent answer!
+=nobody#excellent answer!}
+
+// ===Specify text format===
+[markdown]Who's buried in **Grant's tomb**?{
+=no one#excellent answer!
+=nobody#excellent answer!}
+
+// ===Percentage Answer Weights===
+Grant is buried in Grant's tomb.{FALSE#No one is buried in Grant's tomb.}
+
+Difficult question.{~wrong answer ~%50%half credit answer =full credit answer}
+         
+::Jesus' hometown::Jesus Christ was from {
+    ~Jerusalem#This was an important city, but the wrong answer.
+    ~%25%Bethlehem#He was born here, but not raised here.
+    ~%50%Galilee#You need to be more specific.
+    =Nazareth#Yes! That's right!}.
+    
+::Jesus' hometown:: Jesus Christ was from {
+    =Nazareth#Yes! That's right!
+    =%75%Nazereth#Right, but misspelled.
+    =%25%Bethlehem#He was born here, but not raised here.}
+
+// ===Multiple Answers===
+
+What two people are entombed in Grant's tomb? {
+    ~No one
+    ~%50%Grant
+    ~%50%Grant's wife
+    ~Grant's father }
+
+What two people are entombed in Grant's tomb? {
+    ~%-50%No one
+    ~%50%Grant
+    ~%50%Grant's wife
+    ~%-50%Grant's father }
+
+// ===Special Characters===
+Which answer equals 5? {
+     ~ \= 2 + 2
+     = \= 2 + 3
+     ~ \= 2 + 4  }
+
+::GIFT Control Characters::
+Which of the following is NOT a control character for the GIFT import format? {
+   ~ \~     # \~ is a control character.
+   ~ \=     # \= is a control character.
+   ~ \#     # \# is a control character.
+   ~ \{     # \{ is a control character.
+   ~ \}     # \} is a control character.
+   = \\     # Correct! \\ (backslash) is not a control character. BUT,
+              it is used to escape the control characters. So, to specify
+              a literal backslash, you must escape it with a backslash
+              (as shown in this example).
+}
+
+
+
+//-----------------------------------------//
+//     EXAMPLES FROM gift/format.php
+//-----------------------------------------//
+
+Who's buried in Grant's tomb?{~Grant ~Jefferson =no one}
+
+Grant is {~buried =entombed ~living} in Grant's tomb.
+
+Grant is buried in Grant's tomb.{FALSE}
+
+Who's buried in Grant's tomb?{=no one =nobody}
+
+When was Ulysses S. Grant born?{#1822:5}
+
+Match the following countries with their corresponding
+capitals.{=Canada->Ottawa =Italy->Rome =Japan->Tokyo}
+
+//-----------------------------------------//
+//     MORE COMPLICATED EXAMPLES
+//-----------------------------------------//
+
+::Grant's Tomb::Grant is {
+      ~buried#No one is buried there.
+      =entombed#Right answer!
+      ~living#We hope not!
+} in Grant's tomb.
+
+Difficult multiple choice question.{
+     ~wrong answer           #comment on wrong answer
+     ~%50%half credit answer #comment on answer
+     =full credit answer     #well done!}
+
+::Jesus' hometown (Short answer ex.):: Jesus Christ was from {
+     =Nazareth#Yes! That's right!
+     =%75%Nazereth#Right, but misspelled.
+     =%25%Bethlehem#He was born here, but not raised here.
+}.
+
+//::Numerical example::
+//When was Ulysses S. Grant born? {#
+//     =1822:0      #Correct! 100% credit
+//     =%50%1822:2  #He was born in 1822.
+//                  You get 50% credit for being close.
+//}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- JNLP File for the SimpleQuestion application -->
+<jnlp
+  spec="1.5.0+"
+  codebase="http://www.randelshofer.ch/simplequestion/jws"
+  href="simplequestion.jnlp">
+  <information>
+    <title>SimpleQuestion</title>
+    <vendor>Werner Randelshofer</vendor>
+    <homepage href="http://www.randelshofer.ch/simplequestion"/>
+    <description kind="short">SimpleQuestion is a test conversion and generation tool.</description>
+    <description kind="one-line">Test conversion and generation tool.</description>
+    <description kind="tooltip">SimpleQuestion</description>
+    <offline-allowed/>
+    <shortcut online="false">
+    	<desktop/>
+    	<menu submenu="SimpleQuestion"/>
+    </shortcut>
+  </information>
+  <security> 
+      <all-permissions/> 
+  </security> 
+  <resources>
+    <j2se version="1.5+" initial-heap-size="64m" max-heap-size="600m" />
+    <property name="jnlp.packEnabled" value="true"/>
+ 	<nativelib href="libquaqua.jnilib.jar"/> 
+ 	<nativelib href="libquaqua64.jnilib.jar"/> 
+ 	<jar href="SimpleQuestion.jar"/>
+  </resources>
+  <application-desc main-class="SimpleQuestion"/>
+</jnlp> 

@@ -124,7 +124,7 @@ public class SCORMExporter implements Exporter {
 
         // For each question we need two oids: one for the item-Element and
         // one for the resource-Element.
-        oidMap = new HashMap();
+        oidMap = new HashMap<>();
         oidLen = (int) Math.log10(questions.size() * 2) + 1;
         // The oid that we create for each question will be used for the
         // resource-Element.

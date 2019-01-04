@@ -257,7 +257,7 @@ private String getOidForTitle(Object o) {
         XMLElement flow = dom.createElement("flow");
 
         // We need this to properly create the code for the result processing
-        HashMap<BooleanAnswer, Object> wrongAnswerMap = new HashMap();
+        HashMap<BooleanAnswer, Object> wrongAnswerMap = new HashMap<>();
 
         for (Object o : q.getBody()) {
             if (o instanceof String) {
@@ -618,7 +618,7 @@ private String getOidForTitle(Object o) {
         XMLElement flow = dom.createElement("flow");
 
         // We need this to properly create the code for the result processing
-        HashMap<BooleanAnswer, Object> wrongAnswerMap = new HashMap();
+        HashMap<BooleanAnswer, Object> wrongAnswerMap = new HashMap<>();
 
         for (Object o : q.getBody()) {
             if (o instanceof String) {
@@ -771,7 +771,7 @@ private String getOidForTitle(Object o) {
         XMLElement flow = dom.createElement("flow");
 
         // We need this to properly create the code for the result processing
-        HashMap<BooleanAnswer, Object> wrongAnswerMap = new HashMap();
+        HashMap<BooleanAnswer, Object> wrongAnswerMap = new HashMap<>();
 
         for (Object o : q.getBody()) {
             if (o instanceof String) {
@@ -996,7 +996,7 @@ private String getOidForTitle(Object o) {
         XMLElement flow = dom.createElement("flow");
 
         // We need this to properly create the code for the result processing
-        HashMap<BooleanAnswer, Object> wrongAnswerMap = new HashMap();
+        HashMap<BooleanAnswer, Object> wrongAnswerMap = new HashMap<>();
 
         for (Object o : q.getBody()) {
             if (o instanceof String) {

@@ -56,7 +56,8 @@ import org.w3c.dom.*;
  * <br>1.0  2004-01-05  Created.
  */
 public class TitleElement extends AbstractElement {
-    private LinkedList langstringList = new LinkedList();
+    private final static long serialVersionUID=1L;
+    private LinkedList<LangStringElement> langstringList = new LinkedList<>();
     
     /** Creates a new instance. */
     public TitleElement() {

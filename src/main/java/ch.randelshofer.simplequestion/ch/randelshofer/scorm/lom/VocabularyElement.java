@@ -55,7 +55,7 @@ import org.w3c.dom.*;
  * <br>1.0  2004-01-05  Created.
  */
 public class VocabularyElement extends AbstractElement {
-    
+    private final static long serialVersionUID=1L;
     private SourceElement sourceElement;
     private ValueElement valueElement;
     

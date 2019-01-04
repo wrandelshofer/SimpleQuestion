@@ -63,6 +63,7 @@ import org.w3c.dom.*;
  * <br>1.0 5. Januar 2004  Created.
  */
 public class TechnicalElement extends AbstractElement {
+    private final static long serialVersionUID=1L;
     /*
     private GeneralElement generalElement;
     private LifecycleElement lifecycleElement;

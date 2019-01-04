@@ -36,7 +36,7 @@ import org.w3c.dom.*;
  * <br>1.0 5. Januar 2004  Created.
  */
 public class IdentifierElement extends AbstractElement {
-    
+    private final static long serialVersionUID=1L;
     /** Creates a new instance. */
     public IdentifierElement() {
     }

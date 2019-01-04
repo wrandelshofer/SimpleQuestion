@@ -57,6 +57,7 @@ import org.w3c.dom.*;
  * <br>1.0  2004-01-05  Created.
  */
 public class AggregationLevelElement extends AbstractElement {
+    private final static long serialVersionUID=1L;
     private VocabularyElement vocabularyElement;
     private SourceElement sourceElement;
     private ValueElement valueElement;

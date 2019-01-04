@@ -54,7 +54,7 @@ import org.w3c.dom.*;
  * <br>1.0  2004-01-05  Created.
  */
 public class SourceElement extends AbstractElement {
-    private LinkedList langstringList = new LinkedList();
+    private LinkedList<LangStringElement> langstringList = new LinkedList<>();
     
     /** Creates a new instance. */
     public SourceElement() {

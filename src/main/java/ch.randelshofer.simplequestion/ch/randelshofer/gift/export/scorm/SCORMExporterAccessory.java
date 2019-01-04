@@ -33,6 +33,7 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * <br>1.0 2. August 2006 Created.
  */
 public class SCORMExporterAccessory extends javax.swing.JPanel {
+    private final static long serialVersionUID=1L;
     private Preferences prefs;
     private ResourceBundleUtil labels;
     private JFileChooser fileChooser;
@@ -64,7 +65,7 @@ public class SCORMExporterAccessory extends javax.swing.JPanel {
         updateStyles();
         
         
-        DefaultComboBoxModel cbm = new DefaultComboBoxModel();
+        DefaultComboBoxModel<Locale> cbm = new DefaultComboBoxModel<>();
         int selectedIndex = 0;
         for (int i=0; i < localedefs.length; i++) {
             cbm.addElement(localedefs[i]);
@@ -191,7 +192,7 @@ public class SCORMExporterAccessory extends javax.swing.JPanel {
             public void finished() {
                 styleMap = (Map<String,String>) getValue();
                 
-                DefaultComboBoxModel cbm = new DefaultComboBoxModel();
+                DefaultComboBoxModel<String> cbm = new DefaultComboBoxModel<>();
                 Object selectedItem = null;
                 for (String[] def : styledefs) {
                     cbm.addElement(def[0]);
@@ -328,7 +329,7 @@ System.out.println("SCORMExporterAccessyry scorm.style:"+styleMap.get(styleCombo
     private javax.swing.JLabel localeLabel;
     private javax.swing.JTextField prefixField;
     private javax.swing.JLabel prefixLabel;
-    private javax.swing.JComboBox styleCombo;
+    private javax.swing.JComboBox<String> styleCombo;
     private javax.swing.JLabel styleLabel;
     private javax.swing.JTextField titleField;
     private javax.swing.JLabel titleLabel;

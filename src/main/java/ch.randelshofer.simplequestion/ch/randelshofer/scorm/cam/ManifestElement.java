@@ -145,7 +145,7 @@ public class ManifestElement extends AbstractElement {
         buf.append("<manifest identifier=\""+identifier+"\" version=\""+version+"\" xml:base=\""+xmlBase+"\">\n");
         organizationsElement.dump(buf, depth+1);
         resourcesElement.dump(buf, depth+1);
-        Iterator iter = manifestList.iterator();
+        Iterator<ManifestElement> iter = manifestList.iterator();
         while (iter.hasNext()) {
             ((AbstractElement) iter.next()).dump(buf, depth+1);
         }

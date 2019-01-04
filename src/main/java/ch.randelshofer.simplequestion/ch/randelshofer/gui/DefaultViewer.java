@@ -25,6 +25,7 @@ import java.awt.*;
  */
 public class DefaultViewer 
 extends javax.swing.JPanel implements ViewFactory {
+    private final static long serialVersionUID=1L;
 
     /** Creates new form DefaultViewer */
     public DefaultViewer() {

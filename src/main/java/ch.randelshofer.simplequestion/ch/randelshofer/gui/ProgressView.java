@@ -36,6 +36,7 @@ import javax.swing.event.*;
  */
 public class ProgressView extends JPanel 
 implements ChangeListener, ProgressIndicator {
+    private final static long serialVersionUID=1L;
     private boolean isCanceled, isClosed, isCancelable = true;
     private BoundedRangeModel model;
     private Runnable doCancel;

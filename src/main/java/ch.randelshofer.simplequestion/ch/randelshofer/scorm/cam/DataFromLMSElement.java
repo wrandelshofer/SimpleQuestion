@@ -56,6 +56,7 @@ import org.w3c.dom.*;
  * <br>0.1 2003-02-02 Created.
  */
 public class DataFromLMSElement extends AbstractElement {
+    private final static long serialVersionUID=1L;
     /**
      * The dataFromLMS. Smallest permitted maximum of 255 characters.
      */

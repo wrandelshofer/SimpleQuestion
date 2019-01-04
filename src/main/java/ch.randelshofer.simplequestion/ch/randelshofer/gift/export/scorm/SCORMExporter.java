@@ -477,7 +477,7 @@ public class SCORMExporter implements Exporter {
 
         // Write the resource element
         resource.setAttribute("href", externalResource.getHRef());
-        ArrayList<String> sortedFiles = new ArrayList(hrefs);
+        ArrayList<String> sortedFiles = new ArrayList<>(hrefs);
         Collections.sort(sortedFiles);
         for (String href : sortedFiles) {
             XMLElement file = dom.createElement("file");

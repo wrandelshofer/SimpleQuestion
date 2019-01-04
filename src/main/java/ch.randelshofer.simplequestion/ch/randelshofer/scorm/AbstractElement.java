@@ -71,7 +71,7 @@ public abstract class AbstractElement extends DefaultMutableTreeNode {
      * Performance note: this method uses a linear search algorithm!
      */
     public AbstractElement findSubtreeByIdentifier(String identifier) {
-        Enumeration enm = preorderEnumeration();
+        Enumeration<TreeNode> enm = preorderEnumeration();
         while (enm.hasMoreElements()) {
             AbstractElement element = (AbstractElement) enm.nextElement();
             if (element.getIdentifier() != null 
@@ -86,7 +86,7 @@ public abstract class AbstractElement extends DefaultMutableTreeNode {
      * identifier. Performance note: this method uses a linear search algorithm!
      */
     public AbstractElement findChildByIdentifier(String identifier) {
-        Enumeration enm = children();
+        Enumeration<TreeNode> enm = children();
         while (enm.hasMoreElements()) {
             AbstractElement element = (AbstractElement) enm.nextElement();
             if (element.getIdentifier() != null 

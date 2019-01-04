@@ -122,7 +122,7 @@ public class Scanner implements TokenTypes {
      * <code>symbolTable.put(sym,sym)</code> and extracted with
      * <code>symbolTable.get(sym)</code>.
      */
-    protected HashMap symbolTable;
+    protected HashMap<Symbol,Symbol> symbolTable;
     
     /**
      * Create a new Scanner representing an empty text document.  For
@@ -135,7 +135,7 @@ public class Scanner implements TokenTypes {
         gap = 0;
         endgap = 0;
         textLength = 0;
-        symbolTable = new HashMap();
+        symbolTable = new HashMap<>();
         initSymbolTable();
         Symbol endOfText = new Symbol(WHITESPACE, "");
         tokens[0] = new Token(endOfText, 0);

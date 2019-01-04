@@ -74,6 +74,7 @@ import org.w3c.dom.*;
  * <br>0.1 2003-02-02 Created.
  */
 public class ItemElement extends AbstractElement{
+    private final static long serialVersionUID=1L;
     /**
      * This attribute is set by validate().
      */

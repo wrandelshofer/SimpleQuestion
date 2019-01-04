@@ -71,6 +71,7 @@ import org.w3c.dom.*;
  * <br>0.1 2003-02-02 Created.
  */
 public class IMSManifestDocument extends ManifestElement {
+    private final static long serialVersionUID=1L;
     private File pifFile;
     private File contentPackageFile;
     /**
@@ -81,7 +82,7 @@ public class IMSManifestDocument extends ManifestElement {
      * The separator used to delimit path elements is the '/' (slash)
      * character.
      */
-    private HashSet fileNames;
+    private HashSet<String> fileNames;
     
     /** Creates a new instance of CAMModel */
     public IMSManifestDocument() {
@@ -185,9 +186,9 @@ public class IMSManifestDocument extends ManifestElement {
      * character.
      * @return Returns an unmodifiable Set.
      */
-    public Set getFileNames() {
+    public Set<String> getFileNames() {
         if (fileNames == null) {
-            fileNames = new HashSet();
+            fileNames = new HashSet<>();
             if (pifFile != null) {
                     ZipInputStream zipin = null;
                 try {
@@ -213,7 +214,7 @@ public class IMSManifestDocument extends ManifestElement {
         }
         return Collections.unmodifiableSet(fileNames);
     }
-    private void addDirectorySubtree(File root, File subdir, Set fileNames) {
+    private void addDirectorySubtree(File root, File subdir, Set<String> fileNames) {
         String rootName = root.toString();
         File[] dir = subdir.listFiles();
         if (dir != null) {

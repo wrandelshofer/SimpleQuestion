@@ -61,6 +61,7 @@ import org.w3c.dom.*;
  * <br>0.1 2003-02-02 Created.
  */
 public class ManifestElement extends AbstractElement {
+    private final static long serialVersionUID=1L;
     /**
      * identifier (required) - An identifier provided by an author or
      * authoring tool, that is unique within the Manifest.
@@ -86,7 +87,7 @@ public class ManifestElement extends AbstractElement {
     
     protected MetadataElement metadataElement;
     
-    protected LinkedList manifestList = new LinkedList();
+    protected LinkedList<ManifestElement> manifestList = new LinkedList<>();
     
     /** Creates a new instance of ManifestElement */
     public ManifestElement() {

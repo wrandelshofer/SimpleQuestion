@@ -62,6 +62,7 @@ import org.w3c.dom.*;
  * <br>0.1 2003-02-02 Created.
  */
 public class ResourcesElement extends AbstractElement {
+    private final static long serialVersionUID=1L;
     private String info;
     /**
      * This variable is set to true or false by validate, when all

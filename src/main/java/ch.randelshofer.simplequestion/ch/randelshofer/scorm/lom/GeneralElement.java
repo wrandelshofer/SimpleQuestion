@@ -68,11 +68,11 @@ public class GeneralElement extends AbstractElement {
 
     private IdentifierElement identifierElement;
     private TitleElement titleElement;
-    private LinkedList catalogEntryList = new LinkedList();
-    private LinkedList languageList = new LinkedList();
-    private LinkedList descriptionList = new LinkedList();
-    private LinkedList keywordList = new LinkedList();
-    private LinkedList coverageList = new LinkedList();
+    private LinkedList<CatalogEntryElement> catalogEntryList = new LinkedList<>();
+    private LinkedList<LanguageElement> languageList = new LinkedList<>();
+    private LinkedList<DescriptionElement> descriptionList = new LinkedList<>();
+    private LinkedList<KeywordElement> keywordList = new LinkedList<>();
+    private LinkedList<CoverageElement> coverageList = new LinkedList<>();
     private StructureElement structureElement;
     private AggregationLevelElement aggregationLevelElement;
     

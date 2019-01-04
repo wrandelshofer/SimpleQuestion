@@ -64,7 +64,8 @@ import org.w3c.dom.*;
  * <br>1.0  2004-01-05  Created.
  */
 public class LOMElement extends AbstractElement {
-    
+    private final static long serialVersionUID=1L;
+
     private GeneralElement generalElement;
     private LifecycleElement lifecycleElement;
     private MetaMetadataElement metaMetadataElement;

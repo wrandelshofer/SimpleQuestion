@@ -21,6 +21,7 @@ import ch.randelshofer.xml.DOMs;
 import java.io.*;
 import java.util.*;
 
+import javax.swing.tree.TreeNode;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
@@ -86,6 +87,7 @@ import org.w3c.dom.*;
  * <br>0.1 2003-02-02 Created.
  */
 public class OrganizationElement extends AbstractElement {
+    private final static long serialVersionUID=1L;
     /**
      * identifier (required). An identifier provided by an author or authoring
      * tool, that is unique within the Manifest. Data type = ID.
@@ -102,7 +104,7 @@ public class OrganizationElement extends AbstractElement {
      */
     private String structure;
     private TitleElement titleElement;
-    private LinkedList itemList = new LinkedList();
+    private LinkedList<ItemElement> itemList = new LinkedList<>();
     
     /**
      * Contains context specific meta-data that is used to describe the
@@ -158,7 +160,7 @@ public class OrganizationElement extends AbstractElement {
         for (int i=0; i < depth; i++) buf.append('.');
         buf.append("<organization identifier=\""+identifier+"\" structure=\""+structure+"\">\n");
         titleElement.dump(buf, depth+1);
-        Iterator iter = itemList.iterator();
+        Iterator<ItemElement> iter = itemList.iterator();
         while (iter.hasNext()) {
             ((AbstractElement) iter.next()).dump(buf, depth+1);
         }
@@ -183,7 +185,7 @@ public class OrganizationElement extends AbstractElement {
                 gen.getIdentifier(getIdentifier())+"\",\""+
                 Strings.escapeHTML(Strings.escapeUnicodeWithHTMLEntities(title))+"\",[");
         
-        Iterator iter = itemList.iterator();
+        Iterator<ItemElement> iter = itemList.iterator();
         while (iter.hasNext()) {
             ((ItemElement) iter.next()).exportToJavaScript(out, depth + 1, gen);
             if (iter.hasNext()){
@@ -223,13 +225,13 @@ public class OrganizationElement extends AbstractElement {
      *
      * This method returns all distinct titles of the column ItemElement's.
      */
-    public ArrayList getDistinctColumnTitles() {
-        HashSet set = new HashSet();
-        ArrayList titles = new ArrayList();
-        Iterator i = itemList.iterator();
+    public ArrayList<String> getDistinctColumnTitles() {
+        HashSet<String> set = new HashSet<>();
+        ArrayList<String> titles = new ArrayList<>();
+        Iterator<ItemElement> i = itemList.iterator();
         while (i.hasNext()) {
             ItemElement row = (ItemElement) i.next();
-            Iterator j = row.getItemList().iterator();
+            Iterator<ItemElement> j = row.getItemList().iterator();
             while (j.hasNext()) {
                 ItemElement column = (ItemElement) j.next();
                 if (! set.contains(column.getTitle())) {
@@ -241,18 +243,18 @@ public class OrganizationElement extends AbstractElement {
         return titles;
     }
     
-    public List getItemList() {
+    public List<ItemElement> getItemList() {
         return Collections.unmodifiableList(itemList);
     }
     
     /**
      * Returns all ResourceElement's that are referenced by this organization.
      */
-    public HashSet getReferencedResources() {
+    public HashSet<AbstractElement> getReferencedResources() {
         ResourcesElement resources = getIMSManifestDocument().getResourcesElement();
-        HashSet referencedResources = new HashSet();
+        HashSet<AbstractElement> referencedResources = new HashSet<>();
         
-        Enumeration enm = preorderEnumeration();
+        Enumeration<TreeNode> enm = preorderEnumeration();
         while (enm.hasMoreElements()) {
             AbstractElement element = (AbstractElement) enm.nextElement();
             if (element instanceof ItemElement) {

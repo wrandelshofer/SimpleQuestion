@@ -52,6 +52,7 @@ import org.w3c.dom.*;
  * <br>0.1 2003-02-02 Created.
  */
 public class TitleElement extends AbstractElement {
+    private final static long serialVersionUID=1L;
     /**
      * The title. Smallest permitted maximum of 100 characters.
      */

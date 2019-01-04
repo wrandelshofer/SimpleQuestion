@@ -54,6 +54,7 @@ import org.w3c.dom.*;
  * <br>1.0  2004-01-05  Created.
  */
 public class LangStringElement extends AbstractElement {
+    private final static long serialVersionUID=1L;
     /**
      * The string.
      */

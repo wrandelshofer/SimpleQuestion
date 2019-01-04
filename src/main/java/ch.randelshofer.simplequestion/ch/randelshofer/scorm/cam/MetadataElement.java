@@ -60,7 +60,8 @@ import org.w3c.dom.*;
  * <br>1.0 2003-11-03 Created.
  */
 public class MetadataElement extends AbstractElement {
-    
+    private final static long serialVersionUID=1L;
+
     /** This element describes the schema that defines the meta-data. */
     private SchemaElement schemaElement;
     

@@ -61,6 +61,7 @@ import org.w3c.dom.*;
  * <br>0.1 2003-02-02 Created.
  */
 public class OrganizationsElement extends AbstractElement {
+    private final static long serialVersionUID=1L;
     /**
      * This attribute is set by validate().
      */
@@ -73,7 +74,7 @@ public class OrganizationsElement extends AbstractElement {
     /**
      * The list of organization elements.
      */
-    private LinkedList organizationList = new LinkedList();
+    private LinkedList<OrganizationElement> organizationList = new LinkedList<>();
     
     /** Creates a new instance of OrganizationsElement */
     public OrganizationsElement() {
@@ -111,9 +112,8 @@ public class OrganizationsElement extends AbstractElement {
     public void dump(StringBuffer buf, int depth) {
         for (int i=0; i < depth; i++) buf.append('.');
         buf.append("<organizations default=\""+defaultOrganization+"\">\n");
-        Iterator iter = organizationList.iterator();
-        while (iter.hasNext()) {
-            ((AbstractElement) iter.next()).dump(buf, depth+1);
+        for (OrganizationElement organizationElement : organizationList) {
+            ((AbstractElement) organizationElement).dump(buf, depth + 1);
         }
         for (int i=0; i < depth; i++) buf.append('.');
         buf.append("</organizations>\n");
@@ -131,7 +131,7 @@ public class OrganizationsElement extends AbstractElement {
     throws IOException {
         indent(out, depth);
         out.println("new OrganizationsElement([");
-        Iterator iter = organizationList.iterator();
+        Iterator<OrganizationElement> iter = organizationList.iterator();
         while (iter.hasNext()) {
             OrganizationElement elem = ((OrganizationElement) iter.next());
             if (elem.getIdentifier().equals(defaultOrganization)) {

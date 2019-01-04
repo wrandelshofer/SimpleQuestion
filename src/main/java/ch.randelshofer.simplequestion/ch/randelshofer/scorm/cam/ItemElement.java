@@ -21,6 +21,7 @@ import ch.randelshofer.xml.DOMs;
 import java.io.*;
 import java.util.*;
 
+import javax.swing.tree.TreeNode;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
@@ -115,7 +116,7 @@ public class ItemElement extends AbstractElement{
      */
     private MetadataElement metadataElement;
     
-    private LinkedList itemList = new LinkedList();
+    private LinkedList<ItemElement> itemList = new LinkedList<>();
     
     /** Creates a new instance. */
     public ItemElement() {
@@ -174,7 +175,7 @@ public class ItemElement extends AbstractElement{
         for (int i=0; i < depth; i++) buf.append('.');
         buf.append("<item identifier=\""+identifier+"\" identifierref=\""+identifierref+"\" isvisible=\""+isVisible+"\" parameters=\""+parameters+"\">\n");
         titleElement.dump(buf, depth+1);
-        Iterator iter = itemList.iterator();
+        Iterator<ItemElement> iter = itemList.iterator();
         while (iter.hasNext()) {
             ((AbstractElement) iter.next()).dump(buf, depth+1);
         }
@@ -217,7 +218,7 @@ public class ItemElement extends AbstractElement{
         } else {
             out.println(",[");
             
-            Iterator iter = itemList.iterator();
+            Iterator<ItemElement> iter = itemList.iterator();
             while (iter.hasNext()) {
                 ((ItemElement) iter.next()).exportToJavaScript(out, depth + 1, gen);
                 if (iter.hasNext()){
@@ -272,7 +273,7 @@ public class ItemElement extends AbstractElement{
         return buf.toString();
     }
     
-    public List getItemList() {
+    public List<ItemElement> getItemList() {
         return Collections.unmodifiableList(itemList);
     }
     
@@ -286,7 +287,7 @@ public class ItemElement extends AbstractElement{
         if (getIdentifier() == null) isValid = false;
         if (identifierref != null) {
             isIdentifierrefValid = false;
-            Enumeration enm = getIMSManifestDocument().getResourcesElement().preorderEnumeration();
+            Enumeration<TreeNode> enm = getIMSManifestDocument().getResourcesElement().preorderEnumeration();
             while (enm.hasMoreElements()) {
                 AbstractElement node = (AbstractElement) enm.nextElement();
                 if (node.getIdentifier() != null && node.getIdentifier().equals(identifierref)) {

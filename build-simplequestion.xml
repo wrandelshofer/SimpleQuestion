@@ -7,7 +7,7 @@
     <target name="init">
         <!-- gobal build properties -->
         <property file="build.properties"/>
-        <property name="jdk" value="${jdk.win}"/>
+
 
         <!-- properties for copyright and versioning -->
         <property name="name" value="${ant.project.name}"/>
@@ -21,9 +21,6 @@
         <property name="javadoc" value="dist/SimpleQuestion ${version}/javadoc"/>
         <property name="modulepath" value="${lib}/JHotDraw-7.6"/>
 
-        <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
-                 uri="javafx:com.sun.javafx.tools.ant"
-                 classpath="${jdk}/lib/ant-javafx.jar"/>
     </target>
     <target name="clean" depends="init">
         <delete dir="${classes}"/>
@@ -94,7 +91,7 @@
                     <attribute name="Specification-Vendor" value="${author}"/>
                 </manifest>
             </jar>
-            <exec executable="${jdk}/bin/jar" unless:blank="@{mainclass}">
+            <exec executable="${jdk10.mac}/bin/jar" unless:blank="@{mainclass}">
                 <arg line="-f &quot;${dist.dir}/modules/@{module}.jar&quot;"/>
                 <arg line="-u"/>
                 <arg line="-e @{mainclass}"/>
@@ -133,7 +130,7 @@
         <sequential>
             <mkdir dir="${dist.dir}/bundles"/>
             <exec executable="${jpackager.mac}">
-                <env key="JAVA_HOME" path="${jdk.mac}"/>
+                <env key="JAVA_HOME" path="${jdk11.mac}"/>
                 <arg value="create-installer"/>
                 <arg value="--output"/>
                 <arg path="${dist.dir}/bundles"/>
@@ -182,9 +179,12 @@
             </exec>
         </sequential>
     </macrodef>
-    <target name="do-bundle-fx" depends="init">
+    <target name="do-bundle-win" depends="init">
         <property environment="env"/>
         <echo message="bla ${env.Path}"/>
+        <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
+                 uri="javafx:com.sun.javafx.tools.ant"
+                 classpath="${jdk10.win}/lib/ant-javafx.jar"/>
         <fx:deploy width="800" height="600"
                    nativeBundles="all"
                    outdir="${dist.dir}/bundles" outfile="${name}">
@@ -201,7 +201,7 @@
         </fx:deploy>
     </target>
 
-    <target name="do-bundle-win" depends="init">
+    <target name="do-bundle-win-broken" depends="init">
         <modular-bundle-win module="ch.randelshofer.simplequestion" title="${name}"/>
     </target>
     <target name="do-bundle-mac" depends="init">

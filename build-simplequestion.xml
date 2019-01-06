@@ -2,10 +2,12 @@
 <project name="SimpleQuestion" default="all" basedir="."
          xmlns:if="ant:if"
          xmlns:unless="ant:unless"
+         xmlns:fx="javafx:com.sun.javafx.tools.ant"
 >
     <target name="init">
         <!-- gobal build properties -->
         <property file="build.properties"/>
+        <property name="jdk" value="${jdk.win}"/>
 
         <!-- properties for copyright and versioning -->
         <property name="name" value="${ant.project.name}"/>
@@ -15,12 +17,17 @@
         <property name="src" value="src/main/java"/>
         <property name="build" value="build"/>
         <property name="classes" value="${build}/classes"/>
-        <property name="dist" value="dist/simplequestion-${version}"/>
+        <property name="dist.dir" value="dist/simplequestion-${version}"/>
         <property name="javadoc" value="dist/SimpleQuestion ${version}/javadoc"/>
         <property name="modulepath" value="${lib}/JHotDraw-7.6"/>
+
+        <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
+                 uri="javafx:com.sun.javafx.tools.ant"
+                 classpath="${jdk}/lib/ant-javafx.jar"/>
     </target>
     <target name="clean" depends="init">
-        <delete dir="${classes}" />
+        <delete dir="${classes}"/>
+        <delete dir="${dist.dir}"/>
     </target>
     <target depends="init" description="Javadoc for my API." name="javadoc">
         <mkdir dir="${javadoc}"/>
@@ -44,16 +51,16 @@
     </target>
     <target name="compile" depends="init,clean">
         <mkdir dir="${classes}"/>
-        <javac  destdir="${classes}"
-                modulepath="${modulepath}"
-                modulesourcepath="${src}"
+        <javac destdir="${classes}"
+               modulepath="${modulepath}"
+               modulesourcepath="${src}"
 
-                debug="${javac.debug}"
-                optimize="${javac.optimize}"
-                encoding="${javac.encoding}"
-                includeantruntime="${javac.includeantruntime}"
-                source="${javac.source}"
-                target="${javac.target}"
+               debug="${javac.debug}"
+               optimize="${javac.optimize}"
+               encoding="${javac.encoding}"
+               includeantruntime="${javac.includeantruntime}"
+               source="${javac.source}"
+               target="${javac.target}"
         >
             <compilerarg value="-version"/>
             <compilerarg value="-Xlint:all"/>
@@ -68,11 +75,11 @@
     </target>
 
     <macrodef name="modular-jar">
-        <attribute name="module" />
-        <attribute name="mainclass" default="" />
+        <attribute name="module"/>
+        <attribute name="mainclass" default=""/>
         <sequential>
-            <mkdir dir="${dist}"/>
-            <jar destfile="${dist}/modules/@{module}.jar"
+            <mkdir dir="${dist.dir}"/>
+            <jar destfile="${dist.dir}/modules/@{module}.jar"
                  basedir="${classes}/@{module}"
             >
 
@@ -87,50 +94,53 @@
                     <attribute name="Specification-Vendor" value="${author}"/>
                 </manifest>
             </jar>
-            <exec executable="jar" unless:blank="@{mainclass}">
-                <arg line="-f &quot;${dist}/modules/@{module}.jar&quot;"/>
+            <exec executable="${jdk}/bin/jar" unless:blank="@{mainclass}">
+                <arg line="-f &quot;${dist.dir}/modules/@{module}.jar&quot;"/>
                 <arg line="-u"/>
                 <arg line="-e @{mainclass}"/>
             </exec>
 
-            <jar destfile="${dist}/sources/@{module}-src.jar"
+            <jar destfile="${dist.dir}/sources/@{module}-src.jar"
                  basedir="${src}/@{module}"
             >
             </jar>
         </sequential>
     </macrodef>
     <target name="run" depends="init">
-        <java module="ch.randelshofer.simplequestion" modulepath="${dist}/modules" fork="true">
+        <java module="ch.randelshofer.simplequestion" modulepath="${dist.dir}/modules" fork="true">
         </java>
     </target>
 
     <target name="jar" depends="init,compile,do-jar">
     </target>
+
     <target name="do-jar" depends="init">
         <modular-jar module="ch.randelshofer.simplequestion" mainclass="ch.randelshofer.simplequestion.Main"/>
-        <modular-jar module="org.descheemaecker.nanoxml" />
-        <copydir src="${modulepath}" dest="${dist}/modules">
+        <modular-jar module="org.descheemaecker.nanoxml"/>
+        <copy todir="${dist.dir}/modules">
+            <fileset dir="${modulepath}">
             <include name="*.jar"/>
             <exclude name=".*"/>
             <exclude name="*-src.jar"/>
-        </copydir>
+            </fileset>
+        </copy>
     </target>
 
-    <macrodef name="modular-bundle">
-        <attribute name="module" />
-        <attribute name="title" />
-        <attribute name="mainclass" default="" />
+    <macrodef name="modular-bundle-mac">
+        <attribute name="module"/>
+        <attribute name="title"/>
+        <attribute name="mainclass" default=""/>
         <sequential>
-            <mkdir dir="${dist}/bundles"/>
-            <exec executable="${jpackager}">
-                <env key="JAVA_HOME" path="${jdk}"/>
+            <mkdir dir="${dist.dir}/bundles"/>
+            <exec executable="${jpackager.mac}">
+                <env key="JAVA_HOME" path="${jdk.mac}"/>
                 <arg value="create-installer"/>
                 <arg value="--output"/>
-                <arg path="${dist}/bundles"/>
+                <arg path="${dist.dir}/bundles"/>
                 <arg value="--name"/>
                 <arg value="@{title}"/>
                 <arg value="--module-path"/>
-                <arg path="${dist}/modules"/>
+                <arg path="${dist.dir}/modules"/>
                 <arg value="--identifier"/>
                 <arg value="@{module}"/>
                 <arg value="--module"/>
@@ -139,16 +149,67 @@
                 <arg value="@{title}"/>
                 <arg value="--version"/>
                 <arg value="${version}"/>
+                <arg value="--icon"/>
+                <arg value="${app.icon.mac}"/>
             </exec>
         </sequential>
     </macrodef>
-
-
-    <target name="do-bundle" depends="init">
-        <modular-bundle module="ch.randelshofer.simplequestion" title="SimpleQuestion"/>
+    <macrodef name="modular-bundle-win">
+        <attribute name="module"/>
+        <attribute name="title"/>
+        <attribute name="mainclass" default=""/>
+        <sequential>
+            <mkdir dir="C:/bundles"/>
+            <property environment="env"/>
+            <exec executable="${jpackager.win}">
+                <env key="Path" value="${env.Path};${wix.win}"/>
+                <arg value="create-installer"/>
+                <arg value="--verbose"/>
+                <arg value="--output"/>
+                <arg path="${dist.dir}/bundles"/>
+                <arg value="--name"/>
+                <arg value="@{title}"/>
+                <arg value="--module-path"/>
+                <arg path="${dist.dir}/modules"/>
+                <arg value="--identifier"/>
+                <arg value="@{module}"/>
+                <arg value="--module"/>
+                <arg value="@{module}"/>
+                <arg value="--version"/>
+                <arg value="${version}"/>
+                <arg value="--icon"/>
+                <arg value="${app.icon.mac}"/>
+            </exec>
+        </sequential>
+    </macrodef>
+    <target name="do-bundle-fx" depends="init">
+        <property environment="env"/>
+        <echo message="bla ${env.Path}"/>
+        <fx:deploy width="800" height="600"
+                   nativeBundles="all"
+                   outdir="${dist.dir}/bundles" outfile="${name}">
+            <fx:application name="${name}"
+                            module="ch.randelshofer.simplequestion"
+                            mainClass="ch.randelshofer.simplequestion.Main"/>
+            <fx:resources>
+                <fx:fileset dir="${dist.dir}/modules" includes="*.jar"/>
+            </fx:resources>
+            <fx:info title="${name}" vendor="${author}"/>
+            <fx:runtime>
+                <fx:module-path value="${dist.dir}/modules"/>
+            </fx:runtime>
+        </fx:deploy>
     </target>
 
-    <target name="bundle" depends="do-bundle,jar">
+    <target name="do-bundle-win" depends="init">
+        <modular-bundle-win module="ch.randelshofer.simplequestion" title="${name}"/>
+    </target>
+    <target name="do-bundle-mac" depends="init">
+        <modular-bundle-mac module="ch.randelshofer.simplequestion" title="${name}"/>
+    </target>
+
+
+    <target name="bundle" depends="do-bundle-mac,jar">
     </target>
 
     <target name="dist" depends="bundle">

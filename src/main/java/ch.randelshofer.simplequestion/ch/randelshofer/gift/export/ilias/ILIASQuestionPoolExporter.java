@@ -86,8 +86,9 @@ public class ILIASQuestionPoolExporter implements Exporter {
         if (oidMap.containsKey(o)) {
             return oidMap.get(o);
         } else {
+            // Object ids must be numeric for ILIAS.
             String oid = Integer.toString(oidMap.size() + 1);
-            oid = "_" + (("0000000000" + oid).substring(10 + oid.length() - Math.max(oid.length(), oidLen)));
+            //oid = "_" + (("0000000000" + oid).substring(10 + oid.length() - Math.max(oid.length(), oidLen)));
             oidMap.put(o, oid);
             return oid;
         }

@@ -41,6 +41,7 @@ import java.util.*;
  * @version 1.0
  */
 public class CompositeEdit extends CompoundEdit {
+    public final static long serialVersionUID=1L;
     private String presentationName;
     private boolean isSignificant;
     private boolean isVerbose;

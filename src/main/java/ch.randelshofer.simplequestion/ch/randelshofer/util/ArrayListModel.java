@@ -13,16 +13,17 @@ import java.util.*;
  *
  * @author  werni
  */
-public class ArrayListModel extends javax.swing.AbstractListModel
-implements List/*, RandomAccess*/ {
-    private ArrayList delegate;
+public class ArrayListModel<E> extends javax.swing.AbstractListModel<E>
+implements List<E>/*, RandomAccess*/ {
+    public final static long serialVersionUID=1L;
+    private ArrayList<E> delegate;
     
     /** Creates a new instance of ArrayListModel */
     public ArrayListModel() {
-        delegate = new ArrayList();
+        delegate = new ArrayList<>();
     }
     
-    public Object getElementAt(int index) {
+    public E getElementAt(int index) {
         return delegate.get(index);
     }
     
@@ -30,19 +31,19 @@ implements List/*, RandomAccess*/ {
         return delegate.size();
     }
     
-    public boolean add(Object o) {
+    public boolean add(E o) {
         int index = delegate.size();
         delegate.add(o);
         fireIntervalAdded(this, index, index);
         return true;
     }
     
-    public void add(int index, Object element) {
+    public void add(int index, E element) {
         delegate.add(index, element);
         fireIntervalAdded(this, index, index);
     }
     
-    public boolean addAll(Collection c) {
+    public boolean addAll(Collection<? extends E> c) {
         if (c.size() > 0) {
             int index = delegate.size();
             delegate.addAll(c);
@@ -54,11 +55,11 @@ implements List/*, RandomAccess*/ {
         }
         
     }
-    public boolean addAll(Object[] c) {
+    public boolean addAll(E[] c) {
         return addAll(Arrays.asList(c));
     }
     
-    public boolean addAll(int index, Collection c) {
+    public boolean addAll(int index, Collection<? extends E> c) {
         delegate.addAll(index, c);
         fireIntervalAdded(this, index, index + c.size() - 1);
         return true;
@@ -76,11 +77,11 @@ implements List/*, RandomAccess*/ {
         return delegate.contains(o);
     }
     
-    public boolean containsAll(Collection c) {
+    public boolean containsAll(Collection<?> c) {
         return delegate.containsAll(c);
     }
     
-    public Object get(int index) {
+    public E get(int index) {
         return delegate.get(index);
     }
     
@@ -92,7 +93,7 @@ implements List/*, RandomAccess*/ {
         return delegate.isEmpty();
     }
     
-    public Iterator iterator() {
+    public Iterator<E> iterator() {
         return delegate.iterator();
     }
     
@@ -100,11 +101,11 @@ implements List/*, RandomAccess*/ {
         return delegate.lastIndexOf(o);
     }
     
-    public ListIterator listIterator() {
+    public ListIterator<E> listIterator() {
         return delegate.listIterator();
     }
     
-    public ListIterator listIterator(int index) {
+    public ListIterator<E> listIterator(int index) {
         return delegate.listIterator(index);
     }
     
@@ -118,25 +119,24 @@ implements List/*, RandomAccess*/ {
         return false;
     }
     
-    public Object remove(int index) {
-        Object removed = delegate.remove(index);
+    public E remove(int index) {
+        E removed = delegate.remove(index);
         fireIntervalRemoved(this, index, index);
         return removed;
     }
     
-    public boolean removeAll(Collection c) {
+    public boolean removeAll(Collection<?> c) {
         boolean hasRemoved = false;
-        Iterator i = c.iterator();
-        while (i.hasNext()) {
-            hasRemoved = remove(i.next()) || hasRemoved;
+        for (Object o : c) {
+            hasRemoved = remove(o) || hasRemoved;
         }
         return hasRemoved;
     }
     
-    public boolean retainAll(Collection c) {
+    public boolean retainAll(Collection<?> c) {
         boolean hasChanged;
-        ArrayList temp = delegate;
-        delegate = new ArrayList();
+        ArrayList<E> temp = delegate;
+        delegate = new ArrayList<>();
         fireIntervalRemoved(this, 0, temp.size() - 1);
         hasChanged = temp.retainAll(c);
         delegate = temp;
@@ -144,8 +144,8 @@ implements List/*, RandomAccess*/ {
         return hasChanged;
     }
     
-    public Object set(int index, Object element) {
-        Object result = delegate.set(index, element);
+    public E set(int index, E element) {
+        E result = delegate.set(index, element);
         fireContentsChanged(this, index, index);
         return result;
     }
@@ -154,7 +154,7 @@ implements List/*, RandomAccess*/ {
         return delegate.size();
     }
     
-    public List subList(int fromIndex, int toIndex) {
+    public List<E> subList(int fromIndex, int toIndex) {
         return delegate.subList(fromIndex, toIndex);
     }
     
@@ -162,7 +162,7 @@ implements List/*, RandomAccess*/ {
         return delegate.toArray();
     }
     
-    public Object[] toArray(Object[] a) {
+    public <T> T[] toArray(T[] a) {
         return delegate.toArray(a);
     }
     

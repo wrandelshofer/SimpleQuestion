@@ -116,8 +116,8 @@ public class SimpleQuestionView extends TeddyView {
             if (event.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
                 event.acceptDrop(DnDConstants.ACTION_COPY);
                 try {
-                    List<File> files;
-                    files = (List<File>) event.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+                    @SuppressWarnings("unchecked")
+                    List<File> files= (List<File>) event.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
                     if (files.size() == 1) {
                         LoadFileAction action = new LoadFileAction(getApplication(), SimpleQuestionView.this);
                         action.loadViewFromURI(SimpleQuestionView.this, files.get(0).toURI(),null);

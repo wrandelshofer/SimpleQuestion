@@ -102,7 +102,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         // SCORM settings
         final Preferences scormPrefs = Preferences.userNodeForPackage(SCORMExporter.class);
         scormTemplateChoiceMap = new HashMap<String,JRadioButton>();
-        for (Enumeration e=scormTemplateGroup.getElements(); e.hasMoreElements();) {
+        for (Enumeration<AbstractButton> e = scormTemplateGroup.getElements(); e.hasMoreElements();) {
             JRadioButton b = (JRadioButton) e.nextElement();
             scormTemplateChoiceMap.put(b.getActionCommand(), b);
         }

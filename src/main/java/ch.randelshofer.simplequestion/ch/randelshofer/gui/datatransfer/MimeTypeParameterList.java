@@ -289,6 +289,7 @@ class MimeTypeParameterList implements Cloneable {
         try {
             newObj = (MimeTypeParameterList) super.clone();
         } catch (CloneNotSupportedException cannotHappen) {
+            throw new AssertionError(cannotHappen);
         }
         newObj.parameters = (Hashtable<String, String>) parameters.clone();
         return newObj;

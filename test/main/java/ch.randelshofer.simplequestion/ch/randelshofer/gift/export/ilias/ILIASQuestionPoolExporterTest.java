@@ -18,7 +18,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,6 +44,9 @@ class ILIASQuestionPoolExporterTest {
         InputSource inputSource = new InputSource(new ByteArrayInputStream(buf.toByteArray()));
         boolean valid = validateDtd(inputSource);
         assertTrue(valid, "the document is valid");
+        try (OutputStream out = Files.newOutputStream(Paths.get(System.getProperty("user.home"), "exportqti.xml"))) {
+            out.write(buf.toByteArray());
+        }
     }
 
     private List<Question> loadExampleQuestions() throws IOException {
@@ -69,7 +75,6 @@ class ILIASQuestionPoolExporterTest {
      */
     private boolean validateDtd(InputSource source) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
-        Set<String> ignore = Set.of("The content of element type \"item\" must match \"(qticomment?,duration?,itemmetadata?,objectives*,itemcontrol*,itemprecondition*,itempostcondition*,(itemrubric|rubric)*,presentation?,resprocessing*,itemproc_extension?,itemfeedback*,reference?)\".");
 
         domFactory.setValidating(true);
         DocumentBuilder builder = domFactory.newDocumentBuilder();
@@ -77,22 +82,18 @@ class ILIASQuestionPoolExporterTest {
         builder.setErrorHandler(new ErrorHandler() {
             @Override
             public void error(SAXParseException exception) throws SAXException {
-                System.err.println("error: " + exception.getMessage());
-                if (!ignore.contains(exception.getMessage())) {
-                    valid[0] = false;
-                }
+                System.err.println("error: " + exception.getMessage() + "\n  line: " + exception.getLineNumber() + " column: " + exception.getColumnNumber());
+                valid[0] = false;
             }
 
             @Override
             public void fatalError(SAXParseException exception) throws SAXException {
-                System.err.println("fatal: " + exception.getMessage());
-                valid[0] = false;
+                error(exception);
             }
 
             @Override
             public void warning(SAXParseException exception) throws SAXException {
-                System.err.println("warning: " + exception.getMessage());
-                valid[0] = false;
+                error(exception);
             }
         });
         Document doc = builder.parse(source);

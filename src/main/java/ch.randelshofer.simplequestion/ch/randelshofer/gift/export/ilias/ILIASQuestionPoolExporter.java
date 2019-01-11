@@ -186,11 +186,10 @@ public class ILIASQuestionPoolExporter implements Exporter {
 
         PrintWriter w = new PrintWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
         w.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-        //w.println("<!DOCTYPE questestinterop SYSTEM \"ims_qtiasiv1p2p1.dtd\">");
         w.println("<!DOCTYPE questestinterop SYSTEM \"http://www.imsglobal.org/question/qtiv1p2p1/XMLSchemav1p2p1/xmla/ims_qtiasiv1p2p1schema/dtds/qtiasifulldtd/ims_qtiasiv1p2p1.dtd\">");
 
         // Due to a bug in ILIAS 3.8.3, the QTI file must not contain
-        // any extraneous spaces and line breaks.
+        // any extra spaces and line breaks.
         questestinterop.write(w);
         w.flush();
     }
@@ -946,8 +945,6 @@ public class ILIASQuestionPoolExporter implements Exporter {
                 }
             }
         }
-        item.addChild(resprocessing);
-
 
         return item;
     }
@@ -1264,18 +1261,5 @@ public class ILIASQuestionPoolExporter implements Exporter {
 
     private String encodeMattext(String str) {
         return str;
-    /*
-    StringBuilder buf = new StringBuilder();
-    StringTokenizer tt = new StringTokenizer(str, "\n", true);
-    while (tt.hasMoreTokens()) {
-    String token = tt.nextToken();
-    if (token.equals(".")) {
-    // skip full stops
-    } else {
-    buf.append(token);
-    }
-    }
-    return buf.toString();
-     */
     }
 }

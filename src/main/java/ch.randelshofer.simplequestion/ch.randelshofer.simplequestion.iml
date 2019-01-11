@@ -12,5 +12,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="JHotDraw7" level="project" />
     <orderEntry type="module" module-name="org.descheemaecker.nanoxml" />
+    <orderEntry type="library" scope="TEST" name="JUnit5" level="project" />
   </component>
 </module>

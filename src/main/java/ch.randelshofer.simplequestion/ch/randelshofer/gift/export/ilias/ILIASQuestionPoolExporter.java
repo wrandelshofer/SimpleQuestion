@@ -5,9 +5,9 @@
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland
  * All rights reserved.
  *
- * The copyright of this software is owned by Werner Randelshofer. 
- * You may not use, copy or modify this software, except in  
- * accordance with the license agreement you entered into with  
+ * The copyright of this software is owned by Werner Randelshofer.
+ * You may not use, copy or modify this software, except in
+ * accordance with the license agreement you entered into with
  * Werner Randelshofer. For details see accompanying license terms.
  */
 package ch.randelshofer.gift.export.ilias;
@@ -15,10 +15,12 @@ package ch.randelshofer.gift.export.ilias;
 import ch.randelshofer.gift.export.Exporter;
 import ch.randelshofer.gift.parser.*;
 import ch.randelshofer.io.*;
-import ch.randelshofer.util.*;
+
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.zip.*;
 import java.io.*;
+
 import org.jhotdraw.util.ResourceBundleUtil;
 import nanoxml.*;
 
@@ -26,12 +28,6 @@ import nanoxml.*;
  * Exports a collection of <code>Question</code>'s to an ILIAS question pool.
  *
  * @author Werner Randelshofer
- * @version 1.3 2006-09-13 Implemented "Exporter" interface.
- * <br>1.2.1 2006-07-26 Fixed scoring of multiple choice question.
- * <br>1.2 2006-07-04 Output lines that only contain a single full stop
- * character as empty lines.
- * <br>1.1 2006-05-08 Don't shuffle answers by default.
- * <br>1.0 1. Mai 2006 Created.
  */
 public class ILIASQuestionPoolExporter implements Exporter {
 
@@ -43,17 +39,15 @@ public class ILIASQuestionPoolExporter implements Exporter {
     private ResourceBundleUtil labels;
     private boolean isShuffleAnswers = false;
 
-    /** Creates a new instance. */
+    /**
+     * Creates a new instance.
+     */
     public ILIASQuestionPoolExporter() {
         labels = new ResourceBundleUtil(ResourceBundle.getBundle("ch.randelshofer.gift.Labels"));
     }
 
     public void export(List<Question> questions, File file, ConfigurableFileFilter cff, File baseDir) throws IOException {
-        oidMap = new HashMap<Object, String>();
-        oidLen = (int) Math.log10(questions.size() + 1) + 1;
-        for (Question q : questions) {
-            getOid(q);
-        }
+        computeQuestionOIds(questions);
 
         // Remove "_qpl.zip" ending from file name.
         String baseName = file.getName();
@@ -64,33 +58,36 @@ public class ILIASQuestionPoolExporter implements Exporter {
             baseName = baseName.substring(0, baseName.length() - 4);
         }
 
-        ZipOutputStream zout = null;
-        try {
-            zout = new ZipOutputStream(new FileOutputStream(new File(file.getParentFile(), baseName + "_qpl.zip")));
+        try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(new File(file.getParentFile(), baseName + "_qpl.zip")))) {
             zout.putNextEntry(new ZipEntry(baseName + "_qpl/" + baseName + "_qpl.xml"));
             exportQPL(questions, baseName, zout);
             zout.closeEntry();
             zout.putNextEntry(new ZipEntry(baseName + "_qpl/" + baseName + "_qti.xml"));
             exportQTI(questions, zout);
             zout.closeEntry();
-        } finally {
-            if (zout != null) {
-                zout.close();
-            }
         }
     }
 
-private String getOidForTitle(Object o) {
-    String oid = getOid(o);
-    return oid.substring(1);
-}
-    
+    /** This method is package private for unit tests. */
+    void computeQuestionOIds(List<Question> questions) {
+        oidMap = new HashMap<Object, String>();
+        oidLen = (int) Math.log10(questions.size() + 1) + 1;
+        for (Question q : questions) {
+            getOid(q);
+        }
+    }
+
+    private String getOidForTitle(Object o) {
+        String oid = getOid(o);
+        return oid.substring(1);
+    }
+
     private String getOid(Object o) {
         if (oidMap.containsKey(o)) {
             return oidMap.get(o);
         } else {
             String oid = Integer.toString(oidMap.size() + 1);
-            oid = "_"+(("0000000000" + oid).substring(10 + oid.length() - Math.max(oid.length(), oidLen)));
+            oid = "_" + (("0000000000" + oid).substring(10 + oid.length() - Math.max(oid.length(), oidLen)));
             oidMap.put(o, oid);
             return oid;
         }
@@ -138,22 +135,21 @@ private String getOidForTitle(Object o) {
             contentObject.addChild(pageObject);
         }
 
-        Writer w = new OutputStreamWriter(out, "UTF8");
+        Writer w = new OutputStreamWriter(out, StandardCharsets.UTF_8);
         w.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
         w.write("<!DOCTYPE Test SYSTEM \"http://www.ilias.uni-koeln.de/download/dtd/ilias_co.dtd\">\n");
         contentObject.write(w);
-        /*
-        PrintWriter w = new PrintWriter(new OutputStreamWriter(out, "UTF8"));
-        w.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-        w.write("<!DOCTYPE Test SYSTEM \"http://www.ilias.uni-koeln.de/download/dtd/ilias_co.dtd\">\n");
-        contentObject.print(w);
-         */
         w.flush();
     }
 
-    private void exportQTI(List<Question> questions, OutputStream out) throws IOException {
-        XMLElement questesinterop = dom.createElement("questesinterop");
-
+    /** This method is package private for unit tests. */
+    void exportQTI(List<Question> questions, OutputStream out) throws IOException {
+        XMLElement questestinterop = dom.createElement("questestinterop");
+        /*
+        questestinterop.setAttribute("xmlns","http://www.imsglobal.org/xsd/ims_qtiasiv1p2");
+        questestinterop.setAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
+        questestinterop.setAttribute("xsi:schemaLocation","https://www.imsglobal.org/sites/default/files/xsd/ims_qtiasiv1p2p1.xsd");
+*/
         // Items
         for (Question q : questions) {
 
@@ -181,19 +177,20 @@ private String getOidForTitle(Object o) {
                 if (item == null) {
                     throw new IOException("ILIASQuestionPoolExporter ILIAS does not support the question.<br>" + q);
                 } else {
-                    questesinterop.addChild(item);
+                    questestinterop.addChild(item);
                 }
             }
         }
 
 
-        PrintWriter w = new PrintWriter(new OutputStreamWriter(out, "UTF8"));
+        PrintWriter w = new PrintWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
         w.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-        w.println("<!DOCTYPE questestinterop SYSTEM \"ims_qtiasiv1p2p1.dtd\">");
-        
+        //w.println("<!DOCTYPE questestinterop SYSTEM \"ims_qtiasiv1p2p1.dtd\">");
+        w.println("<!DOCTYPE questestinterop SYSTEM \"http://www.imsglobal.org/question/qtiv1p2p1/XMLSchemav1p2p1/xmla/ims_qtiasiv1p2p1schema/dtds/qtiasifulldtd/ims_qtiasiv1p2p1.dtd\">");
+
         // Due to a bug in ILIAS 3.8.3, the QTI file must not contain
         // any extraneous spaces and line breaks.
-        questesinterop.write(w);
+        questestinterop.write(w);
         w.flush();
     }
 
@@ -228,7 +225,7 @@ private String getOidForTitle(Object o) {
         fieldentry.setContent(author);
         qtimetadatafield.addChild(fieldentry);
         qtimetadata.addChild(qtimetadatafield);
-        
+
         qtimetadatafield = dom.createElement("qtimetadatafield");
         fieldlabel = dom.createElement("fieldlabel");
         fieldlabel.setContent("textgaprating");
@@ -245,7 +242,7 @@ private String getOidForTitle(Object o) {
         fieldentry = dom.createElement("fieldentry");
         qtimetadatafield.addChild(fieldentry);
         qtimetadata.addChild(qtimetadatafield);
-        
+
         itemmetadata.addChild(qtimetadata);
         item.addChild(itemmetadata);
 
@@ -337,7 +334,7 @@ private String getOidForTitle(Object o) {
                             if (al.answers().size() != 1) {
                                 throw new IOException("ILIAS does not support multiple numeric answers in a cloze question.<br>" + q);
                             }
-                            
+
                             XMLElement response_num = dom.createElement("response_num");
                             response_num.setAttribute("ident", getOid(al));
                             response_num.setAttribute("numtype", "Decimal");
@@ -346,18 +343,18 @@ private String getOidForTitle(Object o) {
                             XMLElement render_fib = dom.createElement("render_fib");
                             render_fib.setAttribute("fibtype", "Decimal");
                             render_fib.setAttribute("prompt", "Box");
-                            
+
                             Answer answer = al.answers().get(0);
                             if (answer instanceof IntervalAnswer) {
                                 IntervalAnswer ia = (IntervalAnswer) answer;
-                                render_fib.setAttribute("columns", Math.max(5, 1 + Math.max(Double.toString(ia.getMin()).length(),Double.toString(ia.getMax()).length())));
+                                render_fib.setAttribute("columns", Math.max(5, 1 + Math.max(Double.toString(ia.getMin()).length(), Double.toString(ia.getMax()).length())));
                                 render_fib.setAttribute("minnumber", Double.toString(ia.getMin()));
                                 render_fib.setAttribute("maxnumber", Double.toString(ia.getMax()));
                             } else if (answer instanceof NumberAnswer) {
                                 NumberAnswer ia = (NumberAnswer) answer;
                                 render_fib.setAttribute("columns", Math.max(5, 1 + Double.toString(ia.getNumber()).length()));
-                                render_fib.setAttribute("minnumber", Double.toString(ia.getNumber()-Math.abs(ia.getErrorMargin())));
-                                render_fib.setAttribute("maxnumber", Double.toString(ia.getNumber()+Math.abs(ia.getErrorMargin())));
+                                render_fib.setAttribute("minnumber", Double.toString(ia.getNumber() - Math.abs(ia.getErrorMargin())));
+                                render_fib.setAttribute("maxnumber", Double.toString(ia.getNumber() + Math.abs(ia.getErrorMargin())));
                             } else {
                                 throw new IOException("ILIAS does not support this numerical answer type in a cloze question.<br>" + q);
                             }
@@ -369,12 +366,12 @@ private String getOidForTitle(Object o) {
                         }
                         case MATCHING_PAIR:
                             // Not supported
-                            throw new IOException(labels.getFormatted("exporter.unsupportedMatchingPairInClozeText",q));
-                        //break; not reached
+                            throw new IOException(labels.getFormatted("exporter.unsupportedMatchingPairInClozeText", q));
+                            //break; not reached
                         case MULTIPLE_CHOICE:
                             // Not supported
                             throw new IOException("ILIAS does not support a multiple choice question with multiple answers in a cloze text.<br>" + q);
-                        //break; not reached
+                            //break; not reached
                         case SINGLE_CHOICE: {
                             XMLElement response_str = dom.createElement("response_str");
                             response_str.setAttribute("ident", getOid(al));
@@ -401,7 +398,7 @@ private String getOidForTitle(Object o) {
                                     render_choice.addChild(response_label);
                                 } else {
                                     throw new IOException("ILIAS does not support all multiple choice answer types in a cloze text.<br>" + q);
-                                //System.out.println("ILIASQuestionPoolExporter: Warning cloze question does not support all multiple choice answer types.");
+                                    //System.out.println("ILIASQuestionPoolExporter: Warning cloze question does not support all multiple choice answer types.");
                                 }
                                 index++;
                             }
@@ -478,7 +475,7 @@ private String getOidForTitle(Object o) {
                         displayfeedback.setAttribute("linkrefid", getOid(a));
                         respcondition.addChild(displayfeedback);
                         resprocessing.addChild(respcondition);
-                        
+
                         itemfeedback = dom.createElement("itemfeedback");
                         itemfeedback.setAttribute("ident", getOid(a));
                         itemfeedback.setAttribute("view", "All");
@@ -497,7 +494,7 @@ private String getOidForTitle(Object o) {
                         XMLElement conditionvar = dom.createElement("conditionvar");
                         XMLElement varequal = dom.createElement("varequal");
                         varequal.setAttribute("respident", getOid(al));
-                        varequal.setContent(na.getMinAsString()+".."+na.getMaxAsString());
+                        varequal.setContent(na.getMinAsString() + ".." + na.getMaxAsString());
                         conditionvar.addChild(varequal);
                         respcondition.addChild(conditionvar);
                         XMLElement setvar = dom.createElement("setvar");
@@ -555,7 +552,7 @@ private String getOidForTitle(Object o) {
         }
         item.addChild(resprocessing);
         if (itemfeedback != null) {
-           item.addChild(itemfeedback);
+            item.addChild(itemfeedback);
         }
         return item;
     }
@@ -872,7 +869,7 @@ private String getOidForTitle(Object o) {
 
                         resprocessing.addChild(respcondition);
 
-                    } 
+                    }
                     index++;
                 }
             }

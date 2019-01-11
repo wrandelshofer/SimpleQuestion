@@ -13,7 +13,7 @@
         <property name="name" value="${ant.project.name}"/>
 
         <!-- build properties -->
-        <property name="lib" value="lib"/>
+        <property name="lib" value="lib/compile"/>
         <property name="src" value="src/main/java"/>
         <property name="build" value="build"/>
         <property name="classes" value="${build}/classes"/>

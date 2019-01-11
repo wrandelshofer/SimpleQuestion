@@ -20,14 +20,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ILIASQuestionPoolExporterTest {
 
-    /** This test is disabled, because the format used by ILIAS is not valid. */
-    @Disabled
+    /**
+     * This test is disabled, because the format used by ILIAS is not valid.
+     */
     @Test
     void testExportQTI() throws Exception {
         List<Question> questions = loadExampleQuestions();
@@ -62,11 +64,13 @@ class ILIASQuestionPoolExporterTest {
      * @param source the input source for the xml document
      * @return true if valid
      * @throws ParserConfigurationException on parser configuration failure
-     * @throws IOException on io failure
-     * @throws SAXException on sax failure
+     * @throws IOException                  on io failure
+     * @throws SAXException                 on sax failure
      */
     private boolean validateDtd(InputSource source) throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+        Set<String> ignore = Set.of("The content of element type \"item\" must match \"(qticomment?,duration?,itemmetadata?,objectives*,itemcontrol*,itemprecondition*,itempostcondition*,(itemrubric|rubric)*,presentation?,resprocessing*,itemproc_extension?,itemfeedback*,reference?)\".");
+
         domFactory.setValidating(true);
         DocumentBuilder builder = domFactory.newDocumentBuilder();
         boolean[] valid = new boolean[]{true};
@@ -74,7 +78,9 @@ class ILIASQuestionPoolExporterTest {
             @Override
             public void error(SAXParseException exception) throws SAXException {
                 System.err.println("error: " + exception.getMessage());
-                valid[0] = false;
+                if (!ignore.contains(exception.getMessage())) {
+                    valid[0] = false;
+                }
             }
 
             @Override

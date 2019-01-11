@@ -21,13 +21,10 @@ import ch.randelshofer.xml.DOMs;
 import java.io.*;
 import java.util.*;
 
+import javax.swing.tree.TreeNode;
 import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
 
 import org.xml.sax.*;
-import org.xml.sax.helpers.*;
 
 import org.w3c.dom.*;
 /**
@@ -59,6 +56,7 @@ import org.w3c.dom.*;
  * <br>1.0 August 22, 2003  Created.
  */
 public class DependencyElement extends AbstractElement{
+    private final static long serialVersionUID=1L;
     /**
      * This attribute is set by validate().
      */
@@ -143,7 +141,7 @@ public class DependencyElement extends AbstractElement{
         if (identifierref == null) isIdentifierrefValid = false;
         if (identifierref != null) {
             isIdentifierrefValid = false;
-            Enumeration enm = getIMSManifestDocument().getResourcesElement().preorderEnumeration();
+            Enumeration<TreeNode> enm = getIMSManifestDocument().getResourcesElement().preorderEnumeration();
             while (enm.hasMoreElements()) {
                 AbstractElement node = (AbstractElement) enm.nextElement();
                 if (node.getIdentifier() != null && node.getIdentifier().equals(identifierref)) {

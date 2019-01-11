@@ -118,7 +118,7 @@ public class LocationElement extends AbstractElement {
      * Removes all file names in the set, which are referenced by this
      * CAM Element.
      */
-    public void consumeFileNames(Set fileNames) {
+    public void consumeFileNames(Set<String> fileNames) {
         fileNames.remove(getConsolidatedURI());
     }
 }

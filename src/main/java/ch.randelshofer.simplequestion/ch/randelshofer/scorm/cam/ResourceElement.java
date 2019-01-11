@@ -21,15 +21,13 @@ import ch.randelshofer.xml.DOMs;
 import java.io.*;
 import java.util.*;
 
+import javax.swing.tree.TreeNode;
 import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
 
 import org.xml.sax.*;
-import org.xml.sax.helpers.*;
 
 import org.w3c.dom.*;
+
 /**
  * Represents a SCORM CAM 'resource' element.
  * <p>
@@ -45,9 +43,9 @@ import org.w3c.dom.*;
  * {&lt;dependency&gt;}
  * &lt;/resource&gt;
  * </pre>
- *
+ * <p>
  * This implementation ignores the 'metadata' element.
- *
+ * <p>
  * Reference:
  * ADL (2001c). Advanced Distributed Learning.
  * Sharable Content Object Reference Model (SCORM(TM)) Version 1.2.
@@ -69,7 +67,7 @@ import org.w3c.dom.*;
  * <br>0.1 2003-02-02 Created.
  */
 public class ResourceElement extends AbstractElement {
-    private final static long serialVersionUID=1L;
+    private final static long serialVersionUID = 1L;
     /**
      * This attribute is set by validate().
      */
@@ -83,45 +81,45 @@ public class ResourceElement extends AbstractElement {
      * Data type = ID.
      */
     private String identifier;
-    
+
     public final static int TYPE_WEBCONTENT = 0;
     /**
      * type (required). A string that identifies the type of resource. This
      * specification defines only type "webcontent".
      */
     private int type = TYPE_WEBCONTENT;
-    
+
     private final static int SCORMTYPE_ASSET = 0;
     private final static int SCORMTYPE_SCO = 1;
-    
+
     /**
      * adlcp:scormtype (required). Defines the type of the SCORM resource.
      * This is an ADL extension to the IMS Content Packaging Information Model.
      * Data Type: Restricted vocabulary of either "sco" or "asset".
      */
     private int adlcpScormtype = SCORMTYPE_ASSET;
-    
+
     /**
      * href (optional). A reference to the "entry point" of this resource.
      * External fully-qualified URIs are also permitted.
      */
     private String href;
-    
+
     /**
      * xml:base (optional). This provides a relative path offset for the
      * content file(s). The usage of this element is defined in the XML Base
      * Working Draft form the W3C.
      */
     private String xmlBase;
-    
+
     /**
      * The list of 'file' element children.
      */
-    private LinkedList fileList = new LinkedList();
+    private LinkedList<FileElement> fileList = new LinkedList<>();
     /**
      * The list of 'dependecy' element children.
      */
-    private LinkedList dependencyList = new LinkedList();
+    private LinkedList<DependencyElement> dependencyList = new LinkedList<>();
     /**
      * Contains context specific meta-data that is used to describe the resource.
      */
@@ -129,48 +127,51 @@ public class ResourceElement extends AbstractElement {
     /**
      * Holds warnings that were generated while parsing the imsmanifest.xml file.
      */
-    private LinkedList xmlWarnings = new LinkedList();
-    
-    
-    /** Creates a new instance of ResourceElement */
+    private LinkedList<String> xmlWarnings = new LinkedList<>();
+
+
+    /**
+     * Creates a new instance of ResourceElement
+     */
     public ResourceElement() {
     }
-    
+
     /**
      * Parses the specified DOM Element and incorporates its contents into this element.
+     *
      * @param elem An XML element with the tag name 'resource'.
      */
     public void parse(Element elem)
-    throws IOException, ParserConfigurationException, SAXException {
+            throws IOException, ParserConfigurationException, SAXException {
         String attr;
-        
-        if (! DOMs.isElement(elem, CAM.IMSCP_NS, "resource")) {
-            throw new IOException("'imscp:resource' element expected, but found '"+elem.getTagName()+"' element.");
+
+        if (!DOMs.isElement(elem, CAM.IMSCP_NS, "resource")) {
+            throw new IOException("'imscp:resource' element expected, but found '" + elem.getTagName() + "' element.");
         }
-        
+
         // Read the attributes
         this.identifier = DOMs.getAttributeNS(elem, CAM.IMSCP_NS, "identifier", null);
         attr = DOMs.getAttributeNS(elem, CAM.IMSCP_NS, "type", null);
-        if (attr == null || ! attr.equals("webcontent")) {
+        if (attr == null || !attr.equals("webcontent")) {
             // XXX - Localize this string
-            xmlWarnings.add("Warning: Attribute 'type' must have the value 'webcontent', but found '"+attr+"'. Assuming value 'webcontent'.");
+            xmlWarnings.add("Warning: Attribute 'type' must have the value 'webcontent', but found '" + attr + "'. Assuming value 'webcontent'.");
         }
         this.type = TYPE_WEBCONTENT;
-        
+
         attr = DOMs.getAttributeNS(elem, CAM.ADLCP_NS, "scormtype", "");
-        if (attr.equals("") || ! (attr.equals("asset") || attr.equals("sco"))) {
+        if (attr.equals("") || !(attr.equals("asset") || attr.equals("sco"))) {
             // XXX - Localize this string
-            xmlWarnings.add("Warning: Attribute 'adlcp:scormtype' must have the value 'asset' or 'sco', but found '"+attr+"'. Assuming value 'sco'.");
+            xmlWarnings.add("Warning: Attribute 'adlcp:scormtype' must have the value 'asset' or 'sco', but found '" + attr + "'. Assuming value 'sco'.");
         }
         this.adlcpScormtype = (attr.equals("asset")) ? SCORMTYPE_ASSET : SCORMTYPE_SCO;
-        
+
         this.href = DOMs.getAttributeNS(elem, CAM.ADLCP_NS, "href", null);
-        
+
         this.xmlBase = DOMs.getAttributeNS(elem, "xml", "base", null);
-        
+
         // Read the child elements
         NodeList nodes = elem.getChildNodes();
-        for (int i=0; i < nodes.getLength(); i++) {
+        for (int i = 0; i < nodes.getLength(); i++) {
             if (nodes.item(i) instanceof Element) {
                 Element child = (Element) nodes.item(i);
                 if (DOMs.isElement(child, CAM.IMSCP_NS, "metadata")) {
@@ -196,46 +197,58 @@ public class ResourceElement extends AbstractElement {
             }
         }
     }
-    
+
     /**
      * Dumps the contents of this subtree into the provided string buffer.
      */
     public void dump(StringBuffer buf, int depth) {
-        for (int i=0; i < depth; i++) buf.append('.');
-        buf.append("<resource identifier=\""+identifier+"\" href=\""+href+"\" xml:base=\""+xmlBase+"\" type=\""+type+"\" =\""+adlcpScormtype+"\">\n");
-        Iterator iter = fileList.iterator();
-        while (iter.hasNext()) {
-            ((AbstractElement) iter.next()).dump(buf, depth+1);
+        for (int i = 0; i < depth; i++) {
+            buf.append('.');
         }
-        iter = dependencyList.iterator();
-        while (iter.hasNext()) {
-            ((AbstractElement) iter.next()).dump(buf, depth+1);
+        buf.append("<resource identifier=\"")
+                .append(identifier)
+                .append("\" href=\"")
+                .append(href)
+                .append("\" xml:base=\"")
+                .append(xmlBase)
+                .append("\" type=\"")
+                .append(type).append("\" =\"")
+                .append(adlcpScormtype).append("\">\n");
+        for (FileElement fileElement : fileList) {
+            ((AbstractElement) fileElement).dump(buf, depth + 1);
         }
-        for (int i=0; i < depth; i++) buf.append('.');
+        for (DependencyElement dependencyElement : dependencyList) {
+            ((AbstractElement) dependencyElement).dump(buf, depth + 1);
+        }
+        for (int i = 0; i < depth; i++) {
+            buf.append('.');
+        }
         buf.append("</resource>\n");
     }
-    
+
     /**
      * Exports this CAM subtree to JavaScript using the specified PrintWriter.
      *
-     * @param out The output stream.
+     * @param out   The output stream.
      * @param depth The current depth of the tree (used for indention).
-     * @param gen The identifier generator used to generate short(er) identifiers
-     *  whithin the JavaScript.
+     * @param gen   The identifier generator used to generate short(er) identifiers
+     *              whithin the JavaScript.
      */
     public void exportToJavaScript(PrintWriter out, int depth, IdentifierGenerator gen)
-    throws IOException {
+            throws IOException {
         indent(out, depth);
-        out.print("new ResourceElement(\""+gen.getIdentifier(getIdentifier())+"\",");
-        out.print("\""+getConsolidatedHRef()+"\"");
+        out.print("new ResourceElement(\"" + gen.getIdentifier(getIdentifier()) + "\",");
+        out.print("\"" + getConsolidatedHRef() + "\"");
         out.print((depth == 0) ? ");" : ")");
     }
+
     /**
      * Returns the identifier that uniquely identifies this resource within the CAM.
      */
     public String getIdentifier() {
         return identifier;
     }
+
     /**
      * Returns the URL of this resource.
      */
@@ -255,12 +268,13 @@ public class ResourceElement extends AbstractElement {
         String base = getBase();
         if (base != null && base.length() > 0) {
             consolidatedHRef = (base.charAt(base.length() - 1) == '/')
-            ? base + href
+                    ? base + href
                     : base + '/' + href;
         }
-        
+
         return Strings.unescapeURL(consolidatedHRef);
     }
+
     /**
      * Returns the Base of the files in this resource.
      * Returns null if no base is specified.
@@ -268,6 +282,7 @@ public class ResourceElement extends AbstractElement {
     public String getBase() {
         return xmlBase;
     }
+
     /**
      * Validates this CAM element.
      *
@@ -275,10 +290,12 @@ public class ResourceElement extends AbstractElement {
      */
     public boolean validate() {
         isValid = super.validate();
-        if (getIdentifier() == null) isValid = false;
+        if (getIdentifier() == null) {
+            isValid = false;
+        }
         if (identifier != null) {
             isReferenced = false;
-            Enumeration enm = getIMSManifestDocument().getOrganizationsElement().preorderEnumeration();
+            Enumeration<TreeNode> enm = getIMSManifestDocument().getOrganizationsElement().preorderEnumeration();
             while (enm.hasMoreElements()) {
                 AbstractElement node = (AbstractElement) enm.nextElement();
                 if (node instanceof ItemElement) {
@@ -302,18 +319,19 @@ public class ResourceElement extends AbstractElement {
                     }
                 }
             }
-            
+
             // Not being referenced is not considered invalid.
             //if (! isReferenced) isValid = false;
         }
         if (href != null) {
-            Set fileNames = getIMSManifestDocument().getFileNames();
+            Set<String> fileNames = getIMSManifestDocument().getFileNames();
             isHRefValid = fileNames.contains(getConsolidatedHRef());
         } else {
             isHRefValid = true;
         }
-        return isValid = isValid && isHRefValid && isReferenced && ! hasWarnings();
+        return isValid = isValid && isHRefValid && isReferenced && !hasWarnings();
     }
+
     /**
      * The return value of this method is unspecified until
      * validate() has been done.
@@ -326,46 +344,61 @@ public class ResourceElement extends AbstractElement {
     public boolean isReferenced() {
         return isReferenced;
     }
-    
+
     public boolean hasWarnings() {
         return xmlWarnings.size() > 0;
     }
+
     /**
      * Returns a String describing the contents of this resource.
      */
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append("<html><font size=-1 face=SansSerif>");
-        if (! isValid()) buf.append("<font color=red>* </font>");
+        if (!isValid()) {
+            buf.append("<font color=red>* </font>");
+        }
         buf.append("<b>Resource</b> id:");
-        if (! isReferenced()) buf.append("<font color=blue>");
-        if (! isIdentifierValid()) buf.append("<font color=red>");
+        if (!isReferenced()) {
+            buf.append("<font color=blue>");
+        }
+        if (!isIdentifierValid()) {
+            buf.append("<font color=red>");
+        }
         buf.append(identifier);
-        if (! isIdentifierValid()) buf.append(" <b>"+labels.getString("cam.duplicateID")+"</b></font>");
-        if (! isReferenced()) buf.append(" <b>"+labels.getString("cam.notReferenced")+"</b></font>");
+        if (!isIdentifierValid()) {
+            buf.append(" <b>" + labels.getString("cam.duplicateID") + "</b></font>");
+        }
+        if (!isReferenced()) {
+            buf.append(" <b>" + labels.getString("cam.notReferenced") + "</b></font>");
+        }
         /*
         buf.append(" <b>scormtype:</b>");
         buf.append(((adlcpScormtype == SCORMTYPE_ASSET) ? "asset" : "sco"));
          */
         if (href != null) {
             buf.append(" href:");
-            if (! isHRefValid) buf.append("<font color=red>");
+            if (!isHRefValid) {
+                buf.append("<font color=red>");
+            }
             buf.append(href);
-            if (! isHRefValid) buf.append(" <b>"+labels.getString("cam.noFile")+"</b></font>");
+            if (!isHRefValid) {
+                buf.append(" <b>" + labels.getString("cam.noFile") + "</b></font>");
+            }
         }
         if (hasWarnings()) {
-            buf.append("  <font color=blue><b>"+labels.getString("cam.illegalAttributes")+"</b></font>");
+            buf.append("  <font color=blue><b>" + labels.getString("cam.illegalAttributes") + "</b></font>");
         }
-        
+
         if (xmlBase != null) {
             buf.append(" base:");
             buf.append(xmlBase);
         }
-        
+
         buf.append("</font>");
         return buf.toString();
     }
-    
+
     /**
      * Adds all file names referenced by this resource to the supplied fileNames
      * set. Adds this resource to the exclusion list, and then calls
@@ -374,30 +407,29 @@ public class ResourceElement extends AbstractElement {
      * <p>
      * Does nothing if this resource is in the exclusion list.
      */
-    public void addReferencedFileNamesTo(HashSet fileNames, HashSet exclusionList) {
-        if (! exclusionList.contains(this)) {
+    public void addReferencedFileNamesTo(HashSet<String> fileNames, HashSet<ResourceElement> exclusionList) {
+        if (!exclusionList.contains(this)) {
             exclusionList.add(this);
-            Iterator iter = fileList.iterator();
-            while (iter.hasNext()) {
-                FileElement fileElement = (FileElement) iter.next();
+            for (FileElement fileElement : fileList) {
                 fileElement.addSubtreeFileNames(fileNames);
             }
-            iter = dependencyList.iterator();
-            while (iter.hasNext()) {
-                DependencyElement dependencyElement = (DependencyElement) iter.next();
+            for (DependencyElement dependencyElement : dependencyList) {
                 dependencyElement.getResource().addReferencedFileNamesTo(fileNames, exclusionList);
             }
         }
     }
+
     public String getInfo() {
-        StringBuffer buf = new StringBuffer();
-        for (Iterator i = xmlWarnings.iterator(); i.hasNext(); ) {
-            if (buf.length() > 0) buf.append('\n');
-            buf.append(i.next());
+        StringBuilder buf = new StringBuilder();
+        for (String xmlWarning : xmlWarnings) {
+            if (buf.length() > 0) {
+                buf.append('\n');
+            }
+            buf.append(xmlWarning);
         }
         return (buf.length() == 0)
-        ? super.getInfo()
-        : buf.toString()
-        ;
+                ? super.getInfo()
+                : buf.toString()
+                ;
     }
 }

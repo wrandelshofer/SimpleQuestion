@@ -64,7 +64,7 @@ public class ProgressFrame extends javax.swing.JFrame {
                 updateInfoPanel();
                 pack();
                 if (! isVisible()) {
-                    show();
+                    setVisible(true);
                 }
                 progressPanel.repaint();
             }
@@ -83,7 +83,7 @@ public class ProgressFrame extends javax.swing.JFrame {
                 progressPanel.remove(viewer);
                 updateInfoPanel();
                 if (progressPanel.getComponentCount() == 0) {
-                    hide();
+                    setVisible(false);
                 } else {
                     pack();
                 }

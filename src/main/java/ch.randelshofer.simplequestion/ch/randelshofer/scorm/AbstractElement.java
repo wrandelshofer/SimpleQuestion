@@ -44,6 +44,7 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * <br>0.1 2003-02-02 Created.
  */
 public abstract class AbstractElement extends DefaultMutableTreeNode {
+    private final static long serialVersionUID=1L;
     /**
      * This attribute is set by validate().
      */
@@ -113,7 +114,7 @@ public abstract class AbstractElement extends DefaultMutableTreeNode {
      */
     public boolean validateSubtree() {
         boolean isValid = validate();
-        Enumeration enm = children();
+        Enumeration<TreeNode> enm = children();
         while (enm.hasMoreElements()) {
             AbstractElement child = (AbstractElement) enm.nextElement();
             if (! child.validateSubtree()) isValid = false;
@@ -131,7 +132,7 @@ public abstract class AbstractElement extends DefaultMutableTreeNode {
         
         isIdentifierValid = true;
         IMSManifestDocument root = getIMSManifestDocument();
-        Enumeration enm = root.preorderEnumeration();
+        Enumeration<TreeNode> enm = root.preorderEnumeration();
         while (enm.hasMoreElements()) {
             AbstractElement node = (AbstractElement) enm.nextElement();
             if (node != this && node.getIdentifier() != null
@@ -149,7 +150,7 @@ public abstract class AbstractElement extends DefaultMutableTreeNode {
     }
     
     public IMSManifestDocument getIMSManifestDocument() {
-        return (((TreeNode) getRoot()).getChildCount() == 0) ? null : (IMSManifestDocument) ((TreeNode) getRoot()).getChildAt(0);
+        return (getRoot().getChildCount() == 0) ? null : (IMSManifestDocument) getRoot().getChildAt(0);
     }
     
     /**
@@ -174,6 +175,6 @@ public abstract class AbstractElement extends DefaultMutableTreeNode {
      * Removes all file names in the set, which are referenced by this
      * CAM Element.
      */
-    public void consumeFileNames(Set fileNames) {
+    public void consumeFileNames(Set<String> fileNames) {
     }
 }

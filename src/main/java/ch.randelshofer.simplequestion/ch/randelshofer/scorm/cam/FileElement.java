@@ -19,13 +19,10 @@ import ch.randelshofer.xml.DOMs;
 import java.io.*;
 import java.util.*;
 
+import javax.swing.tree.TreeNode;
 import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
 
 import org.xml.sax.*;
-import org.xml.sax.helpers.*;
 
 import org.w3c.dom.*;
 /**
@@ -60,6 +57,7 @@ import org.w3c.dom.*;
  * <br>0.1 2003-02-02 Created.
  */
 public class FileElement extends AbstractElement {
+    private final static long serialVersionUID=1L;
     /**
      * This attribute is set by validate().
      */
@@ -71,7 +69,7 @@ public class FileElement extends AbstractElement {
      */
     private String href;
     
-    private LinkedList fileList = new LinkedList();
+    private LinkedList<FileElement> fileList = new LinkedList<>();
     
     /** Creates a new instance. */
     public FileElement() {
@@ -137,9 +135,8 @@ public class FileElement extends AbstractElement {
     public void dump(StringBuffer buf, int depth) {
         for (int i=0; i < depth; i++) buf.append('.');
         buf.append("<file href=\""+href+"\">\n");
-        Iterator iter = fileList.iterator();
-        while (iter.hasNext()) {
-            ((AbstractElement) iter.next()).dump(buf, depth+1);
+        for (FileElement fileElement : fileList) {
+            ((AbstractElement) fileElement).dump(buf, depth + 1);
         }
         for (int i=0; i < depth; i++) buf.append('.');
         buf.append("</file>\n");
@@ -154,7 +151,7 @@ public class FileElement extends AbstractElement {
         isValid = super.validate();
         
         if (href != null) {
-            Set fileNames = getIMSManifestDocument().getFileNames();
+            Set<String> fileNames = getIMSManifestDocument().getFileNames();
             isHRefValid = fileNames.contains(getConsolidatedHRef());
         } else {
             isHRefValid = true;
@@ -185,8 +182,8 @@ public class FileElement extends AbstractElement {
     /**
      * Adds all file names referenced by this FileElement and subtree elements.
      */
-    public void addSubtreeFileNames(HashSet fileNames) {
-        Enumeration enm = preorderEnumeration();
+    public void addSubtreeFileNames(HashSet<String> fileNames) {
+        Enumeration<TreeNode> enm = preorderEnumeration();
         while (enm.hasMoreElements()) {
             AbstractElement element = (AbstractElement) enm.nextElement();
             if (element instanceof FileElement) {
@@ -201,7 +198,7 @@ public class FileElement extends AbstractElement {
      * Removes all file names in the set, which are referenced by this
      * CAM Element.
      */
-    public void consumeFileNames(Set fileNames) {
+    public void consumeFileNames(Set<String> fileNames) {
         fileNames.remove(getConsolidatedHRef());
     }
 }

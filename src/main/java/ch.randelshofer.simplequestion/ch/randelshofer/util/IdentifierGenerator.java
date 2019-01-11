@@ -23,8 +23,8 @@ import java.util.*;
  * <br>0.1 2003-02-09 Created.
  */
 public class IdentifierGenerator {
-    private HashMap keyValueMap = new HashMap();
-    private HashMap valueKeyMap = new HashMap();
+    private HashMap<String,String> keyValueMap = new HashMap<>();
+    private HashMap<String,String> valueKeyMap = new HashMap<>();
     int generator = 0;
     
     /** Creates a new instance of IdentifierGenerator */
@@ -39,7 +39,7 @@ public class IdentifierGenerator {
             String value;
             do {
                 value = Integer.toString(generator++, Character.MAX_RADIX);
-            } while (valueKeyMap.containsKey(value) && count < 100);
+            } while (valueKeyMap.containsKey(value) && count++ < 100);
             if (valueKeyMap.containsKey(value)) throw new InternalError();
             keyValueMap.put(key, value);
             valueKeyMap.put(value, key);

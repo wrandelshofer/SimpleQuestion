@@ -15,21 +15,22 @@
 package ch.randelshofer.scorm.cam;
 
 import ch.randelshofer.scorm.AbstractElement;
-import ch.randelshofer.util.*;
+import ch.randelshofer.util.IdentifierGenerator;
 import ch.randelshofer.xml.DOMs;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-import java.io.*;
-import java.util.*;
-
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
-
-import org.w3c.dom.*;
+import javax.swing.tree.TreeNode;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 /**
  * Represents a SCORM CAM 'resources' element.
  * <p>
@@ -79,7 +80,7 @@ public class ResourcesElement extends AbstractElement {
      * names of the unreferenced files.
      * If areAllFilesInContentPackageReferenced is false, this variable is null.
      */
-    private List unreferencedFileNames;
+    private List<String> unreferencedFileNames;
     
     /**
      * xml:base (optional) - This provides a relative path offset for the content
@@ -88,7 +89,7 @@ public class ResourcesElement extends AbstractElement {
      */
     private String xmlBase;
     
-    private LinkedList resourceList = new LinkedList();
+    private LinkedList<ResourceElement> resourceList = new LinkedList<>();
     
     /** Creates a new instance of ResourcesElement */
     public ResourcesElement() {
@@ -125,9 +126,8 @@ public class ResourcesElement extends AbstractElement {
     public void dump(StringBuffer buf, int depth) {
         for (int i=0; i < depth; i++) buf.append('.');
         buf.append("<resources xml:base=\""+xmlBase+"\">\n");
-        Iterator iter = resourceList.iterator();
-        while (iter.hasNext()) {
-            ((AbstractElement) iter.next()).dump(buf, depth+1);
+        for (ResourceElement resourceElement : resourceList) {
+            resourceElement.dump(buf, depth + 1);
         }
         for (int i=0; i < depth; i++) buf.append('.');
         buf.append("</resouces>\n");
@@ -148,13 +148,14 @@ public class ResourcesElement extends AbstractElement {
         // FIXME - We export too much here. We only have to export the resource
         //         elements referenced by the items of the default organization.
         
-        Iterator iter = resourceList.iterator();
         boolean isFirst = true;
-        while (iter.hasNext()) {
-            ResourceElement resource = (ResourceElement) iter.next();
+        for (ResourceElement resource : resourceList) {
             if (resource.getHRef() != null) {
-                if (isFirst) { isFirst = false; }
-                else { out.println(","); }
+                if (isFirst) {
+                    isFirst = false;
+                } else {
+                    out.println(",");
+                }
                 resource.exportToJavaScript(out, depth + 1, gen);
             }
         }
@@ -163,16 +164,14 @@ public class ResourcesElement extends AbstractElement {
         out.print((depth == 0) ? "]);" : "])");
     }
     public String toString() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append("<html><font size=-1 face=SansSerif>");
         if (! isValid()) buf.append("<font color=red>* </font>");
         buf.append("<b>Resources</b>");
         if (! areAllFilesInContentPackageReferenced) {
-            buf.append("<font color=blue><b> "+
-                    labels.getFormatted(
-                    "cam.unusedFilesInContentPackage", new Object[] {new Integer(unreferencedFileNames.size())}
-                    )+
-            "</b></font>");
+            buf.append("<font color=blue><b> ").append(labels.getFormatted(
+                    "cam.unusedFilesInContentPackage",
+                    unreferencedFileNames.size())).append("</b></font>");
         }
         buf.append("</font>");
         return buf.toString();
@@ -186,7 +185,7 @@ public class ResourcesElement extends AbstractElement {
         isValid = super.validate();
         info = null;
         
-        Set fileNames = new HashSet(getIMSManifestDocument().getFileNames());
+        Set<String> fileNames = new HashSet<>(getIMSManifestDocument().getFileNames());
         fileNames.remove("imscp_rootv1p1p2.xsd");
         fileNames.remove("ims_cp_rootv1p1.xsd");
         fileNames.remove("imsmd_rootv1p2p1.xsd");
@@ -198,22 +197,21 @@ public class ResourcesElement extends AbstractElement {
         fileNames.remove("adl_cp_rootv1p2.xsd");
         fileNames.remove("tinylms.xml");
         
-        Enumeration enm = getIMSManifestDocument().preorderEnumeration();
+        Enumeration<TreeNode> enm = getIMSManifestDocument().preorderEnumeration();
         while (enm.hasMoreElements()) {
             AbstractElement element = (AbstractElement) enm.nextElement();
             element.consumeFileNames(fileNames);
         }
-        LinkedList list = new LinkedList(fileNames);
+        LinkedList<String> list = new LinkedList<>(fileNames);
         if (list.size() > 0) {
             Collections.sort(list);
             StringBuffer buf = new StringBuffer(
                     labels.getString("cam.warning")+": "+
                     labels.getString("cam.manifestNeedsResourceElement")+"\n\n");
             buf.append("<resource identifier=\"...id...\" adlcp:scormtype=\"asset\" type=\"webcontent\">\n");
-            
-            Iterator iter = list.iterator();
-            while (iter.hasNext()) {
-                buf.append("  <file href=\""+iter.next()+"\"/>\n");
+
+            for (String s : list) {
+                buf.append("  <file href=\"").append(s).append("\"/>\n");
             }
             buf.append("</resource>\n");
             info = buf.toString();

@@ -56,6 +56,7 @@ import org.w3c.dom.*;
  * <br>1.0  5. Januar 2004  Created.
  */
 public class SchemaElement extends AbstractElement {
+    static final long serialVersionUID = 1L;
     private String description;
     
     /** Creates a new instance. */

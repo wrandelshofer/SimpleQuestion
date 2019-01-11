@@ -60,16 +60,7 @@ import org.w3c.dom.*;
  * <br>1.0  2004-01-05  Created.
  */
 public class ClassificationElement extends AbstractElement {
-    /*
-    private GeneralElement generalElement;
-    private LifecycleElement lifecycleElement;
-    private MetametadataElement metametadataElement;
-    private TechnicalElement technicalElement;
-    private EducationalElement educationalElement;
-    private RightsElement rightsElement;
-    private RelationElement relationElement;
-    private AnnotationElement annotationElement;
-    private ClassificationElement classificationElement;*/
+    static final long serialVersionUID = 1L;
     
     /** Creates a new instance. */
     public ClassificationElement() {

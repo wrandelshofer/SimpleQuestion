@@ -24,7 +24,7 @@ import java.util.zip.*;
  * @version 1.0 13. Januar 2004  Created.
  */
 public class DefaultZipEntryFilter implements ZipEntryFilter {
-    private Set filters;
+    private Set<String> filters;
     private boolean accept;
     
     /** Creates a new instance which accepts or rejects zip entries specified
@@ -37,7 +37,7 @@ public class DefaultZipEntryFilter implements ZipEntryFilter {
      * filters set are accepted. If this parameter is false, only entries which
      * are not in the filters set are accepted.
      */
-    public DefaultZipEntryFilter(Set filters, boolean accept) {
+    public DefaultZipEntryFilter(Set<String> filters, boolean accept) {
         this.filters = filters;
         this.accept = accept;
     }
@@ -46,7 +46,7 @@ public class DefaultZipEntryFilter implements ZipEntryFilter {
      * Creates a new zip entry filter which accepts all entries.
      */
     public DefaultZipEntryFilter() {
-        this.filters = new HashSet(0);
+        this.filters = new HashSet<>(0);
         this.accept = false;
     }
     

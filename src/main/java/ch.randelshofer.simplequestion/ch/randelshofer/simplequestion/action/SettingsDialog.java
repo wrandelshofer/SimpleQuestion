@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
  * @author  wrandels
  */
 public class SettingsDialog extends javax.swing.JDialog {
+    public final static long serialVersionUID=1L;
     private ResourceBundleUtil labels;
     
     /** Creates new form SettingsDialog */

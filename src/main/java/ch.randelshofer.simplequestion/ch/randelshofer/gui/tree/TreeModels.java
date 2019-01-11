@@ -80,12 +80,12 @@ public class TreeModels {
      * indices.length > 1. A JVM local object transferable of type
      * model.getElementAt(indices[0]).getClass() if indices.length = 1.
      */
-    public static Transferable createLocalTransferable(MutableTreeModel model, MutableTreeNode[] nodes, Class baseclass) {
-            LinkedList l = new LinkedList();
-            for (int i=0; i < nodes.length; i++) {
-                Object elem = ((DefaultMutableTreeNode) nodes[i]).getUserObject();
-                l.add(nodes[i]);
-            }
+    public static Transferable createLocalTransferable(MutableTreeModel model, MutableTreeNode[] nodes, Class<?> baseclass) {
+            LinkedList<Object> l = new LinkedList<>();
+        for (MutableTreeNode node : nodes) {
+            Object elem = ((DefaultMutableTreeNode) node).getUserObject();
+            l.add(node);
+        }
             return new JVMLocalObjectTransferable(List.class, l);
     }    
     /**

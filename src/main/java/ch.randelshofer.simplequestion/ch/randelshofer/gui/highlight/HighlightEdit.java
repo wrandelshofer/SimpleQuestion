@@ -28,6 +28,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 class HighlightEdit extends JFrame {
+    static final long serialVersionUID = 1L;
     String filename;
     SyntaxHighlighter text;
 
@@ -61,7 +62,7 @@ class HighlightEdit extends JFrame {
         Container pane = getContentPane();
         pane.add(scroller);
         pack();
-        show();
+        setVisible(true);
 
         try {
             text.read(new FileReader(filename), null);

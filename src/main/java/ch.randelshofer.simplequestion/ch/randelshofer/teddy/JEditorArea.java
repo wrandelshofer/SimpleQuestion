@@ -25,6 +25,7 @@ import javax.swing.text.*;
  * @version $Id: JEditorArea.java 527 2009-06-07 14:28:19Z rawcoder $
  */
 public class JEditorArea extends JEditorPane {
+    public final static long serialVersionUID=1L;
     private boolean wrap;
     
     /** Creates a new instance. */

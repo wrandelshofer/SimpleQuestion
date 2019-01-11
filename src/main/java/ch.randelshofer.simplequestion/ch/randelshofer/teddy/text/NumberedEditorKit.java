@@ -31,6 +31,7 @@ import javax.swing.text.*;
  * @version $Id: NumberedEditorKit.java 527 2009-06-07 14:28:19Z rawcoder $
  */
 public class NumberedEditorKit extends StyledEditorKit {
+    public final static long serialVersionUID=1L;
     private NumberedViewFactory viewFactory;
     
     @Override

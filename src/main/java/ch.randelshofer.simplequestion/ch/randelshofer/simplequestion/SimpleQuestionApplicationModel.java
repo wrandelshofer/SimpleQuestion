@@ -42,6 +42,7 @@ import org.jhotdraw.util.*;
  * @version 1.0 2009-09-06 Created.
  */
 public class SimpleQuestionApplicationModel extends DefaultApplicationModel {
+    public final static long serialVersionUID=1L;
 
     @Override
     public ActionMap createActionMap(Application a, View v) {

@@ -22,7 +22,7 @@ import ch.randelshofer.util.*;
  * @author  Werni Randelshofer
  * @version 1.0 2001-10-08
  */
-public class TreeNodeCollection extends AbstractList {
+public class TreeNodeCollection extends AbstractList<Object> {
     DefaultMutableTreeNode model;
 
     /** Creates new TreeNodeCollection */

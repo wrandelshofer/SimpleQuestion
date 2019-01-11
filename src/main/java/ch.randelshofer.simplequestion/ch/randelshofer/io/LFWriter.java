@@ -40,7 +40,7 @@ public class LFWriter extends FilterWriter {
      */
     public LFWriter(Writer out) {
         super(out);
-        lineSeparator = (String) System.getProperty("line.separator");
+        lineSeparator = System.getProperty("line.separator");
     }
     
     /**

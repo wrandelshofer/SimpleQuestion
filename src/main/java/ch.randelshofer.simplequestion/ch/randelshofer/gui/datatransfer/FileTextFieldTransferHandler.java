@@ -29,6 +29,7 @@ import javax.swing.text.*;
  * <br>1.0 September 8, 2007 Created.
  */
 public class FileTextFieldTransferHandler extends TransferHandler {
+    public final static long serialVersionUID=1L;
 
     private boolean shouldRemove;
     private JTextComponent exportComp;
@@ -73,7 +74,7 @@ public class FileTextFieldTransferHandler extends TransferHandler {
             }
 
             try {
-                java.util.List list = (List) t.getTransferData(DataFlavor.javaFileListFlavor);
+                java.util.List<?> list = (List) t.getTransferData(DataFlavor.javaFileListFlavor);
                 if (list.size() > 0) {
                     File file = (File) list.get(0);
 

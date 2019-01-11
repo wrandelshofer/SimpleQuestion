@@ -29,6 +29,7 @@ import javax.swing.tree.*;
 public class TreeNodeTableModel
 extends AbstractTableModel
 implements MutableTableModel, TreeModelListener {
+    static final long serialVersionUID = 1L;
     protected MutableTreeModel treeModel;
     protected javax.swing.tree.DefaultMutableTreeNode treeNode;
     

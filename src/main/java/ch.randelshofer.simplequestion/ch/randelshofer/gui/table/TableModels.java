@@ -88,7 +88,7 @@ public class TableModels {
         Object[][] table = new Object[rows.length][model.getColumnCount()];
         int columnCount = model.getColumnCount();
         for (int i=0; i < rows.length; i++) {
-            ArrayList c = new ArrayList(columnCount);
+            ArrayList<Object> c = new ArrayList<>(columnCount);
             for (int j=0; j < columnCount; j++) {
                 table[i][j] = model.getValueAt(rows[i],j);
             }
@@ -108,20 +108,17 @@ public class TableModels {
      */
     public static Object[][] getPlainTable(Transferable t, int columnCount)
     throws UnsupportedFlavorException, IOException {
-        LinkedList list = new LinkedList();
-        BufferedReader in = new BufferedReader(new StringReader((String) t.getTransferData(DataFlavor.stringFlavor)));
-        try {
+        List<Object> list = new ArrayList<>();
+        try (BufferedReader in = new BufferedReader(new StringReader((String) t.getTransferData(DataFlavor.stringFlavor)))) {
             String line;
             while ((line = in.readLine()) != null) {
                 Object[] rowData = new Object[columnCount];
                 StringTokenizer st = new StringTokenizer(line, "\t");
-                for (int i=0; i < columnCount && st.hasMoreTokens(); i++) {
+                for (int i = 0; i < columnCount && st.hasMoreTokens(); i++) {
                     rowData[i] = st.nextToken();
                 }
                 list.add(rowData);
             }
-        } finally {
-            in.close();
         }
         return (Object[][]) list.toArray();
     }
@@ -139,20 +136,17 @@ public class TableModels {
      */
     public static Object[][] getStringTable(Transferable t, int columnCount)
     throws UnsupportedFlavorException, IOException {
-        LinkedList list = new LinkedList();
-        BufferedReader in = new BufferedReader(DataFlavor.stringFlavor.getReaderForText(t));
-        try {
+        List<Object> list = new ArrayList<>();
+        try (BufferedReader in = new BufferedReader(DataFlavor.stringFlavor.getReaderForText(t))) {
             String line;
             while ((line = in.readLine()) != null) {
                 Object[] rowData = new Object[columnCount];
                 StringTokenizer st = new StringTokenizer(line, "\t");
-                for (int i=0; i < columnCount && st.hasMoreTokens(); i++) {
+                for (int i = 0; i < columnCount && st.hasMoreTokens(); i++) {
                     rowData[i] = st.nextToken();
                 }
                 list.add(rowData);
             }
-        } finally {
-            in.close();
         }
         return (Object[][]) list.toArray();
     }

@@ -72,9 +72,9 @@ public class LOMElement extends AbstractElement {
     private TechnicalElement technicalElement;
     private EducationalElement educationalElement;
     private RightsElement rightsElement;
-    private LinkedList relationList = new LinkedList();
-    private LinkedList annotationList = new LinkedList();
-    private LinkedList classificationList = new LinkedList();
+    private LinkedList<RelationElement> relationList = new LinkedList<>();
+    private LinkedList<AnnotationElement> annotationList = new LinkedList<>();
+    private LinkedList<ClassificationElement> classificationList = new LinkedList<>();
     
     /** Creates a new instance. */
     public LOMElement() {

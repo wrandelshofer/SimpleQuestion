@@ -80,7 +80,7 @@ public class ColorModels {
         return buf.toString();
     }
     
-    private static class MaskEntry implements Comparable {
+    private static class MaskEntry implements Comparable<MaskEntry> {
         private int mask;
         private int bits;
         private String name;
@@ -101,8 +101,7 @@ public class ColorModels {
             return name;
         }
         
-        public int compareTo(Object o) {
-            MaskEntry that = (MaskEntry) o;
+        public int compareTo(MaskEntry that) {
             return that.mask - this.mask;
         }
     }

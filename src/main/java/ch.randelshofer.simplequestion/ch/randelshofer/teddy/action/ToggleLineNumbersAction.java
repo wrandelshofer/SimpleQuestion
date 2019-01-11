@@ -29,6 +29,7 @@ import javax.swing.Action;
  * @version $Id: ToggleLineNumbersAction.java 527 2009-06-07 14:28:19Z rawcoder $
  */
 public class ToggleLineNumbersAction extends AbstractViewAction {
+    public final static long serialVersionUID=1L;
     public final static String ID = "view.toggleLineNumbers";
     private ResourceBundleUtil labels = new ResourceBundleUtil(ResourceBundle.getBundle("ch.randelshofer.teddy.Labels"));
     

@@ -27,6 +27,7 @@ import org.jhotdraw.app.action.edit.AbstractFindAction;
  * @version $Id: FindAction.java 527 2009-06-07 14:28:19Z rawcoder $
  */
 public class FindAction extends AbstractFindAction {
+    public final static long serialVersionUID=1L;
     private FindDialog findDialog;
     
     /**

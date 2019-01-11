@@ -24,6 +24,7 @@ import javax.swing.filechooser.*;
  * @version 1.0 2. August 2006 Created.
  */
 public class ConfigurableFileFilterAccessory extends JPanel {
+    static final long serialVersionUID = 1L;
     private JFileChooser fileChooser;
     private PropertyChangeListener propertyHandler = new PropertyChangeListener() {
         public void propertyChange(PropertyChangeEvent evt) {

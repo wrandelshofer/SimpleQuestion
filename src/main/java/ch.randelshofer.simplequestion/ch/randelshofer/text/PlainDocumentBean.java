@@ -23,6 +23,7 @@ import java.beans.*;
  * @version 1.0 2003-05-07 Created.
  */
 public class PlainDocumentBean extends PlainDocument {
+    public final static long serialVersionUID=1L;
     /**
      * Property change support.
      */

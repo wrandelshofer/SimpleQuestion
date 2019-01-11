@@ -75,6 +75,7 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * @version 1.0 2009-09-06 Created.
  */
 public class SimpleQuestionView extends TeddyView {
+    public final static long serialVersionUID=1L;
 
     private ResourceBundleUtil labels;
     private Preferences prefs;

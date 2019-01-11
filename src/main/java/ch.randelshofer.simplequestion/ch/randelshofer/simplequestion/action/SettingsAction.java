@@ -31,6 +31,7 @@ import java.util.prefs.Preferences;
  * @version 1.0 2009-09-07 Created.
  */
 public class SettingsAction extends AbstractPreferencesAction {
+    public final static long serialVersionUID=1L;
     private SettingsDialog dialog;
 
     public SettingsAction(Application app) {

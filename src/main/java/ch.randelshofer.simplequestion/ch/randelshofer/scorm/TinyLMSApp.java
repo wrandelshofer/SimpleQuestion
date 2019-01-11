@@ -67,7 +67,7 @@ public class TinyLMSApp {
         // just for a batch invocation of TinyLMS.
         
         try {
-            Class c;
+            Class<?> c;
             if (args.length == 0) {
                 c = Class.forName("ch.randelshofer.scorm.CourseBuilder");
                 //CourseBuilder.main(args);
@@ -75,7 +75,7 @@ public class TinyLMSApp {
                 c = Class.forName("ch.randelshofer.scorm.BatchProcessor");
                 //BatchProcessor.main(args);
             }
-            Method m = c.getMethod("main", new Class[] {String[].class});
+            Method m = c.getMethod("main", String[].class);
             m.invoke(null, new Object[] {args});
         } catch (InvocationTargetException e) {
             e.getTargetException().printStackTrace();

@@ -33,6 +33,7 @@ import java.io.Serializable;
  * <br>1.0 August 24, 2003  Created.
  */
 public class PasswordCellEditor extends DefaultCellEditor {
+    static final long serialVersionUID = 1L;
 //
 //  Constructors
 //

@@ -38,6 +38,7 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * <br>1.0 24. Juli 2006 Created.
  */
 public class SettingsPanel extends javax.swing.JPanel {
+    public final static long serialVersionUID=1L;
     private Preferences prefs;
     private ResourceBundleUtil labels;
     private JFileChooser fileChooser;
@@ -58,7 +59,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         // Editor settings
         String[] ffn = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         Arrays.sort(ffn, Collator.getInstance());
-        DefaultComboBoxModel cbm = new DefaultComboBoxModel(ffn);
+        DefaultComboBoxModel<String> cbm = new DefaultComboBoxModel<>(ffn);
         cbm.setSelectedItem(prefs.get("editorFontFamily", "Dialog"));
         fontFamilyCombo.setModel(cbm);
         fontFamilyCombo.addActionListener(new ActionListener() {
@@ -75,7 +76,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         
         // GIFT settings
         giftTemplateChoiceMap = new HashMap<String,JRadioButton>();
-        for (Enumeration e=giftTemplateGroup.getElements(); e.hasMoreElements();) {
+        for (Enumeration<AbstractButton> e=giftTemplateGroup.getElements(); e.hasMoreElements();) {
             JRadioButton b = (JRadioButton) e.nextElement();
             giftTemplateChoiceMap.put(b.getActionCommand(), b);
         }
@@ -191,7 +192,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         scormTemplateExportButton1 = new javax.swing.JButton();
         editorLabel = new javax.swing.JLabel();
         fontLabel = new javax.swing.JLabel();
-        fontFamilyCombo = new javax.swing.JComboBox();
+        fontFamilyCombo = new javax.swing.JComboBox<>();
         fontSizeSpinner = new javax.swing.JSpinner();
         scormTemplateDirectoryChoice = new javax.swing.JRadioButton();
         scormTemplateDirectoryField = new javax.swing.JTextField();
@@ -520,7 +521,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel editorLabel;
-    private javax.swing.JComboBox fontFamilyCombo;
+    private javax.swing.JComboBox<String> fontFamilyCombo;
     private javax.swing.JLabel fontLabel;
     private javax.swing.JSpinner fontSizeSpinner;
     private javax.swing.JRadioButton giftTemplateEmptyChoice;

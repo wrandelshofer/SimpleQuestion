@@ -55,6 +55,7 @@ import org.w3c.dom.*;
  * <br>1.0  2004-01-05  Created.
  */
 public class LanguageElement extends AbstractElement {
+    static final long serialVersionUID = 1L;
     /**
      * The text of the element.
      */

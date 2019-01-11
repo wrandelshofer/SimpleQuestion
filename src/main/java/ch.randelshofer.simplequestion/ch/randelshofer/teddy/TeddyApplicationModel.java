@@ -30,7 +30,8 @@ import org.jhotdraw.util.*;
  * @version $Id: TeddyApplicationModel.java 527 2009-06-07 14:28:19Z rawcoder $
  */
 public class TeddyApplicationModel extends DefaultApplicationModel {
-    
+    public final static long serialVersionUID=1L;
+
     /** Creates a new instance. */
     public TeddyApplicationModel() {
     }

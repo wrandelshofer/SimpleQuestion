@@ -727,11 +727,11 @@ public class JavaScanner extends Scanner {
             return super.lookup(type, name);
         temp.type = KEYWORD;
         temp.name = name;
-        Symbol sym = (Symbol) symbolTable.get(temp);
+        Symbol sym = symbolTable.get(temp);
         if (sym != null)
             return sym;
         temp.type = LITERAL;
-        sym = (Symbol) symbolTable.get(temp);
+        sym = symbolTable.get(temp);
         if (sym != null)
             return sym;
         return super.lookup(type, name);

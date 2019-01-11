@@ -41,6 +41,8 @@ import java.text.*;
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.text.html.*;
+import javax.swing.tree.TreeNode;
+
 /**
  * CourseModelPrinter.
  * Prints all items of the selected organization.
@@ -50,7 +52,7 @@ import javax.swing.text.html.*;
  */
 public class CourseModelPrinter implements Pageable, Printable{
     private CourseModel model;
-    private ArrayList pageList;
+    private ArrayList<ItemElement> pageList;
     private URL baseURL;
     private JTextPane textPane;
     
@@ -76,34 +78,25 @@ public class CourseModelPrinter implements Pageable, Printable{
     public void print() throws PrinterException {
         OrganizationElement org = model.getSelectedOrganization();
         
-        pageList = new ArrayList();
+        pageList = new ArrayList<>();
         if (model.getStructure() == CourseModel.STRUCTURE_LAYERED) {
-            Iterator i = org.getDistinctColumnTitles().iterator();
             boolean isFirstLayer = true;
-            while (i.hasNext()) {
-                String layerTitle = (String) i.next();
-                
-                Iterator j = org.getItemList().iterator();
-                while (j.hasNext()) {
-                    ItemElement rowItem = (ItemElement) j.next();
-                    
+            for (String layerTitle : org.getDistinctColumnTitles()) {
+                for (ItemElement rowItem : org.getItemList()) {
                     if (isFirstLayer && rowItem.getItemList().size() == 0) {
                         if (rowItem.getIdentifierref() != null) {
                             pageList.add(rowItem);
                         }
                     } else {
-                        Iterator k = rowItem.getItemList().iterator();
-                        
-                        while (k.hasNext()) {
-                            ItemElement columnItem = (ItemElement) k.next();
+                        for (ItemElement columnItem : rowItem.getItemList()) {
                             if (columnItem.getTitle().equals(layerTitle)) {
-                                Enumeration enm = columnItem.preorderEnumeration();
+                                Enumeration<TreeNode> enm = columnItem.preorderEnumeration();
                                 while (enm.hasMoreElements()) {
                                     Object o = enm.nextElement();
                                     if (o instanceof ItemElement) {
                                         ItemElement item = (ItemElement) o;
                                         if (item.getIdentifierref() != null) {
-                                            pageList.add(o);
+                                            pageList.add(item);
                                         }
                                     }
                                 }
@@ -111,17 +104,17 @@ public class CourseModelPrinter implements Pageable, Printable{
                         }
                     }
                 }
-                
+
                 isFirstLayer = false;
             }
         } else {
-            Enumeration enm = org.preorderEnumeration();
+            Enumeration<TreeNode> enm = org.preorderEnumeration();
             while (enm.hasMoreElements()) {
                 Object o = enm.nextElement();
                 if (o instanceof ItemElement) {
                     ItemElement item = (ItemElement) o;
                     if (item.getIdentifierref() != null) {
-                        pageList.add(o);
+                        pageList.add(item);
                     }
                 }
             }
@@ -170,8 +163,8 @@ public class CourseModelPrinter implements Pageable, Printable{
         
         // Get the ItemElement and the ResourceElement
         // -------------------------------------------
-        ItemElement item = (ItemElement) pageList.get(pageIndex);
-        Enumeration enm = model.getIMSManifestDocument().getResourcesElement().preorderEnumeration();
+        ItemElement item = pageList.get(pageIndex);
+        Enumeration<TreeNode> enm = model.getIMSManifestDocument().getResourcesElement().preorderEnumeration();
         ResourceElement resource = null;
         while (enm.hasMoreElements()) {
             Object o = enm.nextElement();

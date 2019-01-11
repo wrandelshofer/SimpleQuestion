@@ -27,8 +27,9 @@ import org.jhotdraw.util.prefs.PreferencesUtil;
  * @version $Id: CharacterSetAccessory.java 551 2009-09-03 05:50:46Z rawcoder $
  */
 public class CharacterSetAccessory extends javax.swing.JPanel {
+    public final static long serialVersionUID=1L;
     private final static Preferences prefs = PreferencesUtil.userNodeForPackage(TeddyView.class);
-    private static Object[] availableCharSets;
+    private static String[] availableCharSets;
     
     /** Creates a new instance. */
     public CharacterSetAccessory() {
@@ -39,7 +40,7 @@ public class CharacterSetAccessory extends javax.swing.JPanel {
         }
         
         String selectedItem = prefs.get("characterSet","UTF-8");
-        charSetCombo.setModel(new DefaultComboBoxModel(new String[] { selectedItem }));
+        charSetCombo.setModel(new DefaultComboBoxModel<>(new String[] { selectedItem }));
         charSetCombo.setSelectedItem(selectedItem);
         charSetCombo.setEnabled(false);
         fetchAvailableCharSets();
@@ -56,7 +57,7 @@ public class CharacterSetAccessory extends javax.swing.JPanel {
     
     public void fetchAvailableCharSets() {
         if (availableCharSets == null) {
-            new Worker() {
+            new Worker<Object>() {
                 public Object construct() {
                     SortedMap<String,Charset> sm = Charset.availableCharsets();
                     LinkedList<String> list = new LinkedList<String>();
@@ -65,14 +66,14 @@ public class CharacterSetAccessory extends javax.swing.JPanel {
                             list.add(key);
                         }
                     }
-                    availableCharSets = list.toArray();
+                    availableCharSets = list.toArray(new String[0]);
                     Arrays.sort(availableCharSets);
                     return null;
                 }
                 @Override
                 public void finished() {
                     Object selectedItem = charSetCombo.getSelectedItem();
-                    charSetCombo.setModel(new DefaultComboBoxModel(availableCharSets));
+                    charSetCombo.setModel(new DefaultComboBoxModel<>(availableCharSets));
                     charSetCombo.setSelectedItem(selectedItem);
                     charSetCombo.setEnabled(true);
                 }
@@ -80,7 +81,7 @@ public class CharacterSetAccessory extends javax.swing.JPanel {
             }.start();
         } else {
             Object selectedItem = charSetCombo.getSelectedItem();
-            charSetCombo.setModel(new DefaultComboBoxModel(availableCharSets));
+            charSetCombo.setModel(new DefaultComboBoxModel<>(availableCharSets));
             charSetCombo.setSelectedItem(selectedItem);
             charSetCombo.setEnabled(true);
         }
@@ -110,19 +111,19 @@ public class CharacterSetAccessory extends javax.swing.JPanel {
     private void initComponents() {
 
         charSetLabel = new javax.swing.JLabel();
-        charSetCombo = new javax.swing.JComboBox();
+        charSetCombo = new javax.swing.JComboBox<>();
         lineSepLabel = new javax.swing.JLabel();
-        lineSepCombo = new javax.swing.JComboBox();
+        lineSepCombo = new javax.swing.JComboBox<>();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         charSetLabel.setText("Character Set:");
 
-        charSetCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        charSetCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lineSepLabel.setText("Line Separator:");
 
-        lineSepCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CR", "LF", "CR LF" }));
+        lineSepCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CR", "LF", "CR LF" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -148,18 +149,18 @@ public class CharacterSetAccessory extends javax.swing.JPanel {
     
     private void initComponentsWin() {
         charSetLabel = new javax.swing.JLabel();
-        charSetCombo = new javax.swing.JComboBox();
+        charSetCombo = new javax.swing.JComboBox<>();
         lineSepLabel = new javax.swing.JLabel();
-        lineSepCombo = new javax.swing.JComboBox();
+        lineSepCombo = new javax.swing.JComboBox<>();
         
         setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         charSetLabel.setText("Character Set:");
         
-        charSetCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        charSetCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         
         lineSepLabel.setText("Line Separator:");
         
-        lineSepCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CR", "LF", "CR LF" }));
+        lineSepCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CR", "LF", "CR LF" }));
         
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
@@ -181,9 +182,9 @@ public class CharacterSetAccessory extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JComboBox charSetCombo;
+    public javax.swing.JComboBox<String> charSetCombo;
     public javax.swing.JLabel charSetLabel;
-    public javax.swing.JComboBox lineSepCombo;
+    public javax.swing.JComboBox<String> lineSepCombo;
     public javax.swing.JLabel lineSepLabel;
     // End of variables declaration//GEN-END:variables
     

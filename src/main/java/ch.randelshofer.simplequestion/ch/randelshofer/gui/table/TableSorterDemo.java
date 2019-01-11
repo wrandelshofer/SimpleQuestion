@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class TableSorterDemo extends JFrame {
+    static final long serialVersionUID = 1L;
     private boolean DEBUG = true;
 
     public TableSorterDemo() {
@@ -36,22 +37,23 @@ public class TableSorterDemo extends JFrame {
     }
 
     class MyTableModel extends AbstractTableModel {
-        final String[] columnNames = {"First Name", 
+        static final long serialVersionUID = 1L;
+        final String[] columnNames = {"First Name",
                                       "Last Name",
                                       "Sport",
                                       "# of Years",
                                       "Vegetarian"};
         final Object[][] data = {
             {"Mary", "Campione", 
-             "Snowboarding", new Integer(5), new Boolean(false)},
+             "Snowboarding", 5, Boolean.FALSE},
             {"Alison", "Huml", 
-             "Rowing", new Integer(3), new Boolean(true)},
+             "Rowing", 3, Boolean.TRUE},
             {"Kathy", "Walrath",
-             "Chasing toddlers", new Integer(2), new Boolean(false)},
+             "Chasing toddlers", 2, Boolean.FALSE},
             {"Mark", "Andrews",
-             "Speed reading", new Integer(20), new Boolean(true)},
+             "Speed reading", 20, Boolean.TRUE},
             {"Angela", "Lih",
-             "Teaching high school", new Integer(4), new Boolean(false)}
+             "Teaching high school", 4, Boolean.FALSE}
         };
 
         public int getColumnCount() {
@@ -76,7 +78,7 @@ public class TableSorterDemo extends JFrame {
          * then the last column would contain text ("true"/"false"),
          * rather than a check box.
          */
-        public Class getColumnClass(int c) {
+        public Class<?> getColumnClass(int c) {
             return getValueAt(0, c).getClass();
         }
 
@@ -115,7 +117,7 @@ public class TableSorterDemo extends JFrame {
                 //so you only need the code in the 'else' part of this
                 //'if' block.
                 try {
-                    data[row][col] = new Integer(value.toString());
+                    data[row][col] = Integer.valueOf(value.toString());
                     fireTableCellUpdated(row, col);
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(TableSorterDemo.this,

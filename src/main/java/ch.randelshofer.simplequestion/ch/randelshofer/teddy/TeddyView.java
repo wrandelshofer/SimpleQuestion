@@ -42,11 +42,13 @@ import org.jhotdraw.util.prefs.PreferencesUtil;
  * @version $Id: TeddyView.java 529 2009-06-08 21:12:23Z rawcoder $
  */
 public class TeddyView extends AbstractView {
+    public final static long serialVersionUID=1L;
 
     private static Preferences prefs = PreferencesUtil.userNodeForPackage(TeddyView.class);
     protected JTextPane editor;
 
     protected static class EditorPanel extends JPanel implements Scrollable {
+        public final static long serialVersionUID=1L;
 
         private JTextComponent editor;
         private boolean isLineWrap;

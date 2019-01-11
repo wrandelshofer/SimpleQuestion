@@ -27,7 +27,7 @@ implements Transferable {
     private Object data;
     
     /** Creates new JVMLocalObjectTransferable */
-    public JVMLocalObjectTransferable(Class transferClass, Object data) {
+    public JVMLocalObjectTransferable(Class<?> transferClass, Object data) {
         this.data = data;
         flavors = new DataFlavor[] { 
             new DataFlavor(transferClass, "Object")

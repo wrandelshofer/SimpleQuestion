@@ -20,6 +20,7 @@ import javax.swing.table.*;
  * from the source code for DefaultCellEditor.
  */
 public class ColorTableCellEditor extends DefaultCellEditor {
+    static final long serialVersionUID = 1L;
     private PolygonIcon icon;
     Color currentColor = null;
     
@@ -67,7 +68,7 @@ public class ColorTableCellEditor extends DefaultCellEditor {
                 //Without the following line, the dialog comes up
                 //in the middle of the screen.
                 dialog.setLocationRelativeTo(button);
-                dialog.show();
+                dialog.setVisible(true);
                 
                 //Must do this so that editing stops when appropriate.
                 fireEditingStopped();

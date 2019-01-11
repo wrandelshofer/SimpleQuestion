@@ -24,6 +24,7 @@ import javax.swing.border.*;
  * @author  werni
  */
 public class FindDialog extends javax.swing.JDialog {
+    public final static long serialVersionUID=1L;
     private Application app;
     private Matcher matcher;
     private Preferences prefs;
@@ -40,7 +41,7 @@ public class FindDialog extends javax.swing.JDialog {
         
         PreferencesUtil.installFramePrefsHandler(prefs, "find", this);
         
-        modeCombo.setModel(new DefaultComboBoxModel(new Object[] {
+        modeCombo.setModel(new DefaultComboBoxModel<String>(new String[] {
             labels.getString("find.contains.text"),
             labels.getString("find.startsWith.text"),
             labels.getString("find.word.text"),
@@ -103,7 +104,7 @@ public class FindDialog extends javax.swing.JDialog {
         optionsPanel = new javax.swing.JPanel();
         ignoreCaseCheck = new javax.swing.JCheckBox();
         wrapAroundCheck = new javax.swing.JCheckBox();
-        modeCombo = new javax.swing.JComboBox();
+        modeCombo = new javax.swing.JComboBox<>();
         findScrollPane = new javax.swing.JScrollPane();
         findField = new javax.swing.JTextArea();
         replaceScrollPane = new javax.swing.JScrollPane();
@@ -181,7 +182,7 @@ public class FindDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         optionsPanel.add(wrapAroundCheck, gridBagConstraints);
 
-        modeCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Contains", "Starts with", "Word" }));
+        modeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Contains", "Starts with", "Word" }));
         modeCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 modeChanged(evt);
@@ -378,7 +379,7 @@ public class FindDialog extends javax.swing.JDialog {
     public javax.swing.JLabel findLabel;
     public javax.swing.JScrollPane findScrollPane;
     public javax.swing.JCheckBox ignoreCaseCheck;
-    public javax.swing.JComboBox modeCombo;
+    public javax.swing.JComboBox<String> modeCombo;
     public javax.swing.JButton nextButton;
     public javax.swing.JPanel optionsPanel;
     public javax.swing.JButton previousButton;

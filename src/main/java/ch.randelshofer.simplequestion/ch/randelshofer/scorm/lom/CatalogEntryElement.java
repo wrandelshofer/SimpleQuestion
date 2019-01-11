@@ -61,7 +61,7 @@ import org.w3c.dom.*;
  * <br>1.0  2004-01-05  Created.
  */
 public class CatalogEntryElement extends AbstractElement {
-    
+    static final long serialVersionUID = 1L;
     private CatalogElement catalogElement;
     private EntryElement entryElement;
     

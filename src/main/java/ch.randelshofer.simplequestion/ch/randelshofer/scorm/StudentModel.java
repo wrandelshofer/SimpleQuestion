@@ -28,6 +28,7 @@ import java.io.*;
  * @version 1.0 August 24, 2003  Created.
  */
 public class StudentModel extends AbstractBean implements Cloneable {
+    public final static long serialVersionUID=1L;
     private String id, password, lastName, firstName, middleInitial;
     /**
      * The electronic fingerprint of the password.

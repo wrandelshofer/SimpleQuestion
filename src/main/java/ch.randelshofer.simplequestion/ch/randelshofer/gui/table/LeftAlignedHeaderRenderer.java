@@ -26,6 +26,7 @@ import javax.swing.table.*;
  * @version 1.0  June 21, 2004  Created.
  */
 public class LeftAlignedHeaderRenderer extends DefaultTableCellRenderer {
+    static final long serialVersionUID = 1L;
     public Component getTableCellRendererComponent(JTable table,
     Object value, boolean selected, boolean focused,
     int row, int column) {

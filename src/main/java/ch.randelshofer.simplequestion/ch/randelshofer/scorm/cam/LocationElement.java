@@ -21,12 +21,8 @@ import java.io.*;
 import java.util.*;
 
 import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
 
 import org.xml.sax.*;
-import org.xml.sax.helpers.*;
 
 import org.w3c.dom.*;
 /**
@@ -59,6 +55,7 @@ import org.w3c.dom.*;
  * <br>1.0 5. Januar 2004  Created.
  */
 public class LocationElement extends AbstractElement {
+    static final long serialVersionUID = 1L;
     private String uri;
     
     private boolean isLocationValid;
@@ -98,7 +95,7 @@ public class LocationElement extends AbstractElement {
     public boolean validate() {
         isValid = super.validate();
         
-        Set fileNames = getIMSManifestDocument().getFileNames();
+        Set<String> fileNames = getIMSManifestDocument().getFileNames();
         isLocationValid = fileNames.contains(getConsolidatedURI());
         
         return isValid = isValid && isLocationValid;

@@ -16,6 +16,7 @@ import javax.swing.table.*;
  * @version 1.0 2001-08-02
  */
 public class ColorTableCellRenderer extends DefaultTableCellRenderer {
+    static final long serialVersionUID = 1L;
     private PolygonIcon icon;
     
     /** Creates new ColorModelCellRenderer */

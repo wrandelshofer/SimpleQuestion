@@ -29,6 +29,7 @@ import javax.swing.Action;
  * @version $Id: ToggleStatusBarAction.java 527 2009-06-07 14:28:19Z rawcoder $
  */
 public class ToggleStatusBarAction extends AbstractViewAction {
+    public final static long serialVersionUID=1L;
     public final static String ID = "view.toggleStatusBar";
     private ResourceBundleUtil labels = new ResourceBundleUtil(ResourceBundle.getBundle("ch.randelshofer.teddy.Labels"));
     /**

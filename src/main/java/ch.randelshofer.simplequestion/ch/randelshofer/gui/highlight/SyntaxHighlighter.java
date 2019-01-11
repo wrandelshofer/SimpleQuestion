@@ -18,6 +18,7 @@ import java.io.*;
  * correctly set.
  */
 public class SyntaxHighlighter extends JTextPane implements DocumentListener, TokenTypes {
+    static final long serialVersionUID = 1L;
     private StyledDocument doc;
     private Scanner scanner;
     

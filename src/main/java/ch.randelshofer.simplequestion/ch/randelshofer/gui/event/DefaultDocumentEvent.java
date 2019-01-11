@@ -19,6 +19,7 @@ import javax.swing.text.*;
 public class DefaultDocumentEvent
 extends EventObject 
 implements DocumentEvent {
+    public final static long serialVersionUID=1L;
     private int offset;
     private int length;
     private DocumentEvent.EventType type;

@@ -250,9 +250,9 @@ public class OrganizationElement extends AbstractElement {
     /**
      * Returns all ResourceElement's that are referenced by this organization.
      */
-    public HashSet<AbstractElement> getReferencedResources() {
+    public HashSet<ResourceElement> getReferencedResources() {
         ResourcesElement resources = getIMSManifestDocument().getResourcesElement();
-        HashSet<AbstractElement> referencedResources = new HashSet<>();
+        HashSet<ResourceElement> referencedResources = new HashSet<>();
         
         Enumeration<TreeNode> enm = preorderEnumeration();
         while (enm.hasMoreElements()) {
@@ -260,7 +260,7 @@ public class OrganizationElement extends AbstractElement {
             if (element instanceof ItemElement) {
                 ItemElement item = (ItemElement) element;
                 if (item.getIdentifierref() != null) {
-                    AbstractElement resource = resources.findChildByIdentifier(item.getIdentifierref());
+                    ResourceElement resource =(ResourceElement) resources.findChildByIdentifier(item.getIdentifierref());
                     if (resource != null) {
                         referencedResources.add(resource);
                     }

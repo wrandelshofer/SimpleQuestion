@@ -28,6 +28,7 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * @version 1.0 11. Mai 2006 Created.
  */
 public class VerifySyntaxAction extends AbstractViewAction {
+    public final static long serialVersionUID=1L;
     public final static String ID = "verifySyntax";
     private ResourceBundleUtil labels = new ResourceBundleUtil(ResourceBundle.getBundle("ch.randelshofer.simplequestion.Labels"));
     

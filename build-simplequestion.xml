@@ -211,7 +211,7 @@
     </target>
 
 
-    <target name="bundle" depends="do-bundle-mac,jar">
+    <target name="bundle" depends="jar,do-bundle-mac">
     </target>
 
     <target name="dist" depends="bundle">

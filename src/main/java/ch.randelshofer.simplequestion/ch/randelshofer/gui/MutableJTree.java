@@ -58,6 +58,7 @@ import java.util.ResourceBundle;
  */
 public class MutableJTree extends JTree
         implements EditableComponent {
+    private final static long serialVersionUID = 1L;
     /**
      * This inner class is used to prevent the API from being cluttered
      * by internal listeners.

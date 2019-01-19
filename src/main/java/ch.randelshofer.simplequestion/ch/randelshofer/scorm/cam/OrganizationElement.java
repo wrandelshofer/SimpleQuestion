@@ -202,7 +202,7 @@ public class OrganizationElement extends AbstractElement {
 
         Iterator<ItemElement> iter = itemList.iterator();
         while (iter.hasNext()) {
-            ((ItemElement) iter.next()).exportToJavaScript(out, depth + 1, gen);
+            iter.next().exportToJavaScript(out, depth + 1, gen);
             if (iter.hasNext()) {
                 out.println(",");
             }
@@ -253,10 +253,10 @@ public class OrganizationElement extends AbstractElement {
         ArrayList<String> titles = new ArrayList<>();
         Iterator<ItemElement> i = itemList.iterator();
         while (i.hasNext()) {
-            ItemElement row = (ItemElement) i.next();
+            ItemElement row = i.next();
             Iterator<ItemElement> j = row.getItemList().iterator();
             while (j.hasNext()) {
-                ItemElement column = (ItemElement) j.next();
+                ItemElement column = j.next();
                 if (!set.contains(column.getTitle())) {
                     set.add(column.getTitle());
                     titles.add(column.getTitle());

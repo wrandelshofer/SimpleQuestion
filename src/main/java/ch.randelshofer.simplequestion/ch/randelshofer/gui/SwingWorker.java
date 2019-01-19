@@ -17,8 +17,8 @@ import javax.swing.SwingUtilities;
  * @author SUN Microsystems, Inc.
  */
 
-public abstract class SwingWorker {
-    private Object value;  // see getValue(), setValue()
+public abstract class SwingWorker<V> {
+    private V value;  // see getValue(), setValue()
     private Thread thread;
 
     /**
@@ -73,7 +73,7 @@ public abstract class SwingWorker {
     /**
      * Compute the value to be returned by the <code>get</code> method.
      */
-    public abstract Object construct();
+    public abstract V construct();
 
     /**
      * Called on the event dispatching thread (not on the worker thread)
@@ -89,7 +89,7 @@ public abstract class SwingWorker {
      *
      * @return the value created by the <code>construct</code> method
      */
-    public Object get() {
+    public V get() {
         while (true) {
             Thread t = threadVar.get();
             if (t == null) {
@@ -108,7 +108,7 @@ public abstract class SwingWorker {
      * Get the value produced by the worker thread, or null if it
      * hasn't been constructed yet.
      */
-    protected synchronized Object getValue() {
+    protected synchronized V getValue() {
         return value;
     }
 
@@ -127,7 +127,7 @@ public abstract class SwingWorker {
     /**
      * Set the value produced by worker thread
      */
-    private synchronized void setValue(Object x) {
+    private synchronized void setValue(V x) {
         value = x;
     }
 

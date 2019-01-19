@@ -234,7 +234,7 @@ public class ItemElement extends AbstractElement {
 
             Iterator<ItemElement> iter = itemList.iterator();
             while (iter.hasNext()) {
-                ((ItemElement) iter.next()).exportToJavaScript(out, depth + 1, gen);
+                iter.next().exportToJavaScript(out, depth + 1, gen);
                 if (iter.hasNext()) {
                     out.println(",");
                 }

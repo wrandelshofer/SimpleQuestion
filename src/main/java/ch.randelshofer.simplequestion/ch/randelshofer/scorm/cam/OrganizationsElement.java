@@ -137,7 +137,7 @@ public class OrganizationsElement extends AbstractElement {
         out.println("new OrganizationsElement([");
         Iterator<OrganizationElement> iter = organizationList.iterator();
         while (iter.hasNext()) {
-            OrganizationElement elem = ((OrganizationElement) iter.next());
+            OrganizationElement elem = iter.next();
             if (elem.getIdentifier().equals(defaultOrganization)) {
                 elem.exportToJavaScript(out, depth + 1, gen);
                 break;

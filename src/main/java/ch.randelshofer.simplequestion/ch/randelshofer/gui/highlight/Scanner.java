@@ -423,7 +423,7 @@ public class Scanner implements TokenTypes {
     protected Symbol lookup(int type, String name) {
         symbol.type = type;
         symbol.name = name;
-        Symbol sym = (Symbol) symbolTable.get(symbol);
+        Symbol sym = symbolTable.get(symbol);
         if (sym != null) {
             return sym;
         }

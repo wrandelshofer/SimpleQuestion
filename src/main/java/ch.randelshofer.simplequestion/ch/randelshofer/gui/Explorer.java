@@ -33,6 +33,7 @@ import java.awt.Component;
  * <br>1.0 2001-10-05
  */
 public class Explorer extends javax.swing.JPanel {
+    private final static long serialVersionUID = 1L;
     /**
      * The viewFactory supplies components for rendering the
      * selected item(s) of the tree.

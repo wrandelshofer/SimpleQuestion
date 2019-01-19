@@ -115,9 +115,9 @@ public class IMSManifestDocument extends ManifestElement {
         URL url;
         try {
             if (pifFile != null) {
-                url = new URL("jar:" + pifFile.toURL() + "!imsmanifest.xml");
+                url = new URL("jar:" + pifFile.toURI() + "!imsmanifest.xml");
             } else {
-                url = new URL(contentPackageFile.toURL(), "imsmanifest.xml");
+                url = new URL(contentPackageFile.toURI().toURL(), "imsmanifest.xml");
             }
         } catch (MalformedURLException e) {
             InternalError error = new InternalError("Unable to create URL:");

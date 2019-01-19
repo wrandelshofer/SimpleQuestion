@@ -44,6 +44,7 @@ import java.util.LinkedList;
  * <br>1.0  2004-01-05  Created.
  */
 public class KeywordElement extends AbstractElement {
+    private final static long serialVersionUID = 1L;
     private LinkedList<LangStringElement> langstringList = new LinkedList<>();
 
 

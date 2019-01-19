@@ -153,8 +153,8 @@ public class SCORMExporterAccessory extends javax.swing.JPanel {
 
     private void updateStyles() {
         styleCombo.setEnabled(false);
-        new ch.randelshofer.gui.SwingWorker() {
-            public Object construct() {
+        new ch.randelshofer.gui.SwingWorker<TreeMap<String, String>>() {
+            public TreeMap<String, String> construct() {
                 TreeMap<String, String> m = new TreeMap<String, String>();
 
                 ZipIn zin = null;
@@ -239,11 +239,11 @@ public class SCORMExporterAccessory extends javax.swing.JPanel {
         titleLabel = new javax.swing.JLabel();
         titleField = new javax.swing.JTextField();
         styleLabel = new javax.swing.JLabel();
-        styleCombo = new javax.swing.JComboBox();
+        styleCombo = new javax.swing.JComboBox<>();
         prefixLabel = new javax.swing.JLabel();
         prefixField = new javax.swing.JTextField();
         localeLabel = new javax.swing.JLabel();
-        localeCombo = new javax.swing.JComboBox();
+        localeCombo = new javax.swing.JComboBox<>();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -333,7 +333,7 @@ public class SCORMExporterAccessory extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox localeCombo;
+    private javax.swing.JComboBox<Locale> localeCombo;
     private javax.swing.JLabel localeLabel;
     private javax.swing.JTextField prefixField;
     private javax.swing.JLabel prefixLabel;

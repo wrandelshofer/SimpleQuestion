@@ -43,7 +43,8 @@ import java.util.ArrayList;
  * <br>1.0  2004-01-05  Created.
  */
 public class CoverageElement extends AbstractElement {
-    private ArrayList langstringList = new ArrayList();
+    private final static long serialVersionUID = 1L;
+    private ArrayList<LangStringElement> langstringList = new ArrayList<>();
 
     /**
      * Creates a new instance.

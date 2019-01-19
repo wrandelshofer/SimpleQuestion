@@ -189,7 +189,7 @@
 
     <target name="do-bundle-win" depends="init">
         <property environment="env"/>
-        <echo message="bla ${env.Path}"/>
+        <echo message="env.path=${env.Path}"/>
         <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
                  uri="javafx:com.sun.javafx.tools.ant"
                  classpath="${jdk10.win}/lib/ant-javafx.jar"/>

@@ -27,7 +27,7 @@ import org.jhotdraw.app.SDIApplication;
 public class Main {
 
     public final static String NAME = "SimpleQuestion";
-    public final static String COPYRIGHT = "© 2009-2011 by Werner Randelshofer";
+    public final static String COPYRIGHT = "© 2009-2019 by Werner Randelshofer";
 
     /**
      * Launches the application.

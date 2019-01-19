@@ -1340,7 +1340,7 @@ public class CourseModel extends DefaultTreeModel implements MutableTreeModel {
             out.println("API.camColumnNames = [");
             Iterator<String> i = columnTitles.iterator();
             while (i.hasNext()) {
-                String title = (String) i.next();
+                String title = i.next();
                 out.print("\"" + Strings.escapeHTML(Strings.escapeUnicodeWithHTMLEntities(title)) + "\"");
                 if (i.hasNext()) {
                     out.print(',');

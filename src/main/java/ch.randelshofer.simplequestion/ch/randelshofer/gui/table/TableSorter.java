@@ -342,7 +342,7 @@ space and avoid unnecessary heap allocation.
                 int viewColumn = columnModel.getColumnIndexAtX(e.getX());
                 int column = tableView.convertColumnIndexToModel(viewColumn);
                 if (e.getClickCount() == 1 && column != -1) {
-                    int shiftPressed = e.getModifiers() & InputEvent.SHIFT_MASK;
+                    int shiftPressed = e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK;
                     boolean ascending = (shiftPressed == 0);
                     sorter.sortByColumn(column, ascending);
                 }

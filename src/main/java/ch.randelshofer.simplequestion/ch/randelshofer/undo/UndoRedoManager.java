@@ -49,6 +49,7 @@ import java.util.ResourceBundle;
  * <br>1.0 2001-10-09
  */
 public class UndoRedoManager extends UndoManager {//javax.swing.undo.UndoManager {
+    private final static long serialVersionUID = 1L;
     protected PropertyChangeSupport propertySupport = new PropertyChangeSupport(this);
     /**
      * The resource bundle used for internationalisation.

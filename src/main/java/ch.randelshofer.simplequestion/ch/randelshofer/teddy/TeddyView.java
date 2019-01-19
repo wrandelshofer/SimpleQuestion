@@ -427,7 +427,7 @@ public class TeddyView extends AbstractView {
     public void select(int start, int end) {
         editor.select(start, end);
         try {
-            editor.scrollRectToVisible(editor.modelToView(start));
+            editor.scrollRectToVisible(editor.modelToView2D(start).getBounds());
         } catch (BadLocationException e) {
             e.printStackTrace();
         }

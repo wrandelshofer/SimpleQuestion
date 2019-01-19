@@ -33,7 +33,7 @@ class MimeTypeParameterList implements Cloneable {
      * Default constructor.
      */
     public MimeTypeParameterList() {
-        parameters = new Hashtable();
+        parameters = new Hashtable<>();
     }
 
     public MimeTypeParameterList(String rawdata)
@@ -49,7 +49,7 @@ class MimeTypeParameterList implements Cloneable {
         String paramName = null;
         Enumeration<String> enm = this.getNames();
         while (enm.hasMoreElements()) {
-            paramName = (String) enm.nextElement();
+            paramName = enm.nextElement();
             code += paramName.hashCode();
             code += this.get(paramName).hashCode();
         }
@@ -75,12 +75,12 @@ class MimeTypeParameterList implements Cloneable {
         String thisValue = null;
         String thatValue = null;
         Set<Map.Entry<String, String>> entries = parameters.entrySet();
-        Map.Entry entry = null;
+        Map.Entry<String,String> entry = null;
         for (Map.Entry<String, String> entry1 : entries) {
-            entry = (Map.Entry) entry1;
-            name = (String) entry.getKey();
-            thisValue = (String) entry.getValue();
-            thatValue = (String) that.parameters.get(name);
+            entry = entry1;
+            name = entry.getKey();
+            thisValue = entry.getValue();
+            thatValue = that.parameters.get(name);
             if ((thisValue == null) || (thatValue == null)) {
                 // both null -> equal, only one null -> not equal
                 if (thisValue != thatValue) {
@@ -236,7 +236,7 @@ class MimeTypeParameterList implements Cloneable {
      * is no current association.
      */
     public String get(String name) {
-        return (String) parameters.get(name.trim().toLowerCase());
+        return parameters.get(name.trim().toLowerCase());
     }
 
     /**
@@ -265,14 +265,14 @@ class MimeTypeParameterList implements Cloneable {
         StringBuffer buffer = new StringBuffer();
         buffer.ensureCapacity(parameters.size() * 16);    //    heuristic: 8 characters per field
 
-        Enumeration keys = parameters.keys();
+        Enumeration<String> keys = parameters.keys();
         while (keys.hasMoreElements()) {
             buffer.append("; ");
 
-            String key = (String) keys.nextElement();
+            String key = keys.nextElement();
             buffer.append(key);
             buffer.append('=');
-            buffer.append(quote((String) parameters.get(key)));
+            buffer.append(quote(parameters.get(key)));
         }
 
         return buffer.toString();
@@ -289,7 +289,9 @@ class MimeTypeParameterList implements Cloneable {
         } catch (CloneNotSupportedException cannotHappen) {
             throw new AssertionError(cannotHappen);
         }
-        newObj.parameters = (Hashtable<String, String>) parameters.clone();
+        @SuppressWarnings("unchecked")
+        Hashtable<String, String> clone = (Hashtable<String, String>) parameters.clone();
+        newObj.parameters = clone;
         return newObj;
     }
 

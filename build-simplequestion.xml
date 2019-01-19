@@ -21,6 +21,12 @@
         <property name="javadoc" value="dist/SimpleQuestion ${version}/javadoc"/>
         <property name="modulepath" value="${lib}/JHotDraw-7.6"/>
 
+        <condition property="jdk" value="${jdk10.win}">
+            <os family="windows" />
+        </condition>
+        <condition property="jdk" value="${jdk10.mac}">
+            <os family="unix" />
+        </condition>
     </target>
     <target name="clean" depends="init">
         <delete dir="${classes}"/>
@@ -91,7 +97,7 @@
                     <attribute name="Specification-Vendor" value="${author}"/>
                 </manifest>
             </jar>
-            <exec executable="${jdk10.mac}/bin/jar" unless:blank="@{mainclass}">
+            <exec executable="${jdk}/bin/jar" unless:blank="@{mainclass}">
                 <arg line="-f &quot;${dist.dir}/modules/@{module}.jar&quot;"/>
                 <arg line="-u"/>
                 <arg line="-e @{mainclass}"/>

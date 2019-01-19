@@ -82,7 +82,7 @@ public class NanoXMLDOMInput implements DOMInput {
      * Gets an attribute of the current element of the DOM Document.
      */
     public String getAttribute(String name, String defaultValue) {
-        String value = (String) current.getAttribute(name);
+        String value = current.getAttribute(name);
         return (value == null || value.length() == 0) ? defaultValue : value;
     }
 
@@ -105,15 +105,15 @@ public class NanoXMLDOMInput implements DOMInput {
      * Gets an attribute of the current element of the DOM Document.
      */
     public int getAttribute(String name, int defaultValue) {
-        String value = (String) current.getAttribute(name);
-        return (value == null || value.length() == 0) ? defaultValue : (int) Long.decode(value).intValue();
+        String value = current.getAttribute(name);
+        return (value == null || value.length() == 0) ? defaultValue : Long.decode(value).intValue();
     }
 
     /**
      * Gets an attribute of the current element of the DOM Document.
      */
     public double getAttribute(String name, double defaultValue) {
-        String value = (String) current.getAttribute(name);
+        String value = current.getAttribute(name);
         return (value == null || value.length() == 0) ? defaultValue : Double.parseDouble(value);
     }
 
@@ -121,7 +121,7 @@ public class NanoXMLDOMInput implements DOMInput {
      * Gets an attribute of the current element of the DOM Document.
      */
     public boolean getAttribute(String name, boolean defaultValue) {
-        String value = (String) current.getAttribute(name);
+        String value = current.getAttribute(name);
         return (value == null || value.length() == 0) ? defaultValue : Boolean.valueOf(value).booleanValue();
     }
 
@@ -141,7 +141,7 @@ public class NanoXMLDOMInput implements DOMInput {
         int count = 0;
         List<XMLElement> list = current.getChildren();
         for (int i = 0; i < list.size(); i++) {
-            XMLElement node = (XMLElement) list.get(i);
+            XMLElement node = list.get(i);
             if (node.getName().equals(tagName)) {
                 count++;
             }
@@ -155,7 +155,7 @@ public class NanoXMLDOMInput implements DOMInput {
     public void openElement(int index) {
         stack.push(current);
         List<XMLElement> list = current.getChildren();
-        current = (XMLElement) list.get(index);
+        current = list.get(index);
     }
 
     /**
@@ -164,7 +164,7 @@ public class NanoXMLDOMInput implements DOMInput {
     public void openElement(String tagName) {
         List<XMLElement> list = current.getChildren();
         for (int i = 0; i < list.size(); i++) {
-            XMLElement node = (XMLElement) list.get(i);
+            XMLElement node = list.get(i);
             if (node.getName().equals(tagName)) {
                 stack.push(current);
                 current = node;
@@ -182,7 +182,7 @@ public class NanoXMLDOMInput implements DOMInput {
         int count = 0;
         List<XMLElement> list = current.getChildren();
         for (int i = 0; i < list.size(); i++) {
-            XMLElement node = (XMLElement) list.get(i);
+            XMLElement node = list.get(i);
             if (node.getName().equals(tagName)) {
                 if (count++ == index) {
                     stack.push(current);
@@ -202,7 +202,7 @@ public class NanoXMLDOMInput implements DOMInput {
      *                                  not match the tag name of the element.
      */
     public void closeElement() {
-        current = (XMLElement) stack.pop();
+        current = stack.pop();
     }
 
     /**
@@ -229,9 +229,9 @@ public class NanoXMLDOMInput implements DOMInput {
         } else if (tagName.equals("long")) {
             o = Long.decode(getText());
         } else if (tagName.equals("float")) {
-            o = new Float(Float.parseFloat(getText()));
+            o = Float.parseFloat(getText());
         } else if (tagName.equals("double")) {
-            o = new Double(Double.parseDouble(getText()));
+            o = Double.parseDouble(getText());
         } else if (tagName.equals("boolean")) {
             o = Boolean.valueOf(getText());
         } else if (tagName.equals("color")) {

@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 package org.ghinkle.jarjunkie.view.content.java;
@@ -28,8 +28,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 class HighlightEdit extends JFrame {
-    String filename;
-    SyntaxHighlighter text;
+    private final static long serialVersionUID = 1L;
+    private String filename;
+    private SyntaxHighlighter text;
 
     public static void main(String[] args) {
         if (args.length != 1) {
@@ -37,7 +38,7 @@ class HighlightEdit extends JFrame {
             System.err.println("Usage: java HighlightEdit filename");
             System.exit(1);
              */
-            args = new String[] { "src/org/ghinkle/jarjunkie/view/content/java/HighlightEdit.java" };
+            args = new String[]{"src/org/ghinkle/jarjunkie/view/content/java/HighlightEdit.java"};
         }
         Runner runner = new Runner(args[0]);
         SwingUtilities.invokeLater(runner);
@@ -73,7 +74,7 @@ class HighlightEdit extends JFrame {
         Container pane = getContentPane();
         pane.add(scroller);
         pack();
-        show();
+        setVisible(true);
 
         try {
             text.read(new FileReader(filename), null);

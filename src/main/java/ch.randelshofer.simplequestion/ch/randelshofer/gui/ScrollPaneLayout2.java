@@ -20,6 +20,7 @@ import java.awt.Rectangle;
  */
 public class ScrollPaneLayout2 extends ScrollPaneLayout
         implements javax.swing.plaf.UIResource {
+    private final static long serialVersionUID = 1L;
 
     /**
      * Creates a new instance of CornerLayout2

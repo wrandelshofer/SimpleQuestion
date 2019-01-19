@@ -47,16 +47,6 @@ import java.io.IOException;
  */
 public class TechnicalElement extends AbstractElement {
     private final static long serialVersionUID = 1L;
-    /*
-    private GeneralElement generalElement;
-    private LifecycleElement lifecycleElement;
-    private MetametadataElement metametadataElement;
-    private TechnicalElement technicalElement;
-    private EducationalElement educationalElement;
-    private RightsElement rightsElement;
-    private RelationElement relationElement;
-    private AnnotationElement annotationElement;
-    private ClassificationElement classificationElement;*/
 
     /**
      * Creates a new instance.

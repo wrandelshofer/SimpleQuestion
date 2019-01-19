@@ -234,14 +234,14 @@ public class JavaxDOMOutput implements DOMOutput {
             addElement("intArray");
             int[] a = (int[]) o;
             for (int i = 0; i < a.length; i++) {
-                writeObject(new Integer(a[i]));
+                writeObject(a[i]);
             }
             closeElement();
         } else if (o instanceof float[]) {
             addElement("floatArray");
             float[] a = (float[]) o;
             for (int i = 0; i < a.length; i++) {
-                writeObject(new Float(a[i]));
+                writeObject(a[i]);
             }
             closeElement();
         } else if (o instanceof Font) {
@@ -263,7 +263,7 @@ public class JavaxDOMOutput implements DOMOutput {
         }
         addElement(tagName);
         if (objectids.containsKey(o)) {
-            addAttribute("ref", (String) objectids.get(o));
+            addAttribute("ref", objectids.get(o));
         } else {
             String id = Integer.toString(objectids.size(), 16);
             objectids.put(o, id);

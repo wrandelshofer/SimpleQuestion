@@ -121,25 +121,25 @@ public class DOMs {
      * if the element has no children with the specified name or if the parameter <code>elem</code> is null..
      */
     public static Element[] getElements(Element elem, String name) {
-        LinkedList children = new LinkedList();
+        LinkedList<Element> children = new LinkedList<>();
         if (elem != null) {
             NodeList list = elem.getChildNodes();
             for (int i = 0; i < list.getLength(); i++) {
                 Node node = list.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE
                         && node.getNodeName().equals(name)) {
-                    children.add(node);
+                    children.add((Element)node);
                 }
             }
             ;
         }
-        return (Element[]) children.toArray(new Element[children.size()]);
+        return children.toArray(new Element[0]);
     }
 
     /**
      * Returns an attribute value with a given name of the specified <code>Element</code>.
      *
-     * @param The          <code>Element</code> containing the attribute or null.
+     * @param elem         The          <code>Element</code> containing the attribute or null.
      * @param name         The name of the attribute.
      * @param defaultValue The default value of the attribute.
      * @return The value of the attribute or the default value if the element
@@ -157,7 +157,7 @@ public class DOMs {
      * Returns an attribute value with a given namespace and name name of the
      * specified <code>Element</code>.
      *
-     * @param The          <code>Element</code> containing the attribute or null.
+     * @param elem         The          <code>Element</code> containing the attribute or null.
      * @param namespaceURI The namespace URI.
      * @param name         The name of the attribute.
      * @param defaultValue The default value of the attribute.
@@ -177,7 +177,7 @@ public class DOMs {
      * last child <code>Element</code> with a given name
      * of the specified <code>Element</code>.
      *
-     * @param The           parent <code>Element</code> of the child or null.
+     * @param elem          The           parent <code>Element</code> of the child or null.
      * @param elementName   The name of the element tag to match on.
      * @param attributeName The name of the attribute to match on.
      * @param defaultValue  The default value of the attribte.
@@ -198,8 +198,7 @@ public class DOMs {
     /**
      * Returns the text of the specified <code>Element</code> or null.
      *
-     * @param The  <code>Element</code> containing the attribute.
-     * @param name The name of the attribute.
+     * @param n The  <code>Element</code> containing the attribute.
      * @return The value of the attribute or null if the element
      * has not an attribute with the specified name.
      */
@@ -212,7 +211,7 @@ public class DOMs {
      * last child <code>Element</code> with a given name
      * of the specified <code>Element</code>.
      *
-     * @param The         parent <code>Element</code> of the child or null.
+     * @param elem        The         parent <code>Element</code> of the child or null.
      * @param elementName The name of the element tag to match on.
      * @param defaultText The default text.
      * @return The text of the element or the default text, if the
@@ -232,8 +231,7 @@ public class DOMs {
     /**
      * Returns the text of the specified <code>Element</code>.
      *
-     * @param The          <code>Element</code> containing the attribute.
-     * @param name         The name of the attribute.
+     * @param n            The          <code>Element</code> containing the attribute.
      * @param defaultValue The default value of the attribute.
      * @return The value of the attribute or the default value if the element
      * has not an attribute with the specified name.

@@ -28,6 +28,7 @@ import java.lang.reflect.InvocationTargetException;
  * <br>1.0 2002-05-10 Created.
  */
 public class ProgressFrame extends javax.swing.JFrame {
+    private final static long serialVersionUID = 1L;
     private static ProgressFrame instance;
     private JPanel progressPanel;
 

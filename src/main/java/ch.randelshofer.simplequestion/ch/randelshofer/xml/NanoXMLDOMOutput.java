@@ -109,7 +109,7 @@ public class NanoXMLDOMOutput implements DOMOutput {
      *                                  not match the tag name of the element.
      */
     public void closeElement() {
-        current = (XMLElement) stack.pop();
+        current = stack.pop();
     }
 
     /**
@@ -152,7 +152,7 @@ public class NanoXMLDOMOutput implements DOMOutput {
      * Adds an attribute to current element of the DOM Document.
      */
     public void addAttribute(String name, boolean value) {
-        current.setAttribute(name, new Boolean(value).toString());
+        current.setAttribute(name, Boolean.toString(value));
     }
 
     /**
@@ -228,14 +228,14 @@ public class NanoXMLDOMOutput implements DOMOutput {
             addElement("intArray");
             int[] a = (int[]) o;
             for (int i = 0; i < a.length; i++) {
-                writeObject(new Integer(a[i]));
+                writeObject(a[i]);
             }
             closeElement();
         } else if (o instanceof float[]) {
             addElement("floatArray");
             float[] a = (float[]) o;
             for (int i = 0; i < a.length; i++) {
-                writeObject(new Float(a[i]));
+                writeObject(a[i]);
             }
             closeElement();
         } else if (o instanceof Font) {
@@ -258,7 +258,7 @@ public class NanoXMLDOMOutput implements DOMOutput {
         addElement(tagName);
         XMLElement element = current;
         if (objectids.containsKey(o)) {
-            addAttribute("ref", (String) objectids.get(o));
+            addAttribute("ref", objectids.get(o));
         } else {
             String id = Integer.toString(objectids.size(), 16);
             objectids.put(o, id);

@@ -31,19 +31,17 @@ public interface ZipIn {
      * beginning of the entry data.
      *
      * @return the next ZIP file entry, or null if there are no more entries
-     * @throws ZipException if a ZIP file error has occurred
      * @throws IOException  if an I/O error has occurred
      */
-    public ZipEntry getNextEntry() throws IOException;
+    ZipEntry getNextEntry() throws IOException;
 
     /**
      * Closes the current ZIP entry and positions the stream for reading the
      * next entry.
      *
-     * @throws ZipException if a ZIP file error has occurred
      * @throws IOException  if an I/O error has occurred
      */
-    public void closeEntry() throws IOException;
+    void closeEntry() throws IOException;
 
     /**
      * Closes this input stream and releases any system resources associated
@@ -51,7 +49,7 @@ public interface ZipIn {
      *
      * @throws IOException if an I/O error has occurred
      */
-    public void close() throws IOException;
+    void close() throws IOException;
 
     /**
      * Returns the input stream for reading the current ZipEntry.
@@ -59,5 +57,5 @@ public interface ZipIn {
      * @return An InputStream.
      * @throws IOException if an I/O error has occurred
      */
-    public InputStream getInputStream() throws IOException;
+    InputStream getInputStream() throws IOException;
 }

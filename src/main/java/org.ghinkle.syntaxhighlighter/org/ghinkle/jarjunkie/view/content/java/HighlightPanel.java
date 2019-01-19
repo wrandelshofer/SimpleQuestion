@@ -28,6 +28,7 @@ import java.io.InputStreamReader;
  * @version $Revision: 1.1.1.1 $($Author: ghinkl $ / $Date: 2005/03/15 01:58:23 $)
  */
 public class HighlightPanel extends JPanel {
+    private final static long serialVersionUID = 1L;
     private SyntaxHighlighter text;
 
     public void display(String s) {

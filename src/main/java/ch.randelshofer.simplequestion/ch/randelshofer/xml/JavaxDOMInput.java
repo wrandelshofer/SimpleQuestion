@@ -139,7 +139,7 @@ public class JavaxDOMInput implements DOMInput {
      */
     public int getAttribute(String name, int defaultValue) {
         String value = ((Element) current).getAttribute(name);
-        return (value.length() == 0) ? defaultValue : (int) Long.decode(value).intValue();
+        return (value.length() == 0) ? defaultValue : Long.decode(value).intValue();
     }
 
     /**
@@ -155,7 +155,7 @@ public class JavaxDOMInput implements DOMInput {
      */
     public boolean getAttribute(String name, boolean defaultValue) {
         String value = ((Element) current).getAttribute(name);
-        return (value.length() == 0) ? defaultValue : Boolean.valueOf(value).booleanValue();
+        return (value.length() == 0) ? defaultValue : Boolean.valueOf(value);
     }
 
 
@@ -286,9 +286,9 @@ public class JavaxDOMInput implements DOMInput {
         } else if (tagName.equals("long")) {
             o = Long.decode(getText());
         } else if (tagName.equals("float")) {
-            o = new Float(Float.parseFloat(getText()));
+            o = Float.parseFloat(getText());
         } else if (tagName.equals("double")) {
-            o = new Double(Double.parseDouble(getText()));
+            o = Double.parseDouble(getText());
         } else if (tagName.equals("boolean")) {
             o = Boolean.valueOf(getText());
         } else if (tagName.equals("color")) {

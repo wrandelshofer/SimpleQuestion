@@ -1,5 +1,4 @@
-/*
- * @(#)Worker.java  2.1  2005-10-16
+/* @(#)Worker.java
  *
  * Copyright (c) 1998-2005 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

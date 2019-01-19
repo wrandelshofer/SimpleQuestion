@@ -1,5 +1,4 @@
-/*
- * @(#)DOMOutput.java  1.0  10. März 2004
+/* @(#)DOMOutput.java
  *
  * Copyright (c) 2001 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

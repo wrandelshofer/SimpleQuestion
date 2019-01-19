@@ -1,5 +1,4 @@
-/*
- * @(#)NonUndoableEdit.java  1.0  5. April 2004
+/* @(#)NonUndoableEdit.java
  *
  * Copyright (c) 2003-2006 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

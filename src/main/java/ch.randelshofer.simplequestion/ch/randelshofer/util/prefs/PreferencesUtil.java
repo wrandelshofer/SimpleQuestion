@@ -1,5 +1,4 @@
-/*
- * @(#)PreferencesUtil.java  1.0  October 13, 2005
+/* @(#)PreferencesUtil.java
  *
  * Copyright (c) 2005 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

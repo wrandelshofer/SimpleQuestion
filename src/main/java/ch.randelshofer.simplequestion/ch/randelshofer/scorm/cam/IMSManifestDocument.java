@@ -1,5 +1,4 @@
-/*
- * @(#)IMSManifestDocument.java  1.3  2006-10-10
+/* @(#)IMSManifestDocument.java
  *
  * Copyright (c) 2003-2006 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

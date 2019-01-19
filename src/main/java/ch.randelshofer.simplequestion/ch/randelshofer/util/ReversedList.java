@@ -1,5 +1,4 @@
-/*
- * @(#)ReversedList.java  1.0  2006-01-20
+/* @(#)ReversedList.java
  *
  * Copyright (c) 2006 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

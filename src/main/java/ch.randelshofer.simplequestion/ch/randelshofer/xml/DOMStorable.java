@@ -1,5 +1,4 @@
-/*
- * @(#)DOMStorable.java  1.0  February 17, 2004
+/* @(#)DOMStorable.java
  *
  * Copyright (c) 2003-2006 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

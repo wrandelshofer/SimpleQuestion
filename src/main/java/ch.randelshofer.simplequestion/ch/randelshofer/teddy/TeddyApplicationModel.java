@@ -1,5 +1,4 @@
-/*
- * @(#)TeddyApplicationModel.java
+/* @(#)TeddyApplicationModel.java
  *
  * Copyright (c) 2007-2008 by the original authors of JHotDraw
  * and all its contributors.

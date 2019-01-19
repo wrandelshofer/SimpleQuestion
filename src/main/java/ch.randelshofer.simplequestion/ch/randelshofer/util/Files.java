@@ -1,5 +1,4 @@
-/*
- * @(#)Files.java  1.1  2007-09-13
+/* @(#)Files.java
  *
  * Copyright (c) 2004-2007 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

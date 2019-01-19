@@ -1,5 +1,4 @@
-/*
- * @(#)ScrollPaneLayout2.java  1.0  2002-12-21
+/* @(#)ScrollPaneLayout2.java
  *
  * Copyright (c) 2001 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

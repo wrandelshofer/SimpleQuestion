@@ -1,5 +1,4 @@
-/*
- * @(#)Question.java  1.4.1  2010-04-05
+/* @(#)Question.java
  *
  * Copyright (c) 2006-2010 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

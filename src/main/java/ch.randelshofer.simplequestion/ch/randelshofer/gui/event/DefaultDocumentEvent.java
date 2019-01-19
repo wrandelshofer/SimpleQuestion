@@ -1,7 +1,5 @@
-/*
- * DefaultDocumentEvent.java
- *
- * Created on October 18, 2001, 3:05 PM
+/* @(#)DefaultDocumentEvent.java
+ * Copyright © Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.gui.event;

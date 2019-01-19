@@ -1,5 +1,4 @@
-/*
- * @(#)AnswerList.java  1.1  2008-02-19
+/* @(#)AnswerList.java
  *
  * Copyright (c) 2006-2008 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

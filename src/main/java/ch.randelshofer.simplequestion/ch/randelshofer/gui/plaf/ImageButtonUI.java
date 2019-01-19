@@ -1,7 +1,5 @@
-/*
- * ImageButtonUI.java
- *
- * Created on October 16, 2001, 9:50 PM
+/* @(#)ImageButtonUI.java
+ * Copyright © Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.gui.plaf;

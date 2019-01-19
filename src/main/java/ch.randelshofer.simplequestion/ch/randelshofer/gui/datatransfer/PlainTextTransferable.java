@@ -1,5 +1,4 @@
-/*
- * @(#)PlainTextTransferable.java  1.1  2009-09-01
+/* @(#)PlainTextTransferable.java
  *
  * Copyright (c) 2007-2009 Werner Randelshofer
  * Hausmatt 10, CH-6405 Immensee, Switzerland

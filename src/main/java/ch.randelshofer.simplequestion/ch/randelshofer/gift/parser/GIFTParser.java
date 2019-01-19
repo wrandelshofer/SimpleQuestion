@@ -1,5 +1,4 @@
-/*
- * @(#)GIFTParser.java  1.3.1  2008-12-03
+/* @(#)GIFTParser.java
  *
  * Copyright (c) 2006-2008 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

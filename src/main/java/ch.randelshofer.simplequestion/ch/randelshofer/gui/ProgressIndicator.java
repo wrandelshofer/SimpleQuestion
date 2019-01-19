@@ -1,5 +1,4 @@
-/*
- * @(#)ProgressIndicator.java  1.0  August 1, 2005
+/* @(#)ProgressIndicator.java
  *
  * Copyright (c) 2005 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

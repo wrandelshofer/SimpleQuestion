@@ -1,5 +1,4 @@
-/*
- * @(#)ProgressView.java  2.0 2005-08-02
+/* @(#)ProgressView.java
  *
  * Copyright (c) 2002-2005 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

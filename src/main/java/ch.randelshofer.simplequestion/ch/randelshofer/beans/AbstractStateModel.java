@@ -1,14 +1,5 @@
-/*
- * @(#)AbstractStateModel.java  1.0  2002-05-09
- *
- * Copyright (c) 1998-2000 Werner Randelshofer
- * Staldenmattweg 2, CH-6405 Immensee, Switzerland
- * All rights reserved.
- *
- * Permission to use this software for evaluation purposes
- * is hereby granted without fee provided that the complete
- * copyright notice and this permission notice appear in all
- * copies and in supporting documentation.
+/* @(#)AbstractStateModel.java
+ * Copyright © Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.beans;

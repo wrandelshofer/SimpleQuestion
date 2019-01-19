@@ -1,5 +1,4 @@
-/*
- * @(#)LeftAlignedHeaderRenderer.java  1.0  June 21, 2004
+/* @(#)LeftAlignedHeaderRenderer.java
  *
  * Copyright (c) 2004 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

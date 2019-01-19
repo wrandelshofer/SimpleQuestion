@@ -1,3 +1,6 @@
+/* @(#)AbstractBean.java
+ * Copyright © Werner Randelshofer, Switzerland. MIT License.
+ */
 package ch.randelshofer.beans;
 
 import java.beans.*;

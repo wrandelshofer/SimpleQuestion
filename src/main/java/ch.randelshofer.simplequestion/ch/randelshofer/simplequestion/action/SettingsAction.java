@@ -1,5 +1,4 @@
-/*
- * @(#)SettingsAction.java  1.0  2009-09-07
+/* @(#)SettingsAction.java
  * 
  * Copyright (c) 2009 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

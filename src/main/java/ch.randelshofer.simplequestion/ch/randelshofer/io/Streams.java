@@ -1,5 +1,4 @@
-/*
- * @(#)Streams.java  1.0  11. April 2006
+/* @(#)Streams.java
  *
  * Copyright (c) 2004 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

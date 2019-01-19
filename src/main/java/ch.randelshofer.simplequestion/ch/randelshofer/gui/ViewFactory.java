@@ -1,5 +1,4 @@
-/*
- * @(#)ViewFactory.java 1.1  2001-10-05
+/* @(#)ViewFactory.java
  *
  * Copyright (c) 2001 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

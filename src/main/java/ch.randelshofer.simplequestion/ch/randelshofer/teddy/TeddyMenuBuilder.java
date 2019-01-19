@@ -1,5 +1,4 @@
-/*
- * @(#)SimpleQuestionMenuBuilder.java  1.0  2012-04-06
+/* @(#)SimpleQuestionMenuBuilder.java
  * 
  * Copyright (c) 2012 Werner Randelshofer, Immensee, Switzerland.
  * All rights reserved.

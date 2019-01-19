@@ -1,5 +1,4 @@
-/*
- * @(#)Random2.java  1.0  July 11, 2005
+/* @(#)Random2.java
  *
  * Copyright (c) 2005 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

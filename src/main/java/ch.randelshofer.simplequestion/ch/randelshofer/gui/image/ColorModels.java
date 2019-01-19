@@ -1,5 +1,4 @@
-/*
- * @(#)Colors.java  1.0  July 9, 2005
+/* @(#)Colors.java
  *
  * Copyright (c) 2005 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

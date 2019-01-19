@@ -1,5 +1,4 @@
-/*
- * @(#)KeywordElement.java  1.1  2006-10-11
+/* @(#)KeywordElement.java
  *
  * Copyright (c) 2001 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

@@ -1,7 +1,5 @@
-/*
- * PlafConstants.java
- *
- * Created on October 17, 2001, 1:04 PM
+/* @(#)PlafConstants.java
+ * Copyright © Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.gui.plaf;

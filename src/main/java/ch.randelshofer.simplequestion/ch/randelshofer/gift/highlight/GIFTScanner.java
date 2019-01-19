@@ -1,5 +1,4 @@
-/*
- * @(#)GIFTScanner.java  2.0.1  2008-12-03
+/* @(#)GIFTScanner.java
  *
  * Copyright (c) 2006-2008 Hochschule Luzern, Fachstelle Neue Lernmedien,
  * Zentralstrasse 18, Postfach 2858, CH-6002 Lucerne, Switzerland

@@ -1,5 +1,4 @@
-/*
- * @(#)DefaultTransferable.java  2.0  2003-11-02
+/* @(#)DefaultTransferable.java
  *
  * Copyright (c) 2001 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

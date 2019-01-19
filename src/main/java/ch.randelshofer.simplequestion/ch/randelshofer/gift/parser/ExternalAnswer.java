@@ -1,5 +1,4 @@
-/*
- * @(#)ExternalAnswer.java  1.0  28. November 2006
+/* @(#)ExternalAnswer.java
  *
  * Copyright (c) 2006-2008 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

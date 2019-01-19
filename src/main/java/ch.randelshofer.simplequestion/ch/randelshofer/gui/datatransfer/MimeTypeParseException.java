@@ -1,5 +1,4 @@
-/*
- * @(#)MimeTypeParseException.java  1.0  November 2, 2003
+/* @(#)MimeTypeParseException.java
  *
  * Copyright (c) 2003 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

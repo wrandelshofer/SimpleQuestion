@@ -1,5 +1,4 @@
-/*
- * @(#)FileTextFieldTransferHandler.java  1.1  2008-12-03
+/* @(#)FileTextFieldTransferHandler.java
  *
  * Copyright (c) 2007-2008 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

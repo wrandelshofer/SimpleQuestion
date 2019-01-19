@@ -1,14 +1,5 @@
-/*
- * @(#)IdentifierElement.java  1.1  2006-10-11
- *
- * Copyright (c) 2008 Werner Randelshofer
- * Staldenmattweg 2, CH-6405 Immensee, Switzerland
- * All rights reserved.
- *
- * The copyright of this software is owned by Werner Randelshofer. 
- * You may not use, copy or modify this software, except in  
- * accordance with the license agreement you entered into with  
- * Werner Randelshofer. For details see accompanying license terms.
+/* @(#)IdentifierElement.java
+ * Copyright © Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.scorm.lom;

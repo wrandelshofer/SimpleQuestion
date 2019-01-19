@@ -1,5 +1,4 @@
-/*
- * @(#)JEditorArea.java
+/* @(#)JEditorArea.java
  *
  * Copyright (c) 2006 by the original authors of JHotDraw
  * and all its contributors.

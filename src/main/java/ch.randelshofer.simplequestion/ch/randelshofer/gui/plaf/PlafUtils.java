@@ -1,7 +1,5 @@
-/*
- * PlafUtils.java
- *
- * Created on October 17, 2001, 11:11 AM
+/* @(#)PlafUtils.java
+ * Copyright © Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.gui.plaf;

@@ -1,5 +1,4 @@
-/*
- * @(#)ZipEntryFilter.java  1.0  13. Januar 2004
+/* @(#)ZipEntryFilter.java
  *
  * Copyright (c) 2004 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

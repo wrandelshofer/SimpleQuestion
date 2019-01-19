@@ -1,5 +1,4 @@
-/*
- * @(#)MatchType.java  1.0  November 14, 2004
+/* @(#)MatchType.java
  *
  * Copyright (c) 2004 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

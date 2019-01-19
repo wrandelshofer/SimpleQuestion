@@ -1,5 +1,4 @@
-/*
- * @(#)LFWriter.java  1.0.1  2004-02-14
+/* @(#)LFWriter.java
  *
  * Copyright (c) 2002 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

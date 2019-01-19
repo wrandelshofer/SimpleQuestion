@@ -1,5 +1,4 @@
-/*
- * @(#)OrganizationElement.java  1.2  2006-10-10
+/* @(#)OrganizationElement.java
  *
  * Copyright (c) 2001-2006 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

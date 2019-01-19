@@ -1,5 +1,4 @@
-/*
- * @(#)TinyLMSApp.java  1.5  2006-05-26
+/* @(#)TinyLMSApp.java
  *
  * Copyright (c) 2005-2006 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

@@ -1,5 +1,4 @@
-/*
- * @(#)ZipInStream.java  1.0  2008-12-03
+/* @(#)ZipInStream.java
  *
  * Copyright (c) 2008 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

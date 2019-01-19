@@ -1,5 +1,4 @@
-/*
- * @(#)EditableComponent.java  2.0  2001-07-18
+/* @(#)EditableComponent.java
  *
  * Copyright (c) 2001 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

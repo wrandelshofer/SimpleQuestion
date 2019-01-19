@@ -1,5 +1,4 @@
-/*
- * @(#)MutableJTree.java  2.3.1  2006-01-04
+/* @(#)MutableJTree.java
  *
  * Copyright (c) 2004-2006 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

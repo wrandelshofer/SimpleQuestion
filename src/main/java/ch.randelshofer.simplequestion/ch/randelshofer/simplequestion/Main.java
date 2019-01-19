@@ -1,5 +1,4 @@
-/*
- * @(#)Main.java  1.0.1  2011-06-06
+/* @(#)Main.java
  * 
  * Copyright (c) 2009-2011 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

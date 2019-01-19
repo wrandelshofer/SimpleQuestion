@@ -1,5 +1,4 @@
-/*
- * @(#)StringTransferable.java  1.0  22. August 2007
+/* @(#)StringTransferable.java
  *
  * Copyright (c) 2007 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

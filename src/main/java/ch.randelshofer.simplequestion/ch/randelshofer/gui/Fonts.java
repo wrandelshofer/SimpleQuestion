@@ -1,5 +1,4 @@
-/*
- * @(#)Fonts.java  1.1  2004-04-04
+/* @(#)Fonts.java
  *
  * Copyright (c) 2003 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

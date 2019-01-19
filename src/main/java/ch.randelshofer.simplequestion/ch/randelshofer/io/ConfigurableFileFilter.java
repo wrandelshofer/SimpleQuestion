@@ -1,14 +1,5 @@
-/*
- * @(#)ConfigurableFileFilter.java  1.0  2. August 2006
- *
- * Copyright (c) 2008 Werner Randelshofer
- * Staldenmattweg 2, CH-6405 Immensee, Switzerland
- * All rights reserved.
- *
- * The copyright of this software is owned by Werner Randelshofer. 
- * You may not use, copy or modify this software, except in  
- * accordance with the license agreement you entered into with  
- * Werner Randelshofer. For details see accompanying license terms.
+/* @(#)ConfigurableFileFilter.java
+ * Copyright © Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.io;

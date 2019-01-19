@@ -1,5 +1,4 @@
-/*
- * @(#)ILIASQuestionPoolExporter.java  1.4  2008-02-20
+/* @(#)ILIASQuestionPoolExporter.java
  *
  * Copyright (c) 2008 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

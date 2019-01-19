@@ -1,5 +1,4 @@
-/*
- * @(#)NumberedParagraphView.java
+/* @(#)NumberedParagraphView.java
  *
  * Copyright (c) 2005 by the original authors of JHotDraw
  * and all its contributors.

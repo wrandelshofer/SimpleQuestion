@@ -1,5 +1,4 @@
-/*
- * @(#)SCORMExporter.java  2.1  2011-06-05
+/* @(#)SCORMExporter.java
  *
  * Copyright (c) 2006-2011 Hochschule Luzern, Fachstelle Neue Lernmedien,
  * Zentralstrasse 18, Postfach 2858, CH-6002 Lucerne, Switzerland

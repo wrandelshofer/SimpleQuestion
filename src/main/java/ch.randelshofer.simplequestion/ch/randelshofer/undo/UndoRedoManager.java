@@ -1,5 +1,4 @@
-/*
- * @(#)UndoRedoManager.java 1.6  2006-05-03
+/* @(#)UndoRedoManager.java
  *
  * Copyright (c) 2001-2006 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

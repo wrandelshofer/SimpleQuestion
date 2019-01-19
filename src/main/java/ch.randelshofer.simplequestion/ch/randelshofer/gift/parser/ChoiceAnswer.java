@@ -1,5 +1,4 @@
-/*
- * @(#)ChoiceAnswer.java  1.0  24. April 2006
+/* @(#)ChoiceAnswer.java
  *
  * Copyright (c) 2006-2008 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

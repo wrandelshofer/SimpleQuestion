@@ -1,5 +1,4 @@
-/*
- * @(#)SettingsPanel.java  2.1  2008-12-03
+/* @(#)SettingsPanel.java
  *
  * Copyright (c) 2006-2008 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

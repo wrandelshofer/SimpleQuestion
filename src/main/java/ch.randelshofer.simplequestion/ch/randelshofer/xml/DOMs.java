@@ -1,5 +1,4 @@
-/*
- * @(#)DOMs.java  1.1  2006-10-12
+/* @(#)DOMs.java
  *
  * Copyright (c) 2003 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

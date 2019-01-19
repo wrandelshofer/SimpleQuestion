@@ -1,5 +1,4 @@
-/*
- * @(#)DummyClipboardOwner.java  1.0  November 1, 2003
+/* @(#)DummyClipboardOwner.java
  *
  * Copyright (c) 2003 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

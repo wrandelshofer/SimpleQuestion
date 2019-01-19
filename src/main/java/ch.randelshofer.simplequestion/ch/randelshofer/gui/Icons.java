@@ -1,5 +1,4 @@
-/*
- * @(#)Icons.java  1.0.2 2003-08-24
+/* @(#)Icons.java
  *
  * Copyright (c) 2001 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

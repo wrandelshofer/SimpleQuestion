@@ -1,5 +1,4 @@
-/*
- * @(#)CAM.java  1.0  October 10, 2006
+/* @(#)CAM.java
  *
  * Copyright (c) 2006 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

@@ -1,5 +1,4 @@
-/*
- * @(#)MatchType.java
+/* @(#)MatchType.java
  *
   * Copyright (c) 2004-2005 by the original authors of JHotDraw
  * and all its contributors.

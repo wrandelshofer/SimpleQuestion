@@ -1,5 +1,4 @@
-/*
- * @(#)TemplateEngine.java  1.0  2011-06-06
+/* @(#)TemplateEngine.java
  * 
  * Copyright (c) 2011 Werner Randelshofer, Immensee, Switzerland.
  * All rights reserved.

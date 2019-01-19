@@ -1,5 +1,4 @@
-/*
- * @(#)DocumentAdapter.java  1.0  2001-07-24
+/* @(#)DocumentAdapter.java
  *
  * Copyright (c) 2001 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

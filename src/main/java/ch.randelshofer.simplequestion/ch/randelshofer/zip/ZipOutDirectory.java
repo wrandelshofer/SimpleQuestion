@@ -1,5 +1,4 @@
-/*
- * @(#)ZipOutDirectory.java  1.1  2009-01-08
+/* @(#)ZipOutDirectory.java
  *
  * Copyright (c) 2004-2009 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

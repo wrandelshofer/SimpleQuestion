@@ -1,5 +1,4 @@
-/*
- * @(#)CourseModelPrinter.java  1.0  March 17, 2003
+/* @(#)CourseModelPrinter.java
  *
  * Copyright (c) 2003 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

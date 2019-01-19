@@ -1,5 +1,4 @@
-/*
- * @(#)IntComparator.java  1.0 2002-09-25
+/* @(#)IntComparator.java
  *
  * Copyright (c) 2002 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

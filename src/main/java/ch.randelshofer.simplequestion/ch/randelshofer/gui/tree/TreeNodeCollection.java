@@ -1,5 +1,4 @@
-/*
- * @(#)TreeNodeCollection.java  1.0  2001-10-08
+/* @(#)TreeNodeCollection.java
  *
  * Copyright (c) 2001 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.

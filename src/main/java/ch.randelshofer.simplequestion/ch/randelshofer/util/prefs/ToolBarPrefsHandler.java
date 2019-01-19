@@ -1,5 +1,4 @@
-/*
- * @(#)ToolBarPrefsHandler.java  1.0  2. April 2004
+/* @(#)ToolBarPrefsHandler.java
  *
  * Copyright (c) 2003-2006 Werner Randelshofer
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland

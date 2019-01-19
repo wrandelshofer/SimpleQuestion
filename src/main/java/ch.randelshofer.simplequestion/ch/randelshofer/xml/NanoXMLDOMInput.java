@@ -28,7 +28,7 @@ import java.util.Stack;
 /**
  * NanoXMLDOMInput.
  *
- * @author  Werner Randelshofer
+ * @author Werner Randelshofer
  * @version 1.0 February 17, 2004 Created.
  */
 public class NanoXMLDOMInput implements DOMInput {
@@ -37,8 +37,8 @@ public class NanoXMLDOMInput implements DOMInput {
      * the XML DOM. A key in this map is a String representing a marshalled
      * reference. A value in this map is an unmarshalled Object.
      */
-    private HashMap<String,Object> idobjects = new HashMap<String,Object>();
-    
+    private HashMap<String, Object> idobjects = new HashMap<String, Object>();
+
     /**
      * The document used for input.
      */
@@ -47,20 +47,21 @@ public class NanoXMLDOMInput implements DOMInput {
      * The current node used for input.
      */
     private XMLElement current;
-    
+
     /**
      * The factory used to create objects from XML tag names.
      */
     private DOMFactory factory;
-    
+
     /**
      * The stack.
      */
     private Stack<XMLElement> stack = new Stack<XMLElement>();
-    
+
     public NanoXMLDOMInput(DOMFactory factory, InputStream in) throws IOException {
         this(factory, new InputStreamReader(in, "UTF8"));
     }
+
     public NanoXMLDOMInput(DOMFactory factory, Reader in) throws IOException {
         this.factory = factory;
         current = new XMLElement(null, false, false);
@@ -69,13 +70,14 @@ public class NanoXMLDOMInput implements DOMInput {
         document.addChild(current);
         current = document;
     }
-    
+
     /**
      * Returns the tag name of the current element.
      */
     public String getTagName() {
         return current.getName();
     }
+
     /**
      * Gets an attribute of the current element of the DOM Document.
      */
@@ -83,12 +85,14 @@ public class NanoXMLDOMInput implements DOMInput {
         String value = (String) current.getAttribute(name);
         return (value == null || value.length() == 0) ? defaultValue : value;
     }
+
     /**
      * Gets the text of the current element of the DOM Document.
      */
     public String getText() {
         return getText(null);
     }
+
     /**
      * Gets the text of the current element of the DOM Document.
      */
@@ -96,6 +100,7 @@ public class NanoXMLDOMInput implements DOMInput {
         String value = current.getContent();
         return (value == null) ? defaultValue : value;
     }
+
     /**
      * Gets an attribute of the current element of the DOM Document.
      */
@@ -103,6 +108,7 @@ public class NanoXMLDOMInput implements DOMInput {
         String value = (String) current.getAttribute(name);
         return (value == null || value.length() == 0) ? defaultValue : (int) Long.decode(value).intValue();
     }
+
     /**
      * Gets an attribute of the current element of the DOM Document.
      */
@@ -110,6 +116,7 @@ public class NanoXMLDOMInput implements DOMInput {
         String value = (String) current.getAttribute(name);
         return (value == null || value.length() == 0) ? defaultValue : Double.parseDouble(value);
     }
+
     /**
      * Gets an attribute of the current element of the DOM Document.
      */
@@ -117,14 +124,15 @@ public class NanoXMLDOMInput implements DOMInput {
         String value = (String) current.getAttribute(name);
         return (value == null || value.length() == 0) ? defaultValue : Boolean.valueOf(value).booleanValue();
     }
-    
-    
+
+
     /**
      * Returns the number of child elements of the current element.
      */
     public int getElementCount() {
         return current.countChildren();
     }
+
     /**
      * Returns the number of child elements with the specified tag name
      * of the current element.
@@ -132,7 +140,7 @@ public class NanoXMLDOMInput implements DOMInput {
     public int getElementCount(String tagName) {
         int count = 0;
         List<XMLElement> list = current.getChildren();
-        for (int i=0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             XMLElement node = (XMLElement) list.get(i);
             if (node.getName().equals(tagName)) {
                 count++;
@@ -140,7 +148,7 @@ public class NanoXMLDOMInput implements DOMInput {
         }
         return count;
     }
-    
+
     /**
      * Opens the element with the specified index and makes it the current node.
      */
@@ -149,13 +157,13 @@ public class NanoXMLDOMInput implements DOMInput {
         List<XMLElement> list = current.getChildren();
         current = (XMLElement) list.get(index);
     }
-    
+
     /**
      * Opens the last element with the specified name and makes it the current node.
      */
     public void openElement(String tagName) {
         List<XMLElement> list = current.getChildren();
-        for (int i=0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             XMLElement node = (XMLElement) list.get(i);
             if (node.getName().equals(tagName)) {
                 stack.push(current);
@@ -163,8 +171,9 @@ public class NanoXMLDOMInput implements DOMInput {
                 return;
             }
         }
-        throw new IllegalArgumentException("no such element:"+tagName);
+        throw new IllegalArgumentException("no such element:" + tagName);
     }
+
     /**
      * Opens the element with the specified name and index and makes it the
      * current node.
@@ -172,7 +181,7 @@ public class NanoXMLDOMInput implements DOMInput {
     public void openElement(String tagName, int index) {
         int count = 0;
         List<XMLElement> list = current.getChildren();
-        for (int i=0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             XMLElement node = (XMLElement) list.get(i);
             if (node.getName().equals(tagName)) {
                 if (count++ == index) {
@@ -182,35 +191,37 @@ public class NanoXMLDOMInput implements DOMInput {
                 }
             }
         }
-        throw new IllegalArgumentException("no such element:"+tagName+" at index:"+index);
+        throw new IllegalArgumentException("no such element:" + tagName + " at index:" + index);
     }
-    
+
     /**
      * Closes the current element of the DOM Document.
      * The parent of the current element becomes the current element.
-     * @exception IllegalArgumentException if the provided tagName does
-     * not match the tag name of the element.
+     *
+     * @throws IllegalArgumentException if the provided tagName does
+     *                                  not match the tag name of the element.
      */
     public void closeElement() {
         current = (XMLElement) stack.pop();
     }
-    
+
     /**
      * Reads an object from the current element.
      */
     public Object readObject() {
         return readObject(0);
     }
+
     /**
      * Reads an object from the current element.
      */
     public Object readObject(int index) {
         openElement(index);
         Object o;
-        
+
         String tagName = getTagName();
         if (tagName.equals("null")) {
-            o =  null;
+            o = null;
         } else if (tagName.equals("string")) {
             o = getText();
         } else if (tagName.equals("int")) {
@@ -224,16 +235,16 @@ public class NanoXMLDOMInput implements DOMInput {
         } else if (tagName.equals("boolean")) {
             o = Boolean.valueOf(getText());
         } else if (tagName.equals("color")) {
-            o = new Color(getAttribute("rgba",0xff));
+            o = new Color(getAttribute("rgba", 0xff));
         } else if (tagName.equals("intArray")) {
             int[] a = new int[getElementCount()];
-            for (int i=0; i < a.length; i++) {
+            for (int i = 0; i < a.length; i++) {
                 a[i] = ((Integer) readObject(i)).intValue();
             }
             o = a;
         } else if (tagName.equals("floatArray")) {
             float[] a = new float[getElementCount()];
-            for (int i=0; i < a.length; i++) {
+            for (int i = 0; i < a.length; i++) {
                 a[i] = ((Float) readObject(i)).floatValue();
             }
             o = a;
@@ -242,11 +253,11 @@ public class NanoXMLDOMInput implements DOMInput {
         } else {
             String ref = getAttribute("ref", null);
             String id = getAttribute("id", ref);
-            
+
             if (id == null) {
-                throw new IllegalArgumentException(getTagName()+" has neither an 'id' nor a 'ref' attribute: "+current);
+                throw new IllegalArgumentException(getTagName() + " has neither an 'id' nor a 'ref' attribute: " + current);
             }
-            
+
             if (idobjects.containsKey(id)) {
                 o = idobjects.get(id);
             } else {
@@ -259,7 +270,7 @@ public class NanoXMLDOMInput implements DOMInput {
                 }
             }
         }
-        
+
         closeElement();
         return o;
     }

@@ -28,6 +28,7 @@ public class UndoableTreeSelectionModel
     private static class TreeSelectionEdit
             extends StateEdit {
         static final long serialVersionUID = 1L;
+
         public TreeSelectionEdit(StateEditable anObject, String name) {
             super(anObject, name);
         }
@@ -195,7 +196,7 @@ public class UndoableTreeSelectionModel
      * Upon receiving this message the receiver should extract any relevant
      * state out of <EM>state</EM>.
      */
-    public void restoreState(Hashtable<?,?> state) {
+    public void restoreState(Hashtable<?, ?> state) {
         Object value = state.get("selection");
 
         if (value != null) {
@@ -211,7 +212,7 @@ public class UndoableTreeSelectionModel
      * Upon receiving this message the receiver should place any relevant
      * state into <EM>state</EM>.
      */
-    public void storeState(Hashtable<Object,Object> state) {
+    public void storeState(Hashtable<Object, Object> state) {
         if (selection != null) {
             state.put("selection", selection.clone());
         } else {

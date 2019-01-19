@@ -22,6 +22,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.LinkedList;
+
 /**
  * Represents a SCORM 1.2 LOM 'lom' Element.
  * <p>
@@ -51,13 +52,13 @@ import java.util.LinkedList;
  * The SCORM Content Aggregation Model. October 1, 2001.
  * Internet (2003-01-20): http://www.adlnet.org
  *
- * @author  Werner Randelshofer
+ * @author Werner Randelshofer
  * @version 1.1 2006-10-10 Parse with XML namespaces.
- * <br>1.0.1  2004-01-19  Comments updated. 
+ * <br>1.0.1  2004-01-19  Comments updated.
  * <br>1.0  2004-01-05  Created.
  */
 public class LOMElement extends AbstractElement {
-    private final static long serialVersionUID=1L;
+    private final static long serialVersionUID = 1L;
 
     private GeneralElement generalElement;
     private LifecycleElement lifecycleElement;
@@ -68,54 +69,69 @@ public class LOMElement extends AbstractElement {
     private LinkedList<RelationElement> relationList = new LinkedList<>();
     private LinkedList<AnnotationElement> annotationList = new LinkedList<>();
     private LinkedList<ClassificationElement> classificationList = new LinkedList<>();
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public LOMElement() {
     }
-    
+
     /**
      * Parses the specified DOM Element and incorporates its contents into this element.
+     *
      * @param elem An XML element with the tag name 'lom'.
      */
     public void parse(Element elem)
-    throws IOException, ParserConfigurationException, SAXException {
-        if (! DOMs.isElement(elem, LOM.NS, "lom")) {
-            throw new IOException("'imsmd:lom' element expected, but found '"+elem.getLocalName()+"' element.");
+            throws IOException, ParserConfigurationException, SAXException {
+        if (!DOMs.isElement(elem, LOM.NS, "lom")) {
+            throw new IOException("'imsmd:lom' element expected, but found '" + elem.getLocalName() + "' element.");
         }
-        
+
         // Read the child elements
         NodeList nodes = elem.getChildNodes();
-        for (int i=0; i < nodes.getLength(); i++) {
+        for (int i = 0; i < nodes.getLength(); i++) {
             if (nodes.item(i) instanceof Element) {
                 Element child = (Element) nodes.item(i);
-                
+
                 if (DOMs.isElement(child, LOM.NS, "general")) {
-                    if (this.generalElement != null) throw new IOException("'general' element may only be specified once whithin a 'organization' element.");
+                    if (this.generalElement != null) {
+                        throw new IOException("'general' element may only be specified once whithin a 'organization' element.");
+                    }
                     this.generalElement = new GeneralElement();
                     add(generalElement);
                     this.generalElement.parse(child);
                 } else if (DOMs.isElement(child, LOM.NS, "lifecycle")) {
-                    if (this.lifecycleElement != null) throw new IOException("'lifecycle' element may only be specified once whithin a 'organization' element.");
+                    if (this.lifecycleElement != null) {
+                        throw new IOException("'lifecycle' element may only be specified once whithin a 'organization' element.");
+                    }
                     this.lifecycleElement = new LifecycleElement();
                     add(lifecycleElement);
                     this.lifecycleElement.parse(child);
                 } else if (DOMs.isElement(child, LOM.NS, "metametadata")) {
-                    if (this.metaMetadataElement != null) throw new IOException("'metametadata' element may only be specified once whithin a 'organization' element.");
+                    if (this.metaMetadataElement != null) {
+                        throw new IOException("'metametadata' element may only be specified once whithin a 'organization' element.");
+                    }
                     this.metaMetadataElement = new MetaMetadataElement();
                     add(metaMetadataElement);
                     this.metaMetadataElement.parse(child);
                 } else if (DOMs.isElement(child, LOM.NS, "technical")) {
-                    if (this.technicalElement != null) throw new IOException("'general' element may only be specified once whithin a 'organization' element.");
+                    if (this.technicalElement != null) {
+                        throw new IOException("'general' element may only be specified once whithin a 'organization' element.");
+                    }
                     this.technicalElement = new TechnicalElement();
                     add(technicalElement);
                     this.technicalElement.parse(child);
                 } else if (DOMs.isElement(child, LOM.NS, "educational")) {
-                    if (this.educationalElement != null) throw new IOException("'general' element may only be specified once whithin a 'organization' element.");
+                    if (this.educationalElement != null) {
+                        throw new IOException("'general' element may only be specified once whithin a 'organization' element.");
+                    }
                     this.educationalElement = new EducationalElement();
                     add(educationalElement);
                     this.educationalElement.parse(child);
                 } else if (DOMs.isElement(child, LOM.NS, "rights")) {
-                    if (this.rightsElement != null) throw new IOException("'general' element may only be specified once whithin a 'organization' element.");
+                    if (this.rightsElement != null) {
+                        throw new IOException("'general' element may only be specified once whithin a 'organization' element.");
+                    }
                     this.rightsElement = new RightsElement();
                     add(rightsElement);
                     this.rightsElement.parse(child);
@@ -134,20 +150,22 @@ public class LOMElement extends AbstractElement {
                     add(classificationElement);
                     classificationList.add(classificationElement);
                     classificationElement.parse(child);
-                } 
+                }
             }
         }
     }
 
     public void dump(StringBuffer buf, int depth) {
     }
-    
+
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append("<html><font size=-1 face=SansSerif>");
-        if (! isValid()) buf.append("<font color=red>* </font>");
+        if (!isValid()) {
+            buf.append("<font color=red>* </font>");
+        }
         buf.append("<b>LOM</b> ");
-        
+
         buf.append("</font>");
         return buf.toString();
     }

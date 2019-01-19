@@ -4,9 +4,9 @@
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland
  * All rights reserved.
  *
- * The copyright of this software is owned by Werner Randelshofer. 
- * You may not use, copy or modify this software, except in  
- * accordance with the license agreement you entered into with  
+ * The copyright of this software is owned by Werner Randelshofer.
+ * You may not use, copy or modify this software, except in
+ * accordance with the license agreement you entered into with
  * Werner Randelshofer. For details see accompanying license terms.
  */
 
@@ -27,8 +27,10 @@ public enum AnswerListType {
     BOOL,
     NUMERIC,
     EXTERNAL,
-    
-    /** Questions without an answer list use this type. This type can be used
-     * for pages which contain descriptive text about a test. */
+
+    /**
+     * Questions without an answer list use this type. This type can be used
+     * for pages which contain descriptive text about a test.
+     */
     NONE
 }

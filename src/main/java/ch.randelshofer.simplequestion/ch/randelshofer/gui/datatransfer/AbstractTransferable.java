@@ -24,8 +24,10 @@ import java.awt.datatransfer.Transferable;
  */
 public abstract class AbstractTransferable implements Transferable {
     private DataFlavor[] flavors;
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public AbstractTransferable(DataFlavor[] flavors) {
         this.flavors = flavors;
     }

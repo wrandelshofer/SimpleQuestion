@@ -20,11 +20,15 @@ package ch.randelshofer.scorm.lom;
  * @version 1.0 October 10, 2006 Created.
  */
 public class LOM {
-    /** The Namespace URI for IMS LOM XML Elements. */
+    /**
+     * The Namespace URI for IMS LOM XML Elements.
+     */
     public final static String NS = "http://www.imsproject.org/xsd/imscp_rootv1p1p2";
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public LOM() {
     }
-    
+
 }

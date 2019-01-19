@@ -33,15 +33,15 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
     static final long serialVersionUID = 1L;
     private StyledDocument doc;
     private Scanner scanner;
-    
+
     private Runnable highlightUpdater = new Runnable() {
         @Override
         public void run() {
             updateHighlight();
         }
     };
-    
-    
+
+
     /**
      * Create a graphics component which displays text with syntax highlighting.
      * Provide a width and height, in characters, and a language scanner.
@@ -53,7 +53,10 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
         doc.addDocumentListener(this);
         initStyles();
     }
-    /** BEGIN PATCH Werner Randelshofer. */
+
+    /**
+     * BEGIN PATCH Werner Randelshofer.
+     */
     @Override
     public void setDocument(Document newValue) {
         int oldLength = 0;
@@ -74,7 +77,7 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
         }
     }
     /** END PATCH Werner Randelshofer. */
-    
+
     /**
      * Read new text into the component from a <code>Reader</code>.  Overrides
      * <code>read</code> in <code>JTextComponent</code> in order to highlight
@@ -91,7 +94,7 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
         firstRehighlightToken = scanner.change(0, oldLength, newLength);
         updateLater();
     }
-    
+
     @Override
     public void setFont(Font font) {
         super.setFont(font);
@@ -106,10 +109,11 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
             updateLater();
         }
     }
-    
+
     // An array of styles, indexed by token type.  Default styles are set up,
     // which can be used for any languages.
     private Style[] styles;
+
     private void initStyles() {
         styles = new Style[Math.max(255, typeNames.length)];
         changeStyle(UNRECOGNIZED, Color.red.brighter(), new Color(0xfff0f0), Font.BOLD, null);
@@ -133,12 +137,14 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
         changeStyle(BRACKET, new Color(0xce7b00)); // dark orange
         changeStyle(SEPARATOR, new Color(0xce7b00)); // dark orange
         changeStyle(URL, new Color(0x0000e6)); // dark blue
-        
+
         for (int i = 0; i < styles.length; i++) {
-            if (styles[i] == null) styles[i] = styles[WHITESPACE];
+            if (styles[i] == null) {
+                styles[i] = styles[WHITESPACE];
+            }
         }
     }
-    
+
     private void updateStyles() {
         for (int i = 0; i < styles.length; i++) {
             Style style = styles[i];
@@ -146,12 +152,14 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
             StyleConstants.setFontSize(style, getFont().getSize());
         }
     }
+
     /**
      * Change the style of a particular type of token.
      */
     public void changeStyle(int type, Color color) {
         changeStyle(type, color, Color.WHITE, Font.PLAIN, null);
     }
+
     /**
      * Change the style of a particular type of token.
      */
@@ -159,18 +167,18 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
         Style style = addStyle(typeNames[type], null);
         StyleConstants.setForeground(style, foreground);
         if (background != null) {
-        StyleConstants.setBackground(style, background);
+            StyleConstants.setBackground(style, background);
         }
         StyleConstants.setBold(style, (fontStyle & Font.BOLD) != 0);
         StyleConstants.setItalic(style, (fontStyle & Font.ITALIC) != 0);
         StyleConstants.setFontFamily(style, getFont().getFamily());
         StyleConstants.setFontSize(style, getFont().getSize());
         if (icon != null) {
-        StyleConstants.setIcon(style, icon);
+            StyleConstants.setIcon(style, icon);
         }
         styles[type] = style;
     }
-    
+
     /**
      * Change the style of a particular type of token, including adding bold or
      * italic using a third argument of <code>Font.BOLD</code> or
@@ -180,6 +188,7 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
     public void changeStyle(int type, Color color, int fontStyle) {
         changeStyle(type, color, Color.WHITE, fontStyle, null);
     }
+
     /**
      * Change the style of a particular type of token, including adding bold or
      * italic using a third argument of <code>Font.BOLD</code> or
@@ -189,7 +198,7 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
     public void changeStyle(int type, Color color, Icon icon) {
         changeStyle(type, color, Color.WHITE, Font.PLAIN, icon);
     }
-    
+
     /**
      * <font style='color:gray;'>Ignore this method. Responds to the
      * underlying document changes by re-highlighting.</font>
@@ -203,7 +212,7 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
         //repaint();
         updateLater();
     }
-    
+
     /**
      * <font style='color:gray;'>Ignore this method. Responds to the
      * underlying document changes by re-highlighting.</font>
@@ -216,7 +225,7 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
         //repaint();
         updateLater();
     }
-    
+
     /**
      * <font style='color:gray;'>Ignore this method. Responds to the
      * underlying document changes by re-highlighting.</font>
@@ -225,14 +234,14 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
     public void changedUpdate(DocumentEvent e) {
         // Do nothing.
     }
-    
+
     // Scan a small portion of the document.  If more is needed, call repaint()
     // so the GUI gets a go and doesn't freeze, but calls this again later.
-    
+
     Segment text = new Segment();
     int firstRehighlightToken;
     int smallAmount = 100;
-    
+
     /**
      * <font style='color:gray;'>Ignore this method. Carries out a small
      * amount of re-highlighting for each call to <code>repaint</code>.</font>
@@ -242,19 +251,23 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
         super.paintComponent(g);
         updateHighlight();
     }
-    
+
     private void updateHighlight() {
         synchronized (highlightUpdater) {
             if (scanner != null) {
                 int offset = scanner.position();
-            //System.out.println("updateHighlight offset:"+offset);                
-                if (offset < 0) return;
-                
+                //System.out.println("updateHighlight offset:"+offset);
+                if (offset < 0) {
+                    return;
+                }
+
                 int tokensToRedo = 0;
                 int amount = smallAmount;
                 while (tokensToRedo == 0 && offset >= 0) {
                     int length = doc.getLength() - offset;
-                    if (length > amount) length = amount;
+                    if (length > amount) {
+                        length = amount;
+                    }
                     try {
                         doc.getText(offset, length, text);
                     } catch (BadLocationException e) {
@@ -266,10 +279,14 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
                 }
                 for (int i = 0; i < tokensToRedo; i++) {
                     Token t = scanner.getToken(firstRehighlightToken + i);
-                    if (t == null) return;
+                    if (t == null) {
+                        return;
+                    }
                     int length = t.symbol.name.length();
                     int type = t.symbol.type;
-                    if (type < 0) type = UNRECOGNIZED;
+                    if (type < 0) {
+                        type = UNRECOGNIZED;
+                    }
                     doc.setCharacterAttributes(t.position, length, styles[type], false);
                 }
                 firstRehighlightToken += tokensToRedo;
@@ -286,7 +303,7 @@ public class SyntaxHighlighter extends JTextPane implements DocumentListener, To
             }
         }
     }
-    
+
     private void updateLater() {
         if (highlightUpdater != null) {
             SwingUtilities.invokeLater(highlightUpdater);

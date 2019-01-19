@@ -1,8 +1,8 @@
 /* @(#)SimpleQuestionMenuBuilder.java
- * 
+ *
  * Copyright (c) 2012 Werner Randelshofer, Immensee, Switzerland.
  * All rights reserved.
- * 
+ *
  * You may not use, copy or modify this file, except in compliance with the
  * license agreement you entered into with Werner Randelshofer.
  * For details see accompanying license terms.
@@ -31,9 +31,9 @@ public class TeddyMenuBuilder extends DefaultMenuBuilder {
     @Override
     public void addOtherEditItems(JMenu m, Application app, View v) {
         super.addOtherEditItems(m, app, v);
-        
+
         ActionMap am = app.getActionMap(v);
-        
+
     }
 
     @Override
@@ -54,5 +54,5 @@ public class TeddyMenuBuilder extends DefaultMenuBuilder {
         cbmi.setAction(am.get(ToggleStatusBarAction.ID));
         m.add(cbmi);
     }
-    
+
 }

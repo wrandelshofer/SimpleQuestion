@@ -26,6 +26,7 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
+
 /**
  * Represents a SCORM 1.2 CAM 'file' element.
  * <p>
@@ -40,7 +41,7 @@ import java.util.Set;
  * {&lt;file/&gt;}
  * &lt;/file&gt;
  * </pre>
- *
+ * <p>
  * Reference:
  * ADL (2001c). Advanced Distributed Learning.
  * Sharable Content Object Reference Model (SCORM(TM)) Version 1.2.
@@ -48,50 +49,53 @@ import java.util.Set;
  * Internet (2003-01-20): http://www.adlnet.org
  *
  * @author Werner Randelshofer, Staldenmattweg 2, Immensee, CH-6405, Switzerland
- * @version 1.2 2006-10-10 Parse with XML namespaces. 
+ * @version 1.2 2006-10-10 Parse with XML namespaces.
  * <br>1.1.1 2004-04-26 Made method getInfo() more verbose.
  * <br>1.1 2003-11-03 Method referencesFile added. HTML output in method
  * toString changed. Remove escapes from unconsolidated HRef.
  * <br>1.0 2003-10-01 Method validate must take base attribute of
- *                    ResourceElement into account.
+ * ResourceElement into account.
  * <br>0.26 2003-05-19 Method validate() added.
  * <br>0.1 2003-02-02 Created.
  */
 public class FileElement extends AbstractElement {
-    private final static long serialVersionUID=1L;
+    private final static long serialVersionUID = 1L;
     /**
      * This attribute is set by validate().
      */
     private boolean isHRefValid = true;
-    
+
     /**
      * href (required). URL of the file. This implies that the file is
      * locally stored within the package.
      */
     private String href;
-    
+
     private LinkedList<FileElement> fileList = new LinkedList<>();
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public FileElement() {
     }
-    
+
     /**
      * Parses the specified DOM Element and incorporates its contents into this element.
+     *
      * @param elem An XML element with the tag name 'file'.
      */
     public void parse(Element elem)
-    throws IOException, ParserConfigurationException, SAXException {
-        if (! DOMs.isElement(elem, CAM.IMSCP_NS, "file")) {
-            throw new IOException("'imscp:file' element expected, but found '"+elem.getTagName()+"' element.");
+            throws IOException, ParserConfigurationException, SAXException {
+        if (!DOMs.isElement(elem, CAM.IMSCP_NS, "file")) {
+            throw new IOException("'imscp:file' element expected, but found '" + elem.getTagName() + "' element.");
         }
-        
+
         // Read the attributes
         this.href = DOMs.getAttributeNS(elem, CAM.IMSCP_NS, "href", null);
-        
+
         // Read the child elements
         NodeList nodes = elem.getChildNodes();
-        for (int i=0; i < nodes.getLength(); i++) {
+        for (int i = 0; i < nodes.getLength(); i++) {
             if (nodes.item(i) instanceof Element) {
                 Element child = (Element) nodes.item(i);
                 if (DOMs.isElement(child, CAM.IMSCP_NS, "file")) {
@@ -103,7 +107,7 @@ public class FileElement extends AbstractElement {
             }
         }
     }
-    
+
     /**
      * Gets a href relative to the resource element or to relative to
      * the content package or an absolute href.
@@ -111,7 +115,7 @@ public class FileElement extends AbstractElement {
     public String getHRef() {
         return href;
     }
-    
+
     /**
      * Gets a href relative to
      * the content package or an absolute href.
@@ -122,27 +126,31 @@ public class FileElement extends AbstractElement {
             String base = ((ResourceElement) getParent()).getBase();
             if (base != null) {
                 consolidatedHRef = (base.charAt(base.length() - 1) == '/')
-                ? base + href
-                : base + '/' + href;
+                        ? base + href
+                        : base + '/' + href;
             }
         }
-        
+
         return Strings.unescapeURL(consolidatedHRef);
     }
-    
+
     /**
      * Dumps the contents of this subtree into the provided string buffer.
      */
     public void dump(StringBuffer buf, int depth) {
-        for (int i=0; i < depth; i++) buf.append('.');
-        buf.append("<file href=\""+href+"\">\n");
+        for (int i = 0; i < depth; i++) {
+            buf.append('.');
+        }
+        buf.append("<file href=\"" + href + "\">\n");
         for (FileElement fileElement : fileList) {
             ((AbstractElement) fileElement).dump(buf, depth + 1);
         }
-        for (int i=0; i < depth; i++) buf.append('.');
+        for (int i = 0; i < depth; i++) {
+            buf.append('.');
+        }
         buf.append("</file>\n");
     }
-    
+
     /**
      * Validates this CAM element.
      *
@@ -150,7 +158,7 @@ public class FileElement extends AbstractElement {
      */
     public boolean validate() {
         isValid = super.validate();
-        
+
         if (href != null) {
             Set<String> fileNames = getIMSManifestDocument().getFileNames();
             isHRefValid = fileNames.contains(getConsolidatedHRef());
@@ -159,27 +167,34 @@ public class FileElement extends AbstractElement {
         }
         return isValid = isValid && isHRefValid;
     }
+
     public String getInfo() {
-        return (isHRefValid) 
-        ? super.getInfo()
-        : labels.getString("cam.error")+": "+
-                labels.getFormatted("cam.fileIsMissing",href)
-        ;
+        return (isHRefValid)
+                ? super.getInfo()
+                : labels.getString("cam.error") + ": " +
+                labels.getFormatted("cam.fileIsMissing", href)
+                ;
     }
-    
+
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append("<html><font size=-1 face=SansSerif>");
-        if (! isValid()) buf.append("<font color=red>* </font>");
+        if (!isValid()) {
+            buf.append("<font color=red>* </font>");
+        }
         buf.append("<b>File</b> href:");
-        if (! isHRefValid) buf.append("<font color=red>");
+        if (!isHRefValid) {
+            buf.append("<font color=red>");
+        }
         buf.append(href);
-        if (! isHRefValid) buf.append(" <b>"+labels.getString("cam.noFile")+"</b></font>");
-        
+        if (!isHRefValid) {
+            buf.append(" <b>" + labels.getString("cam.noFile") + "</b></font>");
+        }
+
         buf.append("</font>");
         return buf.toString();
     }
-    
+
     /**
      * Adds all file names referenced by this FileElement and subtree elements.
      */
@@ -190,7 +205,9 @@ public class FileElement extends AbstractElement {
             if (element instanceof FileElement) {
                 FileElement fileElement = (FileElement) element;
                 String href = fileElement.getConsolidatedHRef();
-                if (href != null && isHRefValid) fileNames.add(href);
+                if (href != null && isHRefValid) {
+                    fileNames.add(href);
+                }
             }
         }
     }

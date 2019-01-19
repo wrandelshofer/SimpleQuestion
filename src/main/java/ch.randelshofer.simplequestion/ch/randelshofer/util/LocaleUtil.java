@@ -5,6 +5,7 @@
 package ch.randelshofer.util;
 
 import java.util.Locale;
+
 /**
  * LocaleUtil provides a setDefault()/getDefault() wrapper to java.util.Locale
  * in order to overcome the security restriction preventing Applets from using
@@ -15,14 +16,17 @@ import java.util.Locale;
  */
 public class LocaleUtil {
     private static Locale defaultLocale;
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public LocaleUtil() {
     }
-    
+
     public static void setDefault(Locale newValue) {
         defaultLocale = newValue;
     }
+
     public static Locale getDefault() {
         return (defaultLocale == null) ? Locale.getDefault() : defaultLocale;
     }

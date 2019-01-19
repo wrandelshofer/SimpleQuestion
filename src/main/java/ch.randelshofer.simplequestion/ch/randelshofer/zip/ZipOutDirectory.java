@@ -34,7 +34,9 @@ public class ZipOutDirectory extends OutputStream implements ZipOut {
     private File dir;
     private ZipEntry entry;
 
-    /** Creates a new instance. */
+    /**
+     * Creates a new instance.
+     */
     public ZipOutDirectory(File directory) {
         this.dir = directory;
     }

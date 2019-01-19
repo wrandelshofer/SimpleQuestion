@@ -31,14 +31,16 @@ import javax.swing.SwingUtilities;
  */
 public abstract class Worker implements Runnable {
     private Object value;  // see getValue(), setValue()
-    
+
     /**
      * Calls #construct on the current thread and invokes
      * #finished on the AWT event dispatcher thread.
      */
     public final void run() {
         final Runnable doFinished = new Runnable() {
-            public void run() { finished(getValue()); }
+            public void run() {
+                finished(getValue());
+            }
         };
         try {
             setValue(construct());
@@ -48,11 +50,12 @@ public abstract class Worker implements Runnable {
             SwingUtilities.invokeLater(doFinished);
         }
     }
-    
+
     /**
      * Compute the value to be returned by the <code>get</code> method.
      */
     public abstract Object construct();
+
     /**
      * Called on the event dispatching thread (not on the worker thread)
      * after the <code>construct</code> method has returned.
@@ -60,6 +63,7 @@ public abstract class Worker implements Runnable {
      * @param value The return value of the construct method.
      */
     public abstract void finished(Object value);
+
     /**
      * Get the value produced by the worker thread, or null if it
      * hasn't been constructed yet.
@@ -67,13 +71,14 @@ public abstract class Worker implements Runnable {
     protected synchronized Object getValue() {
         return value;
     }
+
     /**
      * Set the value produced by worker thread
      */
     private synchronized void setValue(Object x) {
         value = x;
     }
-    
+
     /**
      * Starts the Worker on an internal worker thread.
      */

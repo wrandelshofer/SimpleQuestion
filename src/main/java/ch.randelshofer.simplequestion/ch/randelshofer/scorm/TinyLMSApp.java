@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
 /**
  * Launcher for the TinyLMS application.
  * If the launcher is invoked without command line parameters, it will start
@@ -25,13 +26,14 @@ import java.lang.reflect.Method;
  * If it is invoked with command line parameters, it will start the batch
  * processor: BatchProcessor.
  *
- * @author  Werner Randelshofer
+ * @author Werner Randelshofer
  * @version 1.5 2006-05-26 Read version from a file.
  * <br>1.4.1 2006-05-06 Reworked.
  * <br>1.0 August 2, 2005 Created.
  */
 public class TinyLMSApp {
     private static String version;
+
     public static String getVersion() {
         if (version == null) {
             BufferedReader in = null;
@@ -44,17 +46,23 @@ public class TinyLMSApp {
                 version = "unknown";
                 System.err.println("Warning: TinyLMSApp couldn't find resource \"ch/randelshofer/scorm/version.txt\".");
             } finally {
-                if (in != null) try {in.close();} catch (IOException e2) {}
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e2) {
+                    }
+                }
             }
         }
         return version;
     }
+
     /**
      * Creates a new instance.
      */
     public TinyLMSApp() {
     }
-    
+
     public static void main(String[] args) {
         /*
         try {
@@ -62,12 +70,12 @@ public class TinyLMSApp {
         } catch (InterruptedException e) {
             System.exit(0);
         }*/
-        
+
         // The following code uses reflection to invoke the main method of
         // class CourseBuilder or class BatchProcessor.
         // Reflection is used to avoid unnecessarily loading lots of UI classes
         // just for a batch invocation of TinyLMS.
-        
+
         try {
             Class<?> c;
             if (args.length == 0) {
@@ -78,7 +86,7 @@ public class TinyLMSApp {
                 //BatchProcessor.main(args);
             }
             Method m = c.getMethod("main", String[].class);
-            m.invoke(null, new Object[] {args});
+            m.invoke(null, new Object[]{args});
         } catch (InvocationTargetException e) {
             e.getTargetException().printStackTrace();
         } catch (Exception e) {

@@ -22,6 +22,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.Set;
+
 /**
  * Represents a SCORM 1.2 CAM 'adclp:location' element.
  * <p>
@@ -40,26 +41,27 @@ import java.util.Set;
  * <pre>
  * <b>location</b> ::= &lt;adlcp:location&gt;<b>string</b>&lt;/adlcp:location&gt;
  * </pre>
- *
+ * <p>
  * Reference:
  * ADL(2001c). Advanced Distributed Learning.
  * Sharable Content Object Reference Model(SCORM(TM)) Version 1.2.
  * The SCORM Content Aggregation Model. October 1, 2001.
  * Internet(2003-01-20): http://www.adlnet.org
  *
- * @author  Werner Randelshofer
- * @version 1.1 2006-10-10 Parse with XML namespaces. 
+ * @author Werner Randelshofer
+ * @version 1.1 2006-10-10 Parse with XML namespaces.
  * <br>1.0 5. Januar 2004  Created.
  */
 public class LocationElement extends AbstractElement {
     static final long serialVersionUID = 1L;
     private String uri;
-    
+
     private boolean isLocationValid;
-    
+
     public String getUri() {
         return uri;
     }
+
     /**
      * Gets a location relative to
      * the content package or an absolute href.
@@ -67,23 +69,25 @@ public class LocationElement extends AbstractElement {
     public String getConsolidatedURI() {
         return Strings.unescapeURL(uri);
     }
-    
+
     /**
      * Parses the specified DOM Element and incorporates its contents into this element.
+     *
      * @param elem An XML element with the tag name 'file'.
      */
     public void parse(Element elem)
-    throws IOException, ParserConfigurationException, SAXException {
-        if (! DOMs.isElement(elem, CAM.ADLCP_NS, "location")) {
-            throw new IOException("'adlcp:location' element expected, but found '"+elem.getTagName()+"' element.");
+            throws IOException, ParserConfigurationException, SAXException {
+        if (!DOMs.isElement(elem, CAM.ADLCP_NS, "location")) {
+            throw new IOException("'adlcp:location' element expected, but found '" + elem.getTagName() + "' element.");
         }
-        
+
         // Read the text of the element
         uri = DOMs.getText(elem);
     }
-    
+
     public void dump(StringBuffer buf, int depth) {
     }
+
     /**
      * Validates this CAM element.
      *
@@ -91,23 +95,26 @@ public class LocationElement extends AbstractElement {
      */
     public boolean validate() {
         isValid = super.validate();
-        
+
         Set<String> fileNames = getIMSManifestDocument().getFileNames();
         isLocationValid = fileNames.contains(getConsolidatedURI());
-        
+
         return isValid = isValid && isLocationValid;
     }
-    
+
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append("<html><font size=-1 face=SansSerif>");
-        if (! isValid()) buf.append("<font color=red>* </font>");
+        if (!isValid()) {
+            buf.append("<font color=red>* </font>");
+        }
         buf.append("<b>Location</b> ");
         buf.append(uri);
-        
+
         buf.append("</font>");
         return buf.toString();
     }
+
     /**
      * Removes all file names in the set, which are referenced by this
      * CAM Element.

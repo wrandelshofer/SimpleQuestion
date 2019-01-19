@@ -30,24 +30,25 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.HashMap;
+
 /**
  * DOMOutput.
  *
- * @author  Werner Randelshofer
- * @version  1.2 2006-03-20 Added support for default values.
+ * @author Werner Randelshofer
+ * @version 1.2 2006-03-20 Added support for default values.
  * <br>1.1 2006-01-18 Remove ".0" at the end of float and double numbers.
  * <br>1.0 February 17, 2004 Created.
  */
 public class JavaxDOMOutput implements DOMOutput {
-    
-    
+
+
     /**
      * This map is used to marshall references to objects to
      * the XML DOM. A key in this map is a Java Object, a value in this map
      * is String representing a marshalled reference to that object.
      */
-    private HashMap<Object,String> objectids;
-    
+    private HashMap<Object, String> objectids;
+
     /**
      * The document used for output.
      */
@@ -60,12 +61,14 @@ public class JavaxDOMOutput implements DOMOutput {
      * The factory used to create objects.
      */
     private DOMFactory factory;
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public JavaxDOMOutput(DOMFactory factory) throws IOException {
         this.factory = factory;
         try {
-            objectids = new HashMap<Object,String>();
+            objectids = new HashMap<Object, String>();
             document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
             current = document;
         } catch (ParserConfigurationException e) {
@@ -74,7 +77,7 @@ public class JavaxDOMOutput implements DOMOutput {
             throw error;
         }
     }
-    
+
     /**
      * Writes the contents of the DOMOutput into the specified output stream.
      */
@@ -88,6 +91,7 @@ public class JavaxDOMOutput implements DOMOutput {
             throw error;
         }
     }
+
     /**
      * Writes the contents of the DOMOutput into the specified output stream.
      */
@@ -101,7 +105,7 @@ public class JavaxDOMOutput implements DOMOutput {
             throw error;
         }
     }
-    
+
     /**
      * Puts a new element into the DOM Document.
      * The new element is added as a child to the current element in the DOM
@@ -113,11 +117,13 @@ public class JavaxDOMOutput implements DOMOutput {
         current.appendChild(newElement);
         current = newElement;
     }
+
     /**
      * Closes the current element of the DOM Document.
      * The parent of the current element becomes the current element.
-     * @exception IllegalArgumentException if the provided tagName does
-     * not match the tag name of the element.
+     *
+     * @throws IllegalArgumentException if the provided tagName does
+     *                                  not match the tag name of the element.
      */
     public void closeElement() {
         /*
@@ -126,12 +132,14 @@ public class JavaxDOMOutput implements DOMOutput {
         }*/
         current = current.getParentNode();
     }
+
     /**
      * Adds a comment to the current element of the DOM Document.
      */
     public void addComment(String comment) {
         current.appendChild(document.createComment(comment));
     }
+
     /**
      * Adds a text to current element of the DOM Document.
      * Note: Multiple consecutives texts will be merged.
@@ -139,6 +147,7 @@ public class JavaxDOMOutput implements DOMOutput {
     public void addText(String text) {
         current.appendChild(document.createTextNode(text));
     }
+
     /**
      * Adds an attribute to current element of the DOM Document.
      */
@@ -147,37 +156,45 @@ public class JavaxDOMOutput implements DOMOutput {
             ((Element) current).setAttribute(name, value);
         }
     }
+
     /**
      * Adds an attribute to current element of the DOM Document.
      */
     public void addAttribute(String name, int value) {
         ((Element) current).setAttribute(name, Integer.toString(value));
     }
+
     /**
      * Adds an attribute to current element of the DOM Document.
      */
     public void addAttribute(String name, boolean value) {
         ((Element) current).setAttribute(name, Boolean.toString(value));
     }
+
     /**
      * Adds an attribute to current element of the DOM Document.
      */
     public void addAttribute(String name, float value) {
         // Remove the awkard .0 at the end of each number
         String str = Float.toString(value);
-        if (str.endsWith(".0")) str = str.substring(0, str.length() - 2);
+        if (str.endsWith(".0")) {
+            str = str.substring(0, str.length() - 2);
+        }
         ((Element) current).setAttribute(name, str);
     }
+
     /**
      * Adds an attribute to current element of the DOM Document.
      */
     public void addAttribute(String name, double value) {
         // Remove the awkard .0 at the end of each number
         String str = Double.toString(value);
-        if (str.endsWith(".0")) str = str.substring(0, str.length() - 2);
+        if (str.endsWith(".0")) {
+            str = str.substring(0, str.length() - 2);
+        }
         ((Element) current).setAttribute(name, str);
     }
-    
+
     public void writeObject(Object o) {
         if (o == null) {
             addElement("null");
@@ -211,19 +228,19 @@ public class JavaxDOMOutput implements DOMOutput {
         } else if (o instanceof Color) {
             Color c = (Color) o;
             addElement("color");
-            addAttribute("rgba", "#"+Integer.toHexString(c.getRGB()));
+            addAttribute("rgba", "#" + Integer.toHexString(c.getRGB()));
             closeElement();
         } else if (o instanceof int[]) {
             addElement("intArray");
             int[] a = (int[]) o;
-            for (int i=0; i < a.length; i++) {
+            for (int i = 0; i < a.length; i++) {
                 writeObject(new Integer(a[i]));
             }
             closeElement();
         } else if (o instanceof float[]) {
             addElement("floatArray");
             float[] a = (float[]) o;
-            for (int i=0; i < a.length; i++) {
+            for (int i = 0; i < a.length; i++) {
                 writeObject(new Float(a[i]));
             }
             closeElement();
@@ -235,12 +252,15 @@ public class JavaxDOMOutput implements DOMOutput {
             addAttribute("size", f.getSize());
             closeElement();
         } else {
-            throw new IllegalArgumentException("unable to store: "+o+" "+o.getClass());
+            throw new IllegalArgumentException("unable to store: " + o + " " + o.getClass());
         }
     }
+
     private void writeStorable(DOMStorable o) {
         String tagName = factory.getTagName(o);
-        if (tagName == null) throw new IllegalArgumentException("no tag name for:"+o);
+        if (tagName == null) {
+            throw new IllegalArgumentException("no tag name for:" + o);
+        }
         addElement(tagName);
         if (objectids.containsKey(o)) {
             addAttribute("ref", (String) objectids.get(o));
@@ -278,7 +298,7 @@ public class JavaxDOMOutput implements DOMOutput {
     }
 
     public void addAttribute(String name, String value, String defaultValue) {
-        if (! value.equals(defaultValue)) {
+        if (!value.equals(defaultValue)) {
             addAttribute(name, value);
         }
     }

@@ -40,27 +40,27 @@ public class TableSorterDemo extends JFrame {
     class MyTableModel extends AbstractTableModel {
         static final long serialVersionUID = 1L;
         final String[] columnNames = {"First Name",
-                                      "Last Name",
-                                      "Sport",
-                                      "# of Years",
-                                      "Vegetarian"};
+                "Last Name",
+                "Sport",
+                "# of Years",
+                "Vegetarian"};
         final Object[][] data = {
-            {"Mary", "Campione", 
-             "Snowboarding", 5, Boolean.FALSE},
-            {"Alison", "Huml", 
-             "Rowing", 3, Boolean.TRUE},
-            {"Kathy", "Walrath",
-             "Chasing toddlers", 2, Boolean.FALSE},
-            {"Mark", "Andrews",
-             "Speed reading", 20, Boolean.TRUE},
-            {"Angela", "Lih",
-             "Teaching high school", 4, Boolean.FALSE}
+                {"Mary", "Campione",
+                        "Snowboarding", 5, Boolean.FALSE},
+                {"Alison", "Huml",
+                        "Rowing", 3, Boolean.TRUE},
+                {"Kathy", "Walrath",
+                        "Chasing toddlers", 2, Boolean.FALSE},
+                {"Mark", "Andrews",
+                        "Speed reading", 20, Boolean.TRUE},
+                {"Angela", "Lih",
+                        "Teaching high school", 4, Boolean.FALSE}
         };
 
         public int getColumnCount() {
             return columnNames.length;
         }
-        
+
         public int getRowCount() {
             return data.length;
         }
@@ -90,7 +90,7 @@ public class TableSorterDemo extends JFrame {
         public boolean isCellEditable(int row, int col) {
             //Note that the data/cell address is constant,
             //no matter where the cell appears onscreen.
-            if (col < 2) { 
+            if (col < 2) {
                 return false;
             } else {
                 return true;
@@ -104,13 +104,13 @@ public class TableSorterDemo extends JFrame {
         public void setValueAt(Object value, int row, int col) {
             if (DEBUG) {
                 System.out.println("Setting value at " + row + "," + col
-                                   + " to " + value
-                                   + " (an instance of " 
-                                   + value.getClass() + ")");
+                        + " to " + value
+                        + " (an instance of "
+                        + value.getClass() + ")");
             }
 
             if (data[0][col] instanceof Integer
-                    && !(value instanceof Integer)) { 
+                    && !(value instanceof Integer)) {
                 //With JFC/Swing 1.1 and JDK 1.2, we need to create
                 //an Integer from the value; otherwise, the column
                 //switches to contain Strings.  Starting with v 1.3, 
@@ -122,8 +122,8 @@ public class TableSorterDemo extends JFrame {
                     fireTableCellUpdated(row, col);
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(TableSorterDemo.this,
-                        "The \"" + getColumnName(col)
-                        + "\" column accepts only integer values.");
+                            "The \"" + getColumnName(col)
+                                    + "\" column accepts only integer values.");
                 }
             } else {
                 data[row][col] = value;
@@ -140,9 +140,9 @@ public class TableSorterDemo extends JFrame {
             int numRows = getRowCount();
             int numCols = getColumnCount();
 
-            for (int i=0; i < numRows; i++) {
+            for (int i = 0; i < numRows; i++) {
                 System.out.print("    row " + i + ":");
-                for (int j=0; j < numCols; j++) {
+                for (int j = 0; j < numCols; j++) {
                     System.out.print("  " + data[i][j]);
                 }
                 System.out.println();

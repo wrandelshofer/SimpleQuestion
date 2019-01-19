@@ -22,6 +22,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+
 /**
  * Represents a SCORM 1.2 CAM 'metadata' Element.
  * <p>
@@ -47,24 +48,26 @@ import java.io.IOException;
  * The SCORM Content Aggregation Model. October 1, 2001.
  * Internet (2003-01-20): http://www.adlnet.org
  *
- * @author  Werner Randelshofer
+ * @author Werner Randelshofer
  * @version 1.1 2006-10-10 Parse with XML namespaces.
  * <br>1.0.1  2004-01-19  Comments updated.
  * <br>1.0 2003-11-03 Created.
  */
 public class MetadataElement extends AbstractElement {
-    private final static long serialVersionUID=1L;
+    private final static long serialVersionUID = 1L;
 
-    /** This element describes the schema that defines the meta-data. */
+    /**
+     * This element describes the schema that defines the meta-data.
+     */
     private SchemaElement schemaElement;
-    
+
     /**
      * This element describes the version of the schema that defines the
      * meta-data. This element is optional, however if present it must contain
      * the value of 1.2
      */
     private SchemaVersionElement schemaVersionElement;
-    
+
     /**
      * This element describes the location where the meta-data describing the
      * Content Packaging component may be found. This may be a Universal
@@ -75,53 +78,64 @@ public class MetadataElement extends AbstractElement {
      * meta-data record or place the meta-data inline within the Manifest file.
      */
     private LocationElement locationElement;
-    
+
     /**
      * This element inidicaste the SCORM Meta-data XML record.
      */
     private LOMElement lomElement;
-    
+
     private boolean isLocationValid;
     private boolean isSchemaversionValid;
-    
-    /** Creates a new instance of MetadataElement */
+
+    /**
+     * Creates a new instance of MetadataElement
+     */
     public MetadataElement() {
     }
-    
+
     public void dump(StringBuffer buf, int depth) {
     }
-    
+
     /**
      * Parses the specified DOM Element and incorporates its contents into this element.
+     *
      * @param elem An XML element with the tag name 'file'.
      */
     public void parse(Element elem)
-    throws IOException, ParserConfigurationException, SAXException {
-        if (! DOMs.isElement(elem, CAM.IMSCP_NS, "metadata")) {
-            throw new IOException("'adlcp:metadata' element expected, but found '"+elem.getTagName()+"' element.");
+            throws IOException, ParserConfigurationException, SAXException {
+        if (!DOMs.isElement(elem, CAM.IMSCP_NS, "metadata")) {
+            throw new IOException("'adlcp:metadata' element expected, but found '" + elem.getTagName() + "' element.");
         }
         // Read the child elements
         NodeList nodes = elem.getChildNodes();
-        for (int i=0; i < nodes.getLength(); i++) {
+        for (int i = 0; i < nodes.getLength(); i++) {
             if (nodes.item(i) instanceof Element) {
                 Element child = (Element) nodes.item(i);
                 if (DOMs.isElement(child, CAM.IMSCP_NS, "schema")) {
-                    if (this.schemaElement != null) throw new IOException("'schema' element may only be specified once whithin a 'organization' element.");
+                    if (this.schemaElement != null) {
+                        throw new IOException("'schema' element may only be specified once whithin a 'organization' element.");
+                    }
                     this.schemaElement = new SchemaElement();
                     add(schemaElement);
                     this.schemaElement.parse(child);
                 } else if (DOMs.isElement(child, CAM.IMSCP_NS, "schemaversion")) {
-                    if (this.schemaVersionElement != null) throw new IOException("'schemaversion' element may only be specified once whithin a 'organization' element.");
+                    if (this.schemaVersionElement != null) {
+                        throw new IOException("'schemaversion' element may only be specified once whithin a 'organization' element.");
+                    }
                     this.schemaVersionElement = new SchemaVersionElement();
                     add(schemaVersionElement);
                     this.schemaVersionElement.parse(child);
                 } else if (DOMs.isElement(child, CAM.IMSCP_NS, "location")) {
-                    if (this.locationElement != null) throw new IOException("'adlcp:location' element may only be specified once whithin a 'organization' element.");
+                    if (this.locationElement != null) {
+                        throw new IOException("'adlcp:location' element may only be specified once whithin a 'organization' element.");
+                    }
                     this.locationElement = new LocationElement();
                     add(locationElement);
                     this.locationElement.parse(child);
                 } else if (DOMs.isElement(child, LOM.NS, "lom")) {
-                    if (this.lomElement != null) throw new IOException("'imsmd:lom' element may only be specified once whithin a 'organization' element.");
+                    if (this.lomElement != null) {
+                        throw new IOException("'imsmd:lom' element may only be specified once whithin a 'organization' element.");
+                    }
                     this.lomElement = new LOMElement();
                     add(lomElement);
                     this.lomElement.parse(child);
@@ -129,14 +143,16 @@ public class MetadataElement extends AbstractElement {
             }
         }
     }
-    
+
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append("<html><font size=-1 face=SansSerif>");
-        if (! isValid()) buf.append("<font color=red>* </font>");
+        if (!isValid()) {
+            buf.append("<font color=red>* </font>");
+        }
         buf.append("<b>Metadata</b>");
         buf.append("</font>");
         return buf.toString();
     }
-    
+
 }

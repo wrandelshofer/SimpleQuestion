@@ -13,13 +13,14 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.Toolkit;
+
 /**
  * This is a dumping ground for random stuff we want to use in several places.
- * @author  Werner Randelshofer
- * @version 
+ *
+ * @author Werner Randelshofer
  */
-public class PlafUtils 
-implements PlafConstants {
+public class PlafUtils
+        implements PlafConstants {
     protected static BevelRenderer[][] bevelRenderer;
  /*= {
         // Bevel rounded at left and right
@@ -155,41 +156,51 @@ implements PlafConstants {
             ),
         }
     };
-   */ 
+   */
+
     /**
-     * Convenience method for installing a component's default Border object on the 
-     * specified component if either the border is currently null or already an instance 
-     * of UIResource. 
+     * Convenience method for installing a component's default Border object on the
+     * specified component if either the border is currently null or already an instance
+     * of UIResource.
      *
-     *
-     * @param c the target component for installing default border
-     * @param defaultBorderName - the key specifying the default border     
+     * @param c                 the target component for installing default border
+     * @param defaultBorderName - the key specifying the default border
      */
     static void installBevelBorder(JComponent c, String defaultBorderName) {
         initBevels();
         Object bevelProperty = c.getClientProperty(PROP_BEVEL);
         Border border;
-        if (bevelProperty == WEST) border = new EmptyBorder(6,8,8,4);
-        else if (bevelProperty == EAST) border = new EmptyBorder(6,4,8,8);
-        else if (bevelProperty == NONE || bevelProperty == CENTER) border = new EmptyBorder(6,4,8,4);
-        else border = new EmptyBorder(6,8,8,8);
+        if (bevelProperty == WEST) {
+            border = new EmptyBorder(6, 8, 8, 4);
+        } else if (bevelProperty == EAST) {
+            border = new EmptyBorder(6, 4, 8, 8);
+        } else if (bevelProperty == NONE || bevelProperty == CENTER) {
+            border = new EmptyBorder(6, 4, 8, 4);
+        } else {
+            border = new EmptyBorder(6, 8, 8, 8);
+        }
         c.setBorder(border);
     }
-    
+
     static void paintBevel(JComponent c, Graphics g, int x, int y, int width, int height, boolean enabled, boolean pressed, boolean selected) {
         initBevels();
         Object bevelProperty = c.getClientProperty(PROP_BEVEL);
         int type;
-        if (bevelProperty == WEST) type = 1;
-        else if (bevelProperty == EAST) type = 2;
-        else if (bevelProperty == NONE || bevelProperty == CENTER) type = 3;
-        else type = 0;
-        
+        if (bevelProperty == WEST) {
+            type = 1;
+        } else if (bevelProperty == EAST) {
+            type = 2;
+        } else if (bevelProperty == NONE || bevelProperty == CENTER) {
+            type = 3;
+        } else {
+            type = 0;
+        }
+
         int state = ((enabled) ? 0 : 1) | ((pressed & enabled) ? 2 : 0) | ((selected) ? 4 : 0);
-        
+
         bevelRenderer[type][state].paintBevel(c, g, x, y, width, height);
     }
-    
+
     private static void initBevels() {
         if (bevelRenderer == null) {
             String id = UIManager.getLookAndFeel().getID();
@@ -205,14 +216,14 @@ implements PlafConstants {
 
 
             bevelRenderer = new BevelRenderer[4][7];
-            for (int i=0; i < 4; i++) {
-                for (int j=0; j < 7; j++) {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 7; j++) {
                     if (j != 3) {
                         bevelRenderer[i][j] = new BevelRenderer(
-                            Toolkit.getDefaultToolkit().createImage(
-                                PlafUtils.class.getResource(path+names[i]+"."+j+".png")
-                            ),
-                            insets[i]
+                                Toolkit.getDefaultToolkit().createImage(
+                                        PlafUtils.class.getResource(path + names[i] + "." + j + ".png")
+                                ),
+                                insets[i]
                         );
                     }
                 }
@@ -224,13 +235,13 @@ implements PlafConstants {
      * Convenience function for determining ComponentOrientation.  Helps us
      * avoid having Munge directives throughout the code.
      */
-    static boolean isLeftToRight( Component c ) {
+    static boolean isLeftToRight(Component c) {
         /*if[JDK1.2]
         return c.getComponentOrientation().isLeftToRight();
         else[JDK1.2]*/
         return true;
         /*end[JDK1.2]*/
     }
-    
+
 }
 

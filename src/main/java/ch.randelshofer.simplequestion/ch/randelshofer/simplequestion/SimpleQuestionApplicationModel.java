@@ -1,12 +1,12 @@
 /* @(#)SimpleQuestionApplicationModel.java
- * 
+ *
  * Copyright (c) 2009 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.
  * All rights reserved.
- * 
- * The copyright of this software is owned by Werner Randelshofer. 
- * You may not use, copy or modify this software, except in  
- * accordance with the license agreement you entered into with  
+ *
+ * The copyright of this software is owned by Werner Randelshofer.
+ * You may not use, copy or modify this software, except in
+ * accordance with the license agreement you entered into with
  * Werner Randelshofer. For details see accompanying license terms.
  */
 package ch.randelshofer.simplequestion;
@@ -49,7 +49,7 @@ import java.util.prefs.Preferences;
  * @version 1.0 2009-09-06 Created.
  */
 public class SimpleQuestionApplicationModel extends DefaultApplicationModel {
-    public final static long serialVersionUID=1L;
+    public final static long serialVersionUID = 1L;
 
     @Override
     public ActionMap createActionMap(Application a, View v) {
@@ -80,9 +80,9 @@ public class SimpleQuestionApplicationModel extends DefaultApplicationModel {
 
     @Override
     public URIChooser createExportChooser(Application a, View v) {
-     ResourceBundleUtil labels;
+        ResourceBundleUtil labels;
         labels = new ResourceBundleUtil(ResourceBundle.getBundle("ch/randelshofer/simplequestion/Labels"));
-       Preferences prefs;
+        Preferences prefs;
         prefs = Preferences.userNodeForPackage(SimpleQuestionView.class);
 
 
@@ -135,6 +135,6 @@ public class SimpleQuestionApplicationModel extends DefaultApplicationModel {
         c.setAccessory(new CharacterSetAccessory());
         return c;
     }
-    
-    
+
+
 }

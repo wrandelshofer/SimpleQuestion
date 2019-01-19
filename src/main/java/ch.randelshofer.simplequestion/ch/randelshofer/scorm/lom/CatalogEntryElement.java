@@ -13,6 +13,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+
 /**
  * Represents a SCORM 1.2 LOM 'catalogentry' Element.
  * <p>
@@ -38,7 +39,7 @@ import java.io.IOException;
  * The SCORM Content Aggregation Model. October 1, 2001.
  * Internet (2003-01-20): http://www.adlnet.org
  *
- * @author  Werner Randelshofer
+ * @author Werner Randelshofer
  * @version 1.1 2006-10-11 Parse using XML namespaces.
  * <br>1.0.1  2004-01-19  Comments updated.
  * <br>1.0  2004-01-05  Created.
@@ -47,33 +48,40 @@ public class CatalogEntryElement extends AbstractElement {
     static final long serialVersionUID = 1L;
     private CatalogElement catalogElement;
     private EntryElement entryElement;
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public CatalogEntryElement() {
     }
-    
+
     /**
      * Parses the specified DOM Element and incorporates its contents into this element.
+     *
      * @param elem An XML element with the tag name 'file'.
      */
     public void parse(Element elem)
-    throws IOException, ParserConfigurationException, SAXException {
-        if (! DOMs.isElement(elem, LOM.NS, "catalogentry")) {
-            throw new IOException("'catalogentry' element expected, but found '"+elem.getTagName()+"' element.");
+            throws IOException, ParserConfigurationException, SAXException {
+        if (!DOMs.isElement(elem, LOM.NS, "catalogentry")) {
+            throw new IOException("'catalogentry' element expected, but found '" + elem.getTagName() + "' element.");
         }
         // Read the child elements
         NodeList nodes = elem.getChildNodes();
-        for (int i=0; i < nodes.getLength(); i++) {
+        for (int i = 0; i < nodes.getLength(); i++) {
             if (nodes.item(i) instanceof Element) {
                 Element child = (Element) nodes.item(i);
-                
+
                 if (DOMs.isElement(child, LOM.NS, "catalog")) {
-                    if (this.catalogElement != null) throw new IOException("'catalog' element may only be specified once whithin a 'catalogentry' element.");
+                    if (this.catalogElement != null) {
+                        throw new IOException("'catalog' element may only be specified once whithin a 'catalogentry' element.");
+                    }
                     this.catalogElement = new CatalogElement();
                     add(catalogElement);
                     this.catalogElement.parse(child);
                 } else if (DOMs.isElement(child, LOM.NS, "entry")) {
-                    if (this.entryElement != null) throw new IOException("'entry' element may only be specified once whithin a 'catalogentry' element.");
+                    if (this.entryElement != null) {
+                        throw new IOException("'entry' element may only be specified once whithin a 'catalogentry' element.");
+                    }
                     this.entryElement = new EntryElement();
                     add(entryElement);
                     this.entryElement.parse(child);
@@ -81,16 +89,18 @@ public class CatalogEntryElement extends AbstractElement {
             }
         }
     }
-    
+
     public void dump(StringBuffer buf, int depth) {
     }
-    
+
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append("<html><font size=-1 face=SansSerif>");
-        if (! isValid()) buf.append("<font color=red>* </font>");
+        if (!isValid()) {
+            buf.append("<font color=red>* </font>");
+        }
         buf.append("<b>CatalogEntry</b> ");
-        
+
         buf.append("</font>");
         return buf.toString();
     }

@@ -20,10 +20,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.Component;
 import java.lang.reflect.InvocationTargetException;
+
 /**
  * A class to monitor the progress of some operation.
  *
- * @author  Werner Randelshofer
+ * @author Werner Randelshofer
  * @version 2.0 2005-08-02 Implements interface ProgressIndicator.
  * <br>1.5 2004-01-06 Methods setIndeterminate() and isIndeterminate() added.
  * <br>1.4.1 2004-12-23 Use invokeAndWait in method setCancelable instead
@@ -33,37 +34,51 @@ import java.lang.reflect.InvocationTargetException;
  * <br>1.1 2002-07-28 ScrollPane in class ProgressView added.
  * <br>1.0 2002-05-10 Created.
  */
-public class ProgressView extends JPanel 
-implements ChangeListener, ProgressIndicator {
-    private final static long serialVersionUID=1L;
+public class ProgressView extends JPanel
+        implements ChangeListener, ProgressIndicator {
+    private final static long serialVersionUID = 1L;
     private boolean isCanceled, isClosed, isCancelable = true;
     private BoundedRangeModel model;
     private Runnable doCancel;
-    
-    /** Creates a new ProgressView. */
+
+    /**
+     * Creates a new ProgressView.
+     */
     public ProgressView(String message, String note, int min, int max) {
         this(message, note, min, max, false);
     }
-    /** Creates a new ProgressView. */
+
+    /**
+     * Creates a new ProgressView.
+     */
     public ProgressView(Component parentComponent, String message, String note, int min, int max) {
         this(parentComponent, message, note, min, max, false);
     }
-    /** Creates a new ProgressView. */
+
+    /**
+     * Creates a new ProgressView.
+     */
     public ProgressView(String message, String note) {
         this(message, note, 0, 100, false);
     }
-    
-    /** Creates a new ProgressView. */
+
+    /**
+     * Creates a new ProgressView.
+     */
     public ProgressView(String message, String note, boolean isIndeterminate) {
         this(message, note, 0, 100, isIndeterminate);
     }
-    
-    /** Creates a new ProgressView. */
+
+    /**
+     * Creates a new ProgressView.
+     */
     public ProgressView(String message, String note, int min, int max, boolean isIndeterminate) {
         this(null, message, note, min, max, isIndeterminate);
     }
-    
-    /** Creates a new ProgressView. */
+
+    /**
+     * Creates a new ProgressView.
+     */
     public ProgressView(Component parentComponent, String message, String note, int min, int max, boolean isIndeterminate) {
         initComponents();
         setModel(new DefaultBoundedRangeModel(min, 0, min, max));
@@ -72,7 +87,7 @@ implements ChangeListener, ProgressIndicator {
         noteLabel.setText(note);
         ProgressFrame.getInstance().addProgressView(this);
     }
-    
+
     public void setModel(BoundedRangeModel brm) {
         if (model != null) {
             model.removeChangeListener(this);
@@ -83,10 +98,11 @@ implements ChangeListener, ProgressIndicator {
             model.addChangeListener(this);
         }
     }
+
     public BoundedRangeModel getModel() {
         return model;
     }
-    
+
     /**
      * Set cancelable to false if the operation can not be canceled.
      */
@@ -100,7 +116,7 @@ implements ChangeListener, ProgressIndicator {
             }
         });
     }
-    
+
     /**
      * The specified Runnable is executed when the user presses
      * the cancel button.
@@ -108,14 +124,14 @@ implements ChangeListener, ProgressIndicator {
     public void setDoCancel(Runnable doCancel) {
         this.doCancel = doCancel;
     }
-    
+
     /**
      * Indicate the progress of the operation being monitored.
      * If the specified value is >= the maximum, the progress
      * monitor is closed.
      *
      * @param nv an int specifying the current value, between the
-     *        maximum and minimum specified for this component
+     *           maximum and minimum specified for this component
      * @see #setMinimum
      * @see #setMaximum
      * @see #close
@@ -123,28 +139,30 @@ implements ChangeListener, ProgressIndicator {
     public void setProgress(int nv) {
         model.setValue(nv);
     }
-    
+
     /**
      * Returns the progress of the operation being monitored.
      */
     public int getProgress() {
         return model.getValue();
     }
-    
+
     /**
      * Indicate that the operation is complete.  This happens automatically
      * when the value set by setProgress is >= max, but it may be called
      * earlier if the operation ends early.
      */
     public void close() {
-        if (! isClosed) {
+        if (!isClosed) {
             isClosed = true;
             ProgressFrame.getInstance().removeProgressView(this);
-            if (model != null) model.removeChangeListener(this);
+            if (model != null) {
+                model.removeChangeListener(this);
+            }
         }
     }
-    
-    
+
+
     /**
      * Returns the minimum value -- the lower end of the progress value.
      *
@@ -154,19 +172,19 @@ implements ChangeListener, ProgressIndicator {
     public int getMinimum() {
         return model.getMinimum();
     }
-    
-    
+
+
     /**
      * Specifies the minimum value.
      *
-     * @param m  an int specifying the minimum value
+     * @param m an int specifying the minimum value
      * @see #getMinimum
      */
     public void setMinimum(int m) {
         model.setMinimum(m);
     }
-    
-    
+
+
     /**
      * Returns the maximum value -- the higher end of the progress value.
      *
@@ -176,32 +194,33 @@ implements ChangeListener, ProgressIndicator {
     public int getMaximum() {
         return model.getMaximum();
     }
-    
-    
+
+
     /**
      * Specifies the maximum value.
      *
-     * @param m  an int specifying the maximum value
+     * @param m an int specifying the maximum value
      * @see #getMaximum
      */
     public void setMaximum(int m) {
         model.setMaximum(m);
     }
-    
-    
+
+
     /**
      * Returns true if the user has hit the Cancel button in the progress dialog.
      */
     public boolean isCanceled() {
         return isCanceled;
     }
+
     /**
      * Returns true if the ProgressView is closed.
      */
     public boolean isClosed() {
         return isClosed;
     }
-    
+
     /**
      * Cancels the operation.
      * This method must be invoked from the user event dispatch thread.
@@ -218,30 +237,31 @@ implements ChangeListener, ProgressIndicator {
             noteLabel.setText("This process can not be canceled!");
         }
     }
+
     /**
      * Specifies the additional note that is displayed along with the
      * progress message. Used, for example, to show which file the
      * is currently being copied during a multiple-file copy.
      *
-     * @param note  a String specifying the note to display
+     * @param note a String specifying the note to display
      * @see #getNote
      */
     public void setNote(String note) {
         //System.out.println("ProgressView.setNote("+note+")");
-        if (! isCanceled) {
+        if (!isCanceled) {
             noteLabel.setText(note);
         }
     }
-    
+
     public void setIndeterminate(final boolean newValue) {
         invokeOnEventDispatchThread(new Runnable() {
             public void run() {
                 progressBar.setIndeterminate(newValue);
             }
         });
-        
+
     }
-    
+
     /**
      * Invokes the runnable on the event dispatch thread.
      */
@@ -259,7 +279,7 @@ implements ChangeListener, ProgressIndicator {
             }
         }
     }
-    
+
     /**
      * Specifies the additional note that is displayed along with the
      * progress message.
@@ -270,8 +290,9 @@ implements ChangeListener, ProgressIndicator {
     public String getNote() {
         return noteLabel.getText();
     }
-    
-    /** This method is called from within the constructor to
+
+    /**
+     * This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
@@ -340,18 +361,18 @@ implements ChangeListener, ProgressIndicator {
         add(separator, gridBagConstraints);
 
     }//GEN-END:initComponents
-    
+
     private void cancel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel
         cancel();
     }//GEN-LAST:event_cancel
-    
+
     public void stateChanged(ChangeEvent e) {
         if (model != null && model.getValue() >= model.getMaximum()) {
             close();
         }
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel messageLabel;
@@ -359,5 +380,5 @@ implements ChangeListener, ProgressIndicator {
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JSeparator separator;
     // End of variables declaration//GEN-END:variables
-    
+
 }

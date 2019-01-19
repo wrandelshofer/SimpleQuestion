@@ -76,7 +76,7 @@ import java.util.Vector;
  * @version 1.8 04/23/99
  */
 public class TableSorter extends TableMap {
-    public final static long serialVersionUID=1L;
+    public final static long serialVersionUID = 1L;
     int indexes[];
     Vector<Integer> sortingColumns = new Vector<>();
     boolean ascending = true;

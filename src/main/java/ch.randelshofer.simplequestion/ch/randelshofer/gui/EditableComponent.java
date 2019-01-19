@@ -4,7 +4,7 @@
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.
  * All rights reserved.
  *
- * This software is the confidential and proprietary information of 
+ * This software is the confidential and proprietary information of
  * Werner Randelshofer. ("Confidential Information").  You shall not
  * disclose such Confidential Information and shall use it only in
  * accordance with the terms of the license agreement you entered into
@@ -24,20 +24,23 @@ package ch.randelshofer.gui;
  */
 
 public interface EditableComponent {
-	/**
-	 * Copies the selected region and place its contents into the system clipboard.
-	 */
-	public void editCopy();
-	/**
-	 * Cuts the selected region and place its contents into the system clipboard.
-	 */
-	public void editCut();
-	/**
-	 * Deletes the component at (or after) the caret position.
-	 */
-	public void editDelete();
-	/**
-	 * Pastes the contents of the system clipboard at the caret position.
-	 */
-	public void editPaste();
+    /**
+     * Copies the selected region and place its contents into the system clipboard.
+     */
+    public void editCopy();
+
+    /**
+     * Cuts the selected region and place its contents into the system clipboard.
+     */
+    public void editCut();
+
+    /**
+     * Deletes the component at (or after) the caret position.
+     */
+    public void editDelete();
+
+    /**
+     * Pastes the contents of the system clipboard at the caret position.
+     */
+    public void editPaste();
 }

@@ -10,14 +10,12 @@ import javax.swing.text.Element;
 import java.util.EventObject;
 
 /**
- *
- * @author  Werner Randelshofer
- * @version 
+ * @author Werner Randelshofer
  */
 public class DefaultDocumentEvent
-extends EventObject 
-implements DocumentEvent {
-    public final static long serialVersionUID=1L;
+        extends EventObject
+        implements DocumentEvent {
+    public final static long serialVersionUID = 1L;
     private int offset;
     private int length;
     private DocumentEvent.EventType type;
@@ -25,10 +23,10 @@ implements DocumentEvent {
     /**
      * Creates a new DefaultDocumentEvent.
      *
-     * @param src The Source of the event.
+     * @param src  The Source of the event.
      * @param offs the offset into the document of the change >= 0
-     * @param len the length of the change >= 0
-     * @param the type of event DocumentEvent.EventType);
+     * @param len  the length of the change >= 0
+     * @param the  type of event DocumentEvent.EventType);
      */
     public DefaultDocumentEvent(Document src, int offs, int len, DocumentEvent.EventType type) {
         super(src);
@@ -64,12 +62,12 @@ implements DocumentEvent {
      *
      * @param elem the element
      * @return the change information, or null if the
-     *  element was not modified
+     * element was not modified
      */
     public ElementChange getChange(Element elem) {
         return null;
     }
-    
+
     /**
      * Gets the document that sourced the change event.
      *
@@ -78,7 +76,7 @@ implements DocumentEvent {
     public Document getDocument() {
         return (Document) getSource();
     }
-    
+
     /**
      * Returns the length of the change.
      *
@@ -87,7 +85,7 @@ implements DocumentEvent {
     public int getLength() {
         return length;
     }
-    
+
     /**
      * Gets the type of event.
      *
@@ -96,7 +94,7 @@ implements DocumentEvent {
     public DocumentEvent.EventType getType() {
         return type;
     }
-    
+
     /**
      * Returns the offset within the document of the start
      * of the change.
@@ -106,5 +104,5 @@ implements DocumentEvent {
     public int getOffset() {
         return offset;
     }
-    
+
 }

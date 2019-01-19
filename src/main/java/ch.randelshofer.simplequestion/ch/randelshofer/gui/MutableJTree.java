@@ -46,7 +46,7 @@ import java.util.ResourceBundle;
  * using a popup menu. MutableJTree also supports the standard clipboard
  * operations cut, copy and paste.
  *
- * @author  Werner Randelshofer
+ * @author Werner Randelshofer
  * @version 2.3.1 2006-01-04 Specifying Quaqua "tableHeader" button style for popup
  * button.
  * <br>2.3  2004-07-03  Reworked due to API changes in MutableTreeModel.
@@ -57,7 +57,7 @@ import java.util.ResourceBundle;
  * <br>2.0.1 2001-10-13
  */
 public class MutableJTree extends JTree
-implements EditableComponent {
+        implements EditableComponent {
     /**
      * This inner class is used to prevent the API from being cluttered
      * by internal listeners.
@@ -68,29 +68,29 @@ implements EditableComponent {
          * of the clipboard.
          */
         public void lostOwnership(Clipboard clipboard, Transferable contents) {
-            
+
         }
     }
-    
+
     private EventHandler eventHandler = new EventHandler();
-    
+
     /**
      * Holds locale specific resources.
      */
     private ResourceBundleUtil labels;
-    
+
     /**
      * Listener for popup mouse events.
      */
     private MouseAdapter popupListener;
-    
+
     /**
      * Popup button at the top right corner
      * of the enclosing scroll pane.
      */
     private JButton popupButton;
-    
-    
+
+
     /**
      * Constructs a MutableJTree with an empty DefaultMutableTreeModel.
      */
@@ -98,7 +98,7 @@ implements EditableComponent {
         super(new DefaultMutableTreeModel());
         init();
     }
-    
+
     /**
      * Constructs a MutableJTree with the specified MutableTreeModel.
      */
@@ -106,12 +106,13 @@ implements EditableComponent {
         super(m);
         init();
     }
+
     /**
      * This method is called from the constructor to initialize the Object.
      */
     private void init() {
         initComponents();
-        
+
         // The popup button will be placed on the top right corner
         // of the parent JScrollPane when the MutableJList is
         // added to a JScrollPane.
@@ -119,14 +120,15 @@ implements EditableComponent {
         popupButton.setIcon(Icons.POPUP_ICON);
         popupButton.putClientProperty("Quaqua.Button.style", "tableHeader");
         popupButton.addMouseListener(
-        new MouseAdapter() {
-            public void mousePressed(MouseEvent evt) {
-                if (isEnabled())
-                    createPopup().show(popupButton, 0, popupButton.getHeight());
-            }
-        }
+                new MouseAdapter() {
+                    public void mousePressed(MouseEvent evt) {
+                        if (isEnabled()) {
+                            createPopup().show(popupButton, 0, popupButton.getHeight());
+                        }
+                    }
+                }
         );
-        
+
         // The popup listener provides an alternative way for
         // opening the popup menu.
         popupListener = new MouseAdapter() {
@@ -135,6 +137,7 @@ implements EditableComponent {
                     createPopup().show(evt.getComponent(), evt.getX(), evt.getY());
                 }
             }
+
             public void mouseReleased(MouseEvent evt) {
                 if (isEnabled() && evt.isPopupTrigger()) {
                     createPopup().show(evt.getComponent(), evt.getX(), evt.getY());
@@ -142,11 +145,12 @@ implements EditableComponent {
             }
         };
         addMouseListener(popupListener);
-        
+
         // All locale specific and LAF specific
         // labels are read from a resource bundle.
         initLabels(Locale.getDefault());
     }
+
     /**
      * Initializes the labels in a locale specific and
      * look-and-feel (LAF) specific way.
@@ -174,87 +178,100 @@ implements EditableComponent {
                 unregisterKeyboardAction(keyStroke);
             }
         }
-        
+
         // get the locale and LAF specific resources
         labels = new ResourceBundleUtil(ResourceBundle.getBundle(
-        "ch.randelshofer.gui.Labels", locale
+                "ch.randelshofer.gui.Labels", locale
         ));
-        
+
         // install key strokes
         if (labels != null) {
             if (null != (keyStroke = labels.getKeyStroke("editNewAcc"))) {
                 registerKeyboardAction(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (isEnabled()) editNew();
-                    }
-                },
-                keyStroke,
-                WHEN_FOCUSED
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent evt) {
+                                if (isEnabled()) {
+                                    editNew();
+                                }
+                            }
+                        },
+                        keyStroke,
+                        WHEN_FOCUSED
                 );
             }
-            
+
             if (null != (keyStroke = labels.getKeyStroke("editDuplicateAcc"))) {
                 registerKeyboardAction(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (isEnabled()) editDuplicate();
-                    }
-                },
-                keyStroke,
-                WHEN_FOCUSED
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent evt) {
+                                if (isEnabled()) {
+                                    editDuplicate();
+                                }
+                            }
+                        },
+                        keyStroke,
+                        WHEN_FOCUSED
                 );
             }
-            
+
             if (null != (keyStroke = labels.getKeyStroke("editCutAcc"))) {
                 registerKeyboardAction(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (isEnabled()) editCut();
-                    }
-                },
-                keyStroke,
-                WHEN_FOCUSED
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent evt) {
+                                if (isEnabled()) {
+                                    editCut();
+                                }
+                            }
+                        },
+                        keyStroke,
+                        WHEN_FOCUSED
                 );
             }
-            
+
             if (null != (keyStroke = labels.getKeyStroke("editCopyAcc"))) {
                 registerKeyboardAction(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (isEnabled()) editCopy();
-                    }
-                },
-                keyStroke,
-                WHEN_FOCUSED
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent evt) {
+                                if (isEnabled()) {
+                                    editCopy();
+                                }
+                            }
+                        },
+                        keyStroke,
+                        WHEN_FOCUSED
                 );
             }
-            
+
             if (null != (keyStroke = labels.getKeyStroke("editPasteAcc"))) {
                 registerKeyboardAction(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (isEnabled()) editPaste();
-                    }
-                },
-                keyStroke,
-                WHEN_FOCUSED
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent evt) {
+                                if (isEnabled()) {
+                                    editPaste();
+                                }
+                            }
+                        },
+                        keyStroke,
+                        WHEN_FOCUSED
                 );
             }
-            
+
             if (null != (keyStroke = labels.getKeyStroke("editDeleteAcc"))) {
                 registerKeyboardAction(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (isEnabled()) editDelete();
-                    }
-                },
-                keyStroke,
-                WHEN_FOCUSED
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent evt) {
+                                if (isEnabled()) {
+                                    editDelete();
+                                }
+                            }
+                        },
+                        keyStroke,
+                        WHEN_FOCUSED
                 );
             }
         }
     }
+
     /**
      * Creates the popup menu. The contents of the popup menu
      * is determined by the current selection.
@@ -267,51 +284,53 @@ implements EditableComponent {
         final TreePath leadSelectionPath = (selectedPaths == null || selectedPaths.length == 0) ? new TreePath(model.getRoot()) : getSelectionModel().getLeadSelectionPath();
         final MutableTreeNode leadNode = (MutableTreeNode) leadSelectionPath.getLastPathComponent();
         final JPopupMenu popup = new JPopupMenu();
-        
+
         JMenuItem item;
         boolean b;
-        
+
         // New
         Object[] types = model.getCreatableNodeTypes(leadNode);
         Object defaultType = model.getCreatableNodeType(leadNode);
         for (int i = 0; i < types.length; i++) {
             final Object newChildType = types[i];
-            item = new JMenuItem(labels.getFormatted("editNewMenu", new Object[] {newChildType.toString()}));
+            item = new JMenuItem(labels.getFormatted("editNewMenu", new Object[]{newChildType.toString()}));
             if (types[i] == defaultType) {
                 item.setMnemonic(labels.getMnemonic("editNewMnem"));
-                if (labels.getKeyStroke("editNewAcc") != null)
+                if (labels.getKeyStroke("editNewAcc") != null) {
                     item.setAccelerator(labels.getKeyStroke("editNewAcc"));
-            }
-            
-            item.addActionListener(
-            new ActionListener() {
-                public void actionPerformed(ActionEvent actionEvent) {
-                    MutableTreeModel m = (MutableTreeModel) getModel();
-                    m.createNodeAt(
-                    newChildType,
-                    leadNode,
-                    m.getChildCount(leadNode)
-                    );
-                    expandPath(leadSelectionPath);
                 }
             }
+
+            item.addActionListener(
+                    new ActionListener() {
+                        public void actionPerformed(ActionEvent actionEvent) {
+                            MutableTreeModel m = (MutableTreeModel) getModel();
+                            m.createNodeAt(
+                                    newChildType,
+                                    leadNode,
+                                    m.getChildCount(leadNode)
+                            );
+                            expandPath(leadSelectionPath);
+                        }
+                    }
             );
             popup.add(item);
         }
-        
+
         if (popup.getComponentCount() > 0) {
             popup.addSeparator();
         }
-        
+
         // Cut
         item = new JMenuItem(labels.getString("editCutMenu"));
         item.setMnemonic(labels.getMnemonic("editCutMnem"));
-        if (labels.getKeyStroke("editCutAcc") != null)
+        if (labels.getKeyStroke("editCutAcc") != null) {
             item.setAccelerator(labels.getKeyStroke("editCutAcc"));
+        }
         boolean enabled = true;
         if (selectedPaths != null) {
-            for (int i=0; i < selectedPaths.length; i++) {
-                if (! model.isNodeRemovable((MutableTreeNode) selectedPaths[i].getLastPathComponent())) {
+            for (int i = 0; i < selectedPaths.length; i++) {
+                if (!model.isNodeRemovable((MutableTreeNode) selectedPaths[i].getLastPathComponent())) {
                     enabled = false;
                     break;
                 }
@@ -319,56 +338,59 @@ implements EditableComponent {
         }
         item.setEnabled(enabled && model.isNodeRemovable(leadNode));
         item.addActionListener(
-        new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                editCut();
-            }
-        }
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        editCut();
+                    }
+                }
         );
         popup.add(item);
-        
+
         // Copy
         item = new JMenuItem(labels.getString("editCopyMenu"));
         item.setMnemonic(labels.getMnemonic("editCopyMnem"));
-        if (labels.getKeyStroke("editCopyAcc") != null)
+        if (labels.getKeyStroke("editCopyAcc") != null) {
             item.setAccelerator(labels.getKeyStroke("editCopyAcc"));
+        }
         item.setEnabled(leadNode != null);
         item.addActionListener(
-        new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                editCopy();
-            }
-        }
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        editCopy();
+                    }
+                }
         );
         popup.add(item);
-        
+
         // Paste
         item = new JMenuItem(labels.getString("editPasteMenu"));
         item.setMnemonic(labels.getMnemonic("editPasteMnem"));
-        if (labels.getKeyStroke("editPasteAcc") != null)
+        if (labels.getKeyStroke("editPasteAcc") != null) {
             item.setAccelerator(labels.getKeyStroke("editPasteAcc"));
+        }
         item.setEnabled(
-        model.getCreatableNodeTypes(leadNode).length > 0
-        || leadNode.getParent() != null && model.getCreatableNodeTypes(leadNode.getParent()).length > 0
+                model.getCreatableNodeTypes(leadNode).length > 0
+                        || leadNode.getParent() != null && model.getCreatableNodeTypes(leadNode.getParent()).length > 0
         );
         item.addActionListener(
-        new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                editPaste();
-            }
-        }
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        editPaste();
+                    }
+                }
         );
         popup.add(item);
-        
+
         // Add the "Delete" menu item.
         item = new JMenuItem(labels.getString("editDeleteMenu"));
         item.setMnemonic(labels.getMnemonic("editDeleteMnem"));
-        if (labels.getKeyStroke("editDeleteAcc") != null)
+        if (labels.getKeyStroke("editDeleteAcc") != null) {
             item.setAccelerator(labels.getKeyStroke("editDeleteAcc"));
+        }
         enabled = true;
         if (selectedPaths != null) {
-            for (int i=0; i < selectedPaths.length; i++) {
-                if (! model.isNodeRemovable((MutableTreeNode) selectedPaths[i].getLastPathComponent())) {
+            for (int i = 0; i < selectedPaths.length; i++) {
+                if (!model.isNodeRemovable((MutableTreeNode) selectedPaths[i].getLastPathComponent())) {
                     enabled = false;
                     break;
                 }
@@ -376,28 +398,29 @@ implements EditableComponent {
         }
         item.setEnabled(enabled && model.isNodeRemovable(leadNode));
         item.addActionListener(
-        new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                editDelete();
-            }
-        }
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        editDelete();
+                    }
+                }
         );
         popup.add(item);
-        
+
         popup.addSeparator();
-        
+
         // add the "Select All" menu item
         item = new JMenuItem(labels.getString("editSelectAllMenu"));
         item.setMnemonic(labels.getMnemonic("editSelectAllMnem"));
-        if (labels.getKeyStroke("editSelectAllAcc") != null)
+        if (labels.getKeyStroke("editSelectAllAcc") != null) {
             item.setAccelerator(labels.getKeyStroke("editSelectAllAcc"));
+        }
         item.setIcon(labels.getSmallIconProperty("editSelectAll", getClass()));
         item.addActionListener(
-        new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                setSelectionInterval(0, getRowCount() - 1);
-            }
-        }
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        setSelectionInterval(0, getRowCount() - 1);
+                    }
+                }
         );
         item.setEnabled(true);
         popup.add(item);
@@ -598,10 +621,11 @@ implements EditableComponent {
         }
          */
         return popup;
-        
+
     }
-    
-    /** This method is called from within the constructor to
+
+    /**
+     * This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
@@ -609,7 +633,7 @@ implements EditableComponent {
     private void initComponents() {//GEN-BEGIN:initComponents
 
     }//GEN-END:initComponents
-    
+
     /**
      * Inserts a new row after the lead selection row,
      * if the model allows it.
@@ -626,8 +650,8 @@ implements EditableComponent {
             if (model.getCreatableNodeType(node) != null) {
                 if (model.isNodeAddable(node, model.getChildCount(node))) {
                     model.createNodeAt(
-                    model.getCreatableNodeType(node),
-                    (MutableTreeNode) path.getLastPathComponent(), index
+                            model.getCreatableNodeType(node),
+                            (MutableTreeNode) path.getLastPathComponent(), index
                     );
                     setSelectionPath(path.pathByAddingChild(model.getChild(node, index)));
                 }
@@ -641,36 +665,38 @@ implements EditableComponent {
             path = path.getParentPath();
         } while (path.getPathCount() > 0);
     }
-    /** Cuts the selected region and place its contents into the system clipboard.
+
+    /**
+     * Cuts the selected region and place its contents into the system clipboard.
      */
     public void editCut() {
         final TreePath[] selectedPaths = getSelectionPaths();
         MutableTreeNode[] nodes = new MutableTreeNode[selectedPaths.length];
         MutableTreeModel m = (MutableTreeModel) getModel();
-        for (int i=0; i < selectedPaths.length; i++) {
-            if (! m.isNodeRemovable((MutableTreeNode) selectedPaths[i].getLastPathComponent())) {
+        for (int i = 0; i < selectedPaths.length; i++) {
+            if (!m.isNodeRemovable((MutableTreeNode) selectedPaths[i].getLastPathComponent())) {
                 getToolkit().beep();
                 return;
             }
             nodes[i] = (MutableTreeNode) selectedPaths[i].getLastPathComponent();
         }
-        
+
         getToolkit().getSystemClipboard().setContents(
-        m.exportTransferable(nodes),
-        eventHandler
+                m.exportTransferable(nodes),
+                eventHandler
         );
-        
-        for (int i=selectedPaths.length - 1; i > -1; i--) {
+
+        for (int i = selectedPaths.length - 1; i > -1; i--) {
             m.removeNodeFromParent((MutableTreeNode) selectedPaths[i].getLastPathComponent());
         }
     }
-    
+
     /**
      * Copies the selected region and place its contents into
      * the system clipboard.
      */
     public void editCopy() {
-System.out.println("MutableJTree.editCopy");        
+        System.out.println("MutableJTree.editCopy");
         final TreePath[] selectedPaths = getSelectionPaths();
         if (selectedPaths == null) {
             getToolkit().beep();
@@ -678,23 +704,24 @@ System.out.println("MutableJTree.editCopy");
         }
         MutableTreeNode[] nodes = new MutableTreeNode[selectedPaths.length];
         Object[] selectedNodes = new Object[selectedPaths.length];
-        for (int i=0; i < selectedPaths.length; i++) {
+        for (int i = 0; i < selectedPaths.length; i++) {
             selectedNodes[i] = selectedPaths[i].getLastPathComponent();
             nodes[i] = (MutableTreeNode) selectedPaths[i].getLastPathComponent();
         }
-        
+
         MutableTreeModel m = (MutableTreeModel) getModel();
         getToolkit().getSystemClipboard().setContents(
-        m.exportTransferable(nodes),
-        eventHandler
+                m.exportTransferable(nodes),
+                eventHandler
         );
-        
+
     }
-    
-    /** Pastes the contents of the system clipboard at the caret position.
+
+    /**
+     * Pastes the contents of the system clipboard at the caret position.
      */
     public void editPaste() {
-System.out.println("MutableJTree.editPaste");        
+        System.out.println("MutableJTree.editPaste");
         TreePath insertionPath = getSelectionModel().getLeadSelectionPath();
         MutableTreeModel m = (MutableTreeModel) getModel();
         if (insertionPath == null) {
@@ -702,15 +729,17 @@ System.out.println("MutableJTree.editPaste");
         }
         MutableTreeNode node = (MutableTreeNode) insertionPath.getLastPathComponent();
         MutableTreeNode parent = m.isLeaf(node) ? (MutableTreeNode) (node).getParent() : node;
-        if (parent == null) parent = (MutableTreeNode) m.getRoot();
+        if (parent == null) {
+            parent = (MutableTreeNode) m.getRoot();
+        }
         do {
             int index = parent.getIndex((TreeNode) insertionPath.getLastPathComponent());
             if (m.isImportable(getToolkit().getSystemClipboard().getContents(this).getTransferDataFlavors(), DnDConstants.ACTION_COPY, parent, index)) {
                 try {
                     m.importTransferable(
-                    getToolkit().getSystemClipboard().getContents(this),
-                    DnDConstants.ACTION_COPY,
-                    parent, index
+                            getToolkit().getSystemClipboard().getContents(this),
+                            DnDConstants.ACTION_COPY,
+                            parent, index
                     );
                 } catch (Exception e) {
                     System.out.println("MutableJTree paste failed");
@@ -720,15 +749,18 @@ System.out.println("MutableJTree.editPaste");
             }
             parent = (MutableTreeNode) parent.getParent();
         } while (parent != null);
-                    System.out.println("MutableJTree can't paste");
-                    getToolkit().beep();
+        System.out.println("MutableJTree can't paste");
+        getToolkit().beep();
     }
-    /** Deletes the component at (or after) the caret position.
+
+    /**
+     * Deletes the component at (or after) the caret position.
      */
     public void editDelete() {
-        if (isEditing())
+        if (isEditing()) {
             getCellEditor().stopCellEditing();
-        
+        }
+
         //if (isEnabled() && isEditable() && getSelectionCount() > 0) {
         if (isEnabled() && getSelectionCount() > 0) {
             MutableTreeModel model = (MutableTreeModel) getModel();
@@ -737,12 +769,12 @@ System.out.println("MutableJTree.editPaste");
                 getToolkit().beep();
                 return;
             }
-            
+
             int i;
             int j;
-            
+
             // remove root from list of selected paths if root is not visible
-            if (! isRootVisible()) {
+            if (!isRootVisible()) {
                 Object root = model.getRoot();
                 for (i = 0; i < paths.length; i++) {
                     if (paths[i].getLastPathComponent() == root) {
@@ -752,12 +784,12 @@ System.out.println("MutableJTree.editPaste");
                     }
                 }
             }
-            
+
             if (paths == null) {
                 getToolkit().beep();
                 return;
             }
-            
+
             // remove descendants from list of selected nodes
             for (i = paths.length - 1; i >= 0; i--) {
                 for (j = i - 1; j >= 0; j--) {
@@ -766,13 +798,13 @@ System.out.println("MutableJTree.editPaste");
                     }
                 }
             }
-            
+
             // check if all nodes may be removed
             int deletableCount = 0;
             int nonDeletableCount = 0;
             for (i = 0; i < paths.length; i++) {
                 if (paths[i] != null &&
-                ! model.isNodeRemovable((MutableTreeNode) paths[i].getLastPathComponent())) {
+                        !model.isNodeRemovable((MutableTreeNode) paths[i].getLastPathComponent())) {
                     nonDeletableCount++;
                 } else {
                     deletableCount++;
@@ -806,9 +838,10 @@ System.out.println("MutableJTree.editPaste");
             }
         }
     }
-    
-    
-    /** Duplicates the selected region.
+
+
+    /**
+     * Duplicates the selected region.
      */
     public void editDuplicate() {
         /*
@@ -835,7 +868,7 @@ System.out.println("MutableJTree.editPaste");
         }
          */
     }
-    
+
     /**
      * Calls the configureEnclosingScrollPane method.
      *
@@ -845,8 +878,8 @@ System.out.println("MutableJTree.editPaste");
         super.addNotify();
         configureEnclosingScrollPane();
     }
-    
-    
+
+
     /**
      * If this <code>MutableJList</code> is the <code>viewportView</code> of an
      * enclosing <code>JScrollPane</code> (the usual situation), configure this
@@ -863,12 +896,12 @@ System.out.println("MutableJTree.editPaste");
      */
     protected void configureEnclosingScrollPane() {
         //super.configureEnclosingScrollPane();
-        
+
         Container p = getParent();
         if (p instanceof JViewport) {
             Container gp = p.getParent();
             if (gp instanceof JScrollPane) {
-                JScrollPane scrollPane = (JScrollPane)gp;
+                JScrollPane scrollPane = (JScrollPane) gp;
                 // Make certain we are the viewPort's view and not, for
                 // example, the rowHeaderView of the scrollPane -
                 // an implementor of fixed columns might do this.
@@ -876,14 +909,14 @@ System.out.println("MutableJTree.editPaste");
                 if (viewport != null && viewport.getView() == this) {
                     // Install the mouse listener for the popup menu
                     viewport.addMouseListener(popupListener);
-                    
+
                     // Install a ScrollPaneLayout2 layout manager to ensure
                     // that the popup button we are going to add next is
                     // shown properly.
                     ScrollPaneLayout2 spl = new ScrollPaneLayout2();
                     scrollPane.setLayout(spl);
                     spl.syncWithScrollPane(scrollPane);
-                    
+
                     // Install the popup button at the top right corner
                     // of the JScrollPane
                     if (popupButton.getParent() == null) {
@@ -893,7 +926,7 @@ System.out.println("MutableJTree.editPaste");
             }
         }
     }
-    
+
     /**
      * Calls the unconfigureEnclosingScrollPane method.
      *
@@ -903,10 +936,10 @@ System.out.println("MutableJTree.editPaste");
         unconfigureEnclosingScrollPane();
         super.removeNotify();
     }
-    
-    
-    
-    /** Reverses the effect of <code>configureEnclosingScrollPane</code> by
+
+
+    /**
+     * Reverses the effect of <code>configureEnclosingScrollPane</code> by
      * removing the button at the top right corner of the <code>JScrollPane</code>.
      * <code>MutableJTable</code>'s <code>removeNotify</code> method
      * calls this method, which is protected so that this default uninstallation
@@ -919,7 +952,7 @@ System.out.println("MutableJTree.editPaste");
         if (p != null && p instanceof JViewport) {
             Container gp = p.getParent();
             if (gp != null && gp instanceof JScrollPane) {
-                JScrollPane scrollPane = (JScrollPane)gp;
+                JScrollPane scrollPane = (JScrollPane) gp;
                 // Make certain we are the viewPort's view and not, for
                 // example, the rowHeaderView of the scrollPane -
                 // an implementor of fixed columns might do this.
@@ -927,13 +960,13 @@ System.out.println("MutableJTree.editPaste");
                 if (viewport != null && viewport.getView() == this) {
                     // Remove the previously installed mouse listener for the popup menu
                     viewport.removeMouseListener(popupListener);
-                    
+
                     // Remove the previously installed ScrollPaneLayout2
                     // layout manager.
                     ScrollPaneLayout spl = new ScrollPaneLayout();
                     scrollPane.setLayout(spl);
                     spl.syncWithScrollPane(scrollPane);
-                    
+
                     // Remove the popup button from the top right corner
                     // of the JScrollPane
                     try {
@@ -951,7 +984,7 @@ System.out.println("MutableJTree.editPaste");
             }
         }
     }
-    
+
     /**
      * Sets the enabled state of the component.
      */
@@ -959,12 +992,12 @@ System.out.println("MutableJTree.editPaste");
         super.setEnabled(b);
         popupButton.setEnabled(b);
     }
-    
+
     public JButton getPopupButton() {
         return popupButton;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    
+
 }

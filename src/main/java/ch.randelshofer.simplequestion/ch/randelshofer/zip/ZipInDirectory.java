@@ -33,6 +33,7 @@ public class ZipInDirectory implements ZipIn {
 
     /**
      * Creates a new ZIP input stream.
+     *
      * @param in the actual input stream
      */
     public ZipInDirectory(File dir) {
@@ -43,10 +44,10 @@ public class ZipInDirectory implements ZipIn {
         if (entryList == null) {
             entryList = new LinkedList<ZipEntry>();
 
-        String dirPath = dir.getCanonicalPath();
-        if (! dirPath.endsWith(File.separator)) {
-            dirPath += File.separatorChar;
-        }
+            String dirPath = dir.getCanonicalPath();
+            if (!dirPath.endsWith(File.separator)) {
+                dirPath += File.separatorChar;
+            }
 
             addEntriesRecursive(entryList, dir, dirPath);
         }

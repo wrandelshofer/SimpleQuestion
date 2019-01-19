@@ -102,7 +102,9 @@ public class SCORMExporter implements Exporter {
     // FIXME - Find a solution to define the style sheet
     private String stylesheet = "style/style_hslu.css";
     //private String chapter = "";
-    /** Random source for encryptClozeText */
+    /**
+     * Random source for encryptClozeText
+     */
     private static Random random = new Random();
     private boolean isPIFdefault;
     private ProgressView progress;
@@ -137,13 +139,16 @@ public class SCORMExporter implements Exporter {
             return title.hashCode();
         }
     }
+
     /**
      * Key = href
      * Value = content package
      */
     private HashMap<String, File> externalResourceRefs;
 
-    /** Creates a new instance. */
+    /**
+     * Creates a new instance.
+     */
     public SCORMExporter() {
     }
 
@@ -153,7 +158,7 @@ public class SCORMExporter implements Exporter {
     }
 
     public void exportToPIF(List<Question> questions, File file,
-            String title, String stylesheet, Locale locale, String prefix) throws IOException {
+                            String title, String stylesheet, Locale locale, String prefix) throws IOException {
 
         progress = new ProgressView("Exporting SCORM Package Interchange File", "...", 0, questions.size());
         this.stylesheet = stylesheet;
@@ -211,7 +216,7 @@ public class SCORMExporter implements Exporter {
     }
 
     public void exportToContentPackage(List<Question> questions, File dir,
-            String title, String stylesheet, Locale locale, String prefix) throws IOException {
+                                       String title, String stylesheet, Locale locale, String prefix) throws IOException {
 
         this.stylesheet = stylesheet;
         this.prefix = (prefix == null) ? "" : prefix;
@@ -678,24 +683,24 @@ public class SCORMExporter implements Exporter {
         String html = TemplateEngine.process(htmlPrototype,//
                 "chapter", getChapterTitle(q),
                 "title", getPageTitle(q),
-                "middot",getPageTitle(q).length() > 0 ? "&middot;" : "",
-                "stylesheet",stylesheet,
-                "question",encodeHTMLText((String) q.getBody().get(0)),
-                "answer",htmlAnswer.toString(),
-                "resultProcessing",resultProcessing.toString(),
-                "footer",(q.getId() != null) ? q.getId() : "",//
+                "middot", getPageTitle(q).length() > 0 ? "&middot;" : "",
+                "stylesheet", stylesheet,
+                "question", encodeHTMLText((String) q.getBody().get(0)),
+                "answer", htmlAnswer.toString(),
+                "resultProcessing", resultProcessing.toString(),
+                "footer", (q.getId() != null) ? q.getId() : "",//
                 //
-                "instructions.title",labels.getString("instructions.title"),
-                "instructions.task",labels.getString("instructions.task.singleChoice"),
-                "instructions.correctAnswerTitle",labels.getString("instructions.correctAnswerTitle"),
-                "instructions.correctAnswerTask",labels.getString("instructions.correctAnswerTask"),
-                "instructions.incorrectAnswerTitle",labels.getString("instructions.incorrectAnswerTitle"),
-                "instructions.incorrectAnswerTask",labels.getString("instructions.incorrectAnswerTask"),
-                "judge",labels.getString("button.judge"),
-                "skip",labels.getString("button.skip"),
-                "reset",labels.getString("button.reset"),
-                "next",labels.getString("button.next")//
-                );
+                "instructions.title", labels.getString("instructions.title"),
+                "instructions.task", labels.getString("instructions.task.singleChoice"),
+                "instructions.correctAnswerTitle", labels.getString("instructions.correctAnswerTitle"),
+                "instructions.correctAnswerTask", labels.getString("instructions.correctAnswerTask"),
+                "instructions.incorrectAnswerTitle", labels.getString("instructions.incorrectAnswerTitle"),
+                "instructions.incorrectAnswerTask", labels.getString("instructions.incorrectAnswerTask"),
+                "judge", labels.getString("button.judge"),
+                "skip", labels.getString("button.skip"),
+                "reset", labels.getString("button.reset"),
+                "next", labels.getString("button.next")//
+        );
 
         out.putNextEntry(new ZipEntry(getURLid(q) + "_" + q.getDescriptiveURL() + "_sco.html"));
         out.write(html.getBytes("UTF8"));
@@ -817,24 +822,24 @@ public class SCORMExporter implements Exporter {
         String html = TemplateEngine.process(htmlPrototype,//
                 "chapter", getChapterTitle(q),
                 "title", getPageTitle(q),
-                "middot",getPageTitle(q).length() > 0 ? "&middot;" : "",
-                "stylesheet",stylesheet,
-                "question",encodeHTMLText((String) q.getBody().get(0)),
-                "answer",htmlAnswer.toString(),
-                "resultProcessing",resultProcessing.toString(),
-                "footer",(q.getId() != null) ? q.getId() : "",//
+                "middot", getPageTitle(q).length() > 0 ? "&middot;" : "",
+                "stylesheet", stylesheet,
+                "question", encodeHTMLText((String) q.getBody().get(0)),
+                "answer", htmlAnswer.toString(),
+                "resultProcessing", resultProcessing.toString(),
+                "footer", (q.getId() != null) ? q.getId() : "",//
                 //
-                "instructions.title",labels.getString("instructions.title"),
-                "instructions.task",labels.getString("instructions.task.singleChoice"),
-                "instructions.correctAnswerTitle",labels.getString("instructions.correctAnswerTitle"),
-                "instructions.correctAnswerTask",labels.getString("instructions.correctAnswerTask"),
-                "instructions.incorrectAnswerTitle",labels.getString("instructions.incorrectAnswerTitle"),
-                "instructions.incorrectAnswerTask",labels.getString("instructions.incorrectAnswerTask"),
-                "judge",labels.getString("button.judge"),
-                "skip",labels.getString("button.skip"),
-                "reset",labels.getString("button.reset"),
-                "next",labels.getString("button.next")//
-                );
+                "instructions.title", labels.getString("instructions.title"),
+                "instructions.task", labels.getString("instructions.task.singleChoice"),
+                "instructions.correctAnswerTitle", labels.getString("instructions.correctAnswerTitle"),
+                "instructions.correctAnswerTask", labels.getString("instructions.correctAnswerTask"),
+                "instructions.incorrectAnswerTitle", labels.getString("instructions.incorrectAnswerTitle"),
+                "instructions.incorrectAnswerTask", labels.getString("instructions.incorrectAnswerTask"),
+                "judge", labels.getString("button.judge"),
+                "skip", labels.getString("button.skip"),
+                "reset", labels.getString("button.reset"),
+                "next", labels.getString("button.next")//
+        );
 
         out.putNextEntry(new ZipEntry(getURLid(q) + "_" + q.getDescriptiveURL() + "_sco.html"));
         out.write(html.getBytes("UTF8"));
@@ -1023,25 +1028,25 @@ public class SCORMExporter implements Exporter {
         String html = TemplateEngine.process(htmlPrototype,//
                 "chapter", getChapterTitle(q),
                 "title", getPageTitle(q),
-                "middot",getPageTitle(q).length() > 0 ? "&middot;" : "",
-                "stylesheet",stylesheet,
-                "question",encodeHTMLText((String) q.getBody().get(0)),
-                "dropFields",dropDivs.toString() + dragDivs.toString(),
-                "resultProcessing",resultProcessing.toString(),
-                "dragFields",valueDivs.toString(),
-                "footer",(q.getId() != null) ? q.getId() : "",//
+                "middot", getPageTitle(q).length() > 0 ? "&middot;" : "",
+                "stylesheet", stylesheet,
+                "question", encodeHTMLText((String) q.getBody().get(0)),
+                "dropFields", dropDivs.toString() + dragDivs.toString(),
+                "resultProcessing", resultProcessing.toString(),
+                "dragFields", valueDivs.toString(),
+                "footer", (q.getId() != null) ? q.getId() : "",//
                 //
-                "instructions.title",labels.getString("instructions.title"),
-                "instructions.task",labels.getString("instructions.task.singleChoice"),
-                "instructions.correctAnswerTitle",labels.getString("instructions.correctAnswerTitle"),
-                "instructions.correctAnswerTask",labels.getString("instructions.correctAnswerTask"),
-                "instructions.incorrectAnswerTitle",labels.getString("instructions.incorrectAnswerTitle"),
-                "instructions.incorrectAnswerTask",labels.getString("instructions.incorrectAnswerTask"),
-                "judge",labels.getString("button.judge"),
-                "skip",labels.getString("button.skip"),
-                "reset",labels.getString("button.reset"),
-                "next",labels.getString("button.next")//
-                );
+                "instructions.title", labels.getString("instructions.title"),
+                "instructions.task", labels.getString("instructions.task.singleChoice"),
+                "instructions.correctAnswerTitle", labels.getString("instructions.correctAnswerTitle"),
+                "instructions.correctAnswerTask", labels.getString("instructions.correctAnswerTask"),
+                "instructions.incorrectAnswerTitle", labels.getString("instructions.incorrectAnswerTitle"),
+                "instructions.incorrectAnswerTask", labels.getString("instructions.incorrectAnswerTask"),
+                "judge", labels.getString("button.judge"),
+                "skip", labels.getString("button.skip"),
+                "reset", labels.getString("button.reset"),
+                "next", labels.getString("button.next")//
+        );
 
         out.putNextEntry(new ZipEntry(getURLid(q) + "_" + q.getDescriptiveURL() + "_sco.html"));
         out.write(html.getBytes("UTF8"));
@@ -1321,22 +1326,22 @@ public class SCORMExporter implements Exporter {
         String html = TemplateEngine.process(htmlPrototype,//
                 "chapter", getChapterTitle(q),
                 "title", getPageTitle(q),
-                "middot",getPageTitle(q).length() > 0 ? "&middot;" : "",
-                "stylesheet",stylesheet,
-                "clozeText",htmlCloze.toString(),
-                "resultProcessing",resultProcessing.toString(),
+                "middot", getPageTitle(q).length() > 0 ? "&middot;" : "",
+                "stylesheet", stylesheet,
+                "clozeText", htmlCloze.toString(),
+                "resultProcessing", resultProcessing.toString(),
                 //
-                "instructions.title",labels.getString("instructions.title"),
-                "instructions.task",labels.getString("instructions.task.singleChoice"),
-                "instructions.correctAnswerTitle",labels.getString("instructions.correctAnswerTitle"),
-                "instructions.correctAnswerTask",labels.getString("instructions.correctAnswerTask"),
-                "instructions.incorrectAnswerTitle",labels.getString("instructions.incorrectAnswerTitle"),
-                "instructions.incorrectAnswerTask",labels.getString("instructions.incorrectAnswerTask"),
-                "judge",labels.getString("button.judge"),
-                "skip",labels.getString("button.skip"),
-                "reset",labels.getString("button.reset"),
-                "next",labels.getString("button.next")//
-                );
+                "instructions.title", labels.getString("instructions.title"),
+                "instructions.task", labels.getString("instructions.task.singleChoice"),
+                "instructions.correctAnswerTitle", labels.getString("instructions.correctAnswerTitle"),
+                "instructions.correctAnswerTask", labels.getString("instructions.correctAnswerTask"),
+                "instructions.incorrectAnswerTitle", labels.getString("instructions.incorrectAnswerTitle"),
+                "instructions.incorrectAnswerTask", labels.getString("instructions.incorrectAnswerTask"),
+                "judge", labels.getString("button.judge"),
+                "skip", labels.getString("button.skip"),
+                "reset", labels.getString("button.reset"),
+                "next", labels.getString("button.next")//
+        );
 
         out.putNextEntry(new ZipEntry(getURLid(q) + "_" + q.getDescriptiveURL() + "_sco.html"));
         out.write(html.getBytes("UTF8"));
@@ -1454,24 +1459,24 @@ public class SCORMExporter implements Exporter {
         String html = TemplateEngine.process(htmlPrototype,//
                 "chapter", getChapterTitle(q),
                 "title", getPageTitle(q),
-                "middot",getPageTitle(q).length() > 0 ? "&middot;" : "",
-                "stylesheet",stylesheet,
-                "question",encodeHTMLText((String) q.getBody().get(0)),
-                "answer",htmlAnswer.toString(),
-                "resultProcessing",resultProcessing.toString(),
-                "footer",(q.getId() != null) ? q.getId() : "",//
+                "middot", getPageTitle(q).length() > 0 ? "&middot;" : "",
+                "stylesheet", stylesheet,
+                "question", encodeHTMLText((String) q.getBody().get(0)),
+                "answer", htmlAnswer.toString(),
+                "resultProcessing", resultProcessing.toString(),
+                "footer", (q.getId() != null) ? q.getId() : "",//
                 //
-                "instructions.title",labels.getString("instructions.title"),
-                "instructions.task",labels.getString("instructions.task.singleChoice"),
-                "instructions.correctAnswerTitle",labels.getString("instructions.correctAnswerTitle"),
-                "instructions.correctAnswerTask",labels.getString("instructions.correctAnswerTask"),
-                "instructions.incorrectAnswerTitle",labels.getString("instructions.incorrectAnswerTitle"),
-                "instructions.incorrectAnswerTask",labels.getString("instructions.incorrectAnswerTask"),
-                "judge",labels.getString("button.judge"),
-                "skip",labels.getString("button.skip"),
-                "reset",labels.getString("button.reset"),
-                "next",labels.getString("button.next")//
-                );
+                "instructions.title", labels.getString("instructions.title"),
+                "instructions.task", labels.getString("instructions.task.singleChoice"),
+                "instructions.correctAnswerTitle", labels.getString("instructions.correctAnswerTitle"),
+                "instructions.correctAnswerTask", labels.getString("instructions.correctAnswerTask"),
+                "instructions.incorrectAnswerTitle", labels.getString("instructions.incorrectAnswerTitle"),
+                "instructions.incorrectAnswerTask", labels.getString("instructions.incorrectAnswerTask"),
+                "judge", labels.getString("button.judge"),
+                "skip", labels.getString("button.skip"),
+                "reset", labels.getString("button.reset"),
+                "next", labels.getString("button.next")//
+        );
 
         out.putNextEntry(new ZipEntry(getURLid(q) + "_" + q.getDescriptiveURL() + "_sco.html"));
         out.write(html.getBytes("UTF8"));
@@ -1499,22 +1504,22 @@ public class SCORMExporter implements Exporter {
         String html = TemplateEngine.process(htmlPrototype,//
                 "chapter", getChapterTitle(q),
                 "title", getPageTitle(q),
-                "middot",getPageTitle(q).length() > 0 ? "&middot;" : "",
-                "stylesheet",stylesheet,
-                "question",encodeHTMLText((String) q.getBody().get(0)),
-                "footer",(q.getId() != null) ? q.getId() : "",//
+                "middot", getPageTitle(q).length() > 0 ? "&middot;" : "",
+                "stylesheet", stylesheet,
+                "question", encodeHTMLText((String) q.getBody().get(0)),
+                "footer", (q.getId() != null) ? q.getId() : "",//
                 //
-                "instructions.title",labels.getString("instructions.title"),
-                "instructions.task",labels.getString("instructions.task.singleChoice"),
-                "instructions.correctAnswerTitle",labels.getString("instructions.correctAnswerTitle"),
-                "instructions.correctAnswerTask",labels.getString("instructions.correctAnswerTask"),
-                "instructions.incorrectAnswerTitle",labels.getString("instructions.incorrectAnswerTitle"),
-                "instructions.incorrectAnswerTask",labels.getString("instructions.incorrectAnswerTask"),
-                "judge",labels.getString("button.judge"),
-                "skip",labels.getString("button.skip"),
-                "reset",labels.getString("button.reset"),
-                "next",labels.getString("button.next")//
-                );
+                "instructions.title", labels.getString("instructions.title"),
+                "instructions.task", labels.getString("instructions.task.singleChoice"),
+                "instructions.correctAnswerTitle", labels.getString("instructions.correctAnswerTitle"),
+                "instructions.correctAnswerTask", labels.getString("instructions.correctAnswerTask"),
+                "instructions.incorrectAnswerTitle", labels.getString("instructions.incorrectAnswerTitle"),
+                "instructions.incorrectAnswerTask", labels.getString("instructions.incorrectAnswerTask"),
+                "judge", labels.getString("button.judge"),
+                "skip", labels.getString("button.skip"),
+                "reset", labels.getString("button.reset"),
+                "next", labels.getString("button.next")//
+        );
 
         out.putNextEntry(new ZipEntry(getURLid(q) + "_" + q.getDescriptiveURL() + "_sco.html"));
         out.write(html.getBytes("UTF8"));
@@ -1766,7 +1771,7 @@ public class SCORMExporter implements Exporter {
     }
 
     /**
-     * @param cff Must have a client property named "stylesheet".
+     * @param cff     Must have a client property named "stylesheet".
      * @param baseDir is used to locate files referenced by the GIFT file.
      */
     @Override

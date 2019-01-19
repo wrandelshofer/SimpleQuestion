@@ -38,7 +38,7 @@ import java.util.List;
  * <br>1.0 September 8, 2007 Created.
  */
 public class FileTextFieldTransferHandler extends TransferHandler {
-    public final static long serialVersionUID=1L;
+    public final static long serialVersionUID = 1L;
 
     private boolean shouldRemove;
     private JTextComponent exportComp;
@@ -46,12 +46,16 @@ public class FileTextFieldTransferHandler extends TransferHandler {
     private int p1;
     private int fileSelectionMode;
 
-    /** Creates a new instance. */
+    /**
+     * Creates a new instance.
+     */
     public FileTextFieldTransferHandler() {
         this(JFileChooser.FILES_ONLY);
     }
 
-    /** Creates a new instance.
+    /**
+     * Creates a new instance.
+     *
      * @param fileSelectionMode JFileChooser file selection mode.
      */
     public FileTextFieldTransferHandler(int fileSelectionMode) {
@@ -182,10 +186,10 @@ public class FileTextFieldTransferHandler extends TransferHandler {
      * Try to find a flavor that can be used to import a Transferable.
      * The set of usable flavors are tried in the following order:
      * <ol>
-     *     <li>First, an attempt to find a text/plain flavor is made.
-     *     <li>Second, an attempt to find a flavor representing a String reference
-     *         in the same VM is made.
-     *     <li>Lastly, DataFlavor.stringFlavor is searched for.
+     * <li>First, an attempt to find a text/plain flavor is made.
+     * <li>Second, an attempt to find a flavor representing a String reference
+     * in the same VM is made.
+     * <li>Lastly, DataFlavor.stringFlavor is searched for.
      * </ol>
      */
     protected DataFlavor getImportFlavor(DataFlavor[] flavors, JTextComponent c) {
@@ -295,24 +299,25 @@ public class FileTextFieldTransferHandler extends TransferHandler {
     }
 
     // --- TransferHandler methods ------------------------------------
+
     /**
      * This is the type of transfer actions supported by the source.  Some models are
      * not mutable, so a transfer operation of COPY only should
      * be advertised in that case.
      *
-     * @param c  The component holding the data to be transfered.  This
-     *  argument is provided to enable sharing of TransferHandlers by
-     *  multiple components.
-     * @return  This is implemented to return NONE if the component is a JPasswordField
-     *  since exporting data via user gestures is not allowed.  If the text component is
-     *  editable, COPY_OR_MOVE is returned, otherwise just COPY is allowed.
+     * @param c The component holding the data to be transfered.  This
+     *          argument is provided to enable sharing of TransferHandlers by
+     *          multiple components.
+     * @return This is implemented to return NONE if the component is a JPasswordField
+     * since exporting data via user gestures is not allowed.  If the text component is
+     * editable, COPY_OR_MOVE is returned, otherwise just COPY is allowed.
      */
     public int getSourceActions(JComponent comp) {
         JTextComponent c = (JTextComponent) comp;
 
         if (c instanceof JPasswordField &&
                 c.getClientProperty("JPasswordField.cutCopyAllowed") !=
-                Boolean.TRUE) {
+                        Boolean.TRUE) {
             return NONE;
         }
 

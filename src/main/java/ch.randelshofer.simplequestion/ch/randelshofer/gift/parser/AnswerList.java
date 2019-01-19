@@ -4,15 +4,16 @@
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland
  * All rights reserved.
  *
- * The copyright of this software is owned by Werner Randelshofer. 
- * You may not use, copy or modify this software, except in  
- * accordance with the license agreement you entered into with  
+ * The copyright of this software is owned by Werner Randelshofer.
+ * You may not use, copy or modify this software, except in
+ * accordance with the license agreement you entered into with
  * Werner Randelshofer. For details see accompanying license terms.
  */
 
 package ch.randelshofer.gift.parser;
 
 import java.util.LinkedList;
+
 /**
  * Holds a list of answers.
  *
@@ -22,30 +23,34 @@ import java.util.LinkedList;
  */
 public class AnswerList {
     private LinkedList<Answer> answers;
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public AnswerList() {
         answers = new LinkedList<Answer>();
     }
-    
+
     public void add(Answer answer) throws IllegalArgumentException {
         if (canBeInGroup(answer)) {
             answers.add(answer);
         }
     }
-    
+
     public LinkedList<Answer> answers() {
         return answers;
     }
-    
-    
+
+
     public boolean canBeInGroup(Answer answer) {
         for (Answer a : answers) {
-            if (! a.canBeInSameList(answer)) return false;
+            if (!a.canBeInSameList(answer)) {
+                return false;
+            }
         }
         return true;
     }
-    
+
     public AnswerListType getType() {
         if (answers.size() == 0) {
             return null;
@@ -64,7 +69,7 @@ public class AnswerList {
             int correctAnswerCount = 0;
             int incorrectAnswerCount = 0;
             int partiallyCorrectAnswerCount = 0;
-            for (Answer a: answers) {
+            for (Answer a : answers) {
                 ChoiceAnswer ta = (ChoiceAnswer) a;
                 if (ta.isCorrect()) {
                     correctAnswerCount++;
@@ -86,11 +91,11 @@ public class AnswerList {
         if (answer instanceof MatchingPairAnswer) {
             return AnswerListType.MATCHING_PAIR;
         }
-        
+
         return null;
     }
-    
-    
+
+
     public String toString() {
         return answers.toString();
     }

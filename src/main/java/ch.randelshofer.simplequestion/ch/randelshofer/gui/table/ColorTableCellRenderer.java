@@ -15,27 +15,30 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Polygon;
+
 /**
- *
- * @author  werni
+ * @author werni
  * @version 1.0 2001-08-02
  */
 public class ColorTableCellRenderer extends DefaultTableCellRenderer {
     static final long serialVersionUID = 1L;
     private PolygonIcon icon;
-    
-    /** Creates new ColorModelCellRenderer */
+
+    /**
+     * Creates new ColorModelCellRenderer
+     */
     public ColorTableCellRenderer() {
         icon = new PolygonIcon(
-        new Polygon(
-        new int[] {0, 24, 24, 0},
-        new int[] {0, 0, 12, 12},
-        4
-        ),
-        new Dimension(25, 13)
+                new Polygon(
+                        new int[]{0, 24, 24, 0},
+                        new int[]{0, 0, 12, 12},
+                        4
+                ),
+                new Dimension(25, 13)
         );
         setIcon(icon);
     }
+
     /*
     private String pad(int number) {
         StringBuffer buf = new StringBuffer();
@@ -49,17 +52,17 @@ public class ColorTableCellRenderer extends DefaultTableCellRenderer {
     */
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Color color = (Color) value;
-        
+
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        
+
         icon.setFillColor(color);
         if (color == null) {
             icon.setForeground(Color.black);
             setText("---");
         } else {
-        icon.setForeground(Colors.shadow(color, 38));
-        //setText(pad(color.getRed()) + "r "+ pad(color.getGreen()) + "g " + pad(color.getBlue())+"b");
-        setText(color.getRed() + "r "+ color.getGreen() + "g " + color.getBlue()+"b");
+            icon.setForeground(Colors.shadow(color, 38));
+            //setText(pad(color.getRed()) + "r "+ pad(color.getGreen()) + "g " + pad(color.getBlue())+"b");
+            setText(color.getRed() + "r " + color.getGreen() + "g " + color.getBlue() + "b");
         }
         /*
         if (table instanceof MutableJTable) {

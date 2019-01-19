@@ -30,6 +30,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
 /**
  * Represents a SCORM CAM 'item' element.
  * <p>
@@ -50,9 +51,9 @@ import java.util.List;
  * [&lt;adlcp:masteryscore&gt;]
  * &lt;/item&gt;
  * </pre>
- *
+ * <p>
  * This implementation ignores the 'metadata' element and all 'adlcp:' elements.
- *
+ * <p>
  * Reference:
  * ADL (2001c). Advanced Distributed Learning.
  * Sharable Content Object Reference Model (SCORM(TM)) Version 1.2.
@@ -72,8 +73,8 @@ import java.util.List;
  * <br>0.12 2003-03-05 Revised.
  * <br>0.1 2003-02-02 Created.
  */
-public class ItemElement extends AbstractElement{
-    private final static long serialVersionUID=1L;
+public class ItemElement extends AbstractElement {
+    private final static long serialVersionUID = 1L;
     /**
      * This attribute is set by validate().
      */
@@ -102,7 +103,7 @@ public class ItemElement extends AbstractElement{
      * file at launch time.
      */
     private String parameters;
-    
+
     /**
      * Describes the title of the element.
      */
@@ -115,41 +116,48 @@ public class ItemElement extends AbstractElement{
      * Contains context specific meta-data that is used to describe the item.
      */
     private MetadataElement metadataElement;
-    
+
     private LinkedList<ItemElement> itemList = new LinkedList<>();
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public ItemElement() {
     }
-    
+
     /**
      * Parses the specified DOM Element and incorporates its contents into this element.
+     *
      * @param elem An XML element with the tag name 'item'.
      */
     public void parse(Element elem)
-    throws IOException, ParserConfigurationException, SAXException {
+            throws IOException, ParserConfigurationException, SAXException {
         String attr;
-        
-        if (! DOMs.isElement(elem, CAM.IMSCP_NS, "item")) {
-            throw new IOException("'adlcp:item' element expected, but found '"+elem.getTagName()+"' element.");
+
+        if (!DOMs.isElement(elem, CAM.IMSCP_NS, "item")) {
+            throw new IOException("'adlcp:item' element expected, but found '" + elem.getTagName() + "' element.");
         }
         this.identifier = DOMs.getAttributeNS(elem, CAM.IMSCP_NS, "identifier", null);
         this.identifierref = DOMs.getAttributeNS(elem, CAM.IMSCP_NS, "identifierref", null);
         this.isVisible = DOMs.getAttributeNS(elem, CAM.IMSCP_NS, "isvisible", "true").equals("true");
         this.parameters = DOMs.getAttributeNS(elem, CAM.IMSCP_NS, "parameters", null);
-        
+
         // Read the child elements
         NodeList nodes = elem.getChildNodes();
-        for (int i=0; i < nodes.getLength(); i++) {
+        for (int i = 0; i < nodes.getLength(); i++) {
             if (nodes.item(i) instanceof Element) {
                 Element child = (Element) nodes.item(i);
                 if (DOMs.isElement(child, CAM.IMSCP_NS, "title")) {
-                    if (this.titleElement != null) throw new IOException("'title' element may only occur once whithin an 'item' element.");
+                    if (this.titleElement != null) {
+                        throw new IOException("'title' element may only occur once whithin an 'item' element.");
+                    }
                     this.titleElement = new TitleElement();
                     add(this.titleElement);
                     this.titleElement.parse(child);
                 } else if (DOMs.isElement(child, CAM.IMSCP_NS, "datafromlms")) {
-                    if (this.dataFromLMSElement != null) throw new IOException("'datafromlms' element may only occur once whithin an 'item' element.");
+                    if (this.dataFromLMSElement != null) {
+                        throw new IOException("'datafromlms' element may only occur once whithin an 'item' element.");
+                    }
                     this.dataFromLMSElement = new DataFromLMSElement();
                     add(this.dataFromLMSElement);
                     this.dataFromLMSElement.parse(child);
@@ -159,7 +167,9 @@ public class ItemElement extends AbstractElement{
                     this.itemList.add(item);
                     item.parse(child);
                 } else if (DOMs.isElement(child, CAM.IMSCP_NS, "metadata")) {
-                    if (this.metadataElement != null) throw new IOException("'metadata' may only be specified once whithin a 'manifest'");
+                    if (this.metadataElement != null) {
+                        throw new IOException("'metadata' may only be specified once whithin a 'manifest'");
+                    }
                     this.metadataElement = new MetadataElement();
                     add(metadataElement);
                     this.metadataElement.parse(child);
@@ -167,61 +177,65 @@ public class ItemElement extends AbstractElement{
             }
         }
     }
-    
+
     /**
      * Dumps the contents of this subtree into the provided string buffer.
      */
     public void dump(StringBuffer buf, int depth) {
-        for (int i=0; i < depth; i++) buf.append('.');
-        buf.append("<item identifier=\""+identifier+"\" identifierref=\""+identifierref+"\" isvisible=\""+isVisible+"\" parameters=\""+parameters+"\">\n");
-        titleElement.dump(buf, depth+1);
+        for (int i = 0; i < depth; i++) {
+            buf.append('.');
+        }
+        buf.append("<item identifier=\"" + identifier + "\" identifierref=\"" + identifierref + "\" isvisible=\"" + isVisible + "\" parameters=\"" + parameters + "\">\n");
+        titleElement.dump(buf, depth + 1);
         Iterator<ItemElement> iter = itemList.iterator();
         while (iter.hasNext()) {
-            ((AbstractElement) iter.next()).dump(buf, depth+1);
+            ((AbstractElement) iter.next()).dump(buf, depth + 1);
         }
-        for (int i=0; i < depth; i++) buf.append('.');
+        for (int i = 0; i < depth; i++) {
+            buf.append('.');
+        }
         buf.append("</item>\n");
     }
-    
+
     /**
      * Exports this CAM subtree to JavaScript using the specified PrintWriter.
      *
-     * @param out The output stream.
+     * @param out   The output stream.
      * @param depth The current depth of the tree (used for indention).
-     * @param gen The identifier generator used to generate short(er) identifiers
-     *  whithin the JavaScript.
+     * @param gen   The identifier generator used to generate short(er) identifiers
+     *              whithin the JavaScript.
      */
     public void exportToJavaScript(PrintWriter out, int depth, IdentifierGenerator gen)
-    throws IOException {
+            throws IOException {
         indent(out, depth);
-        out.print("new ItemElement(\""+
-                gen.getIdentifier(getIdentifier())+"\",\""+
-                Strings.escapeHTML(Strings.escapeUnicodeWithHTMLEntities(getTitle()))+
+        out.print("new ItemElement(\"" +
+                gen.getIdentifier(getIdentifier()) + "\",\"" +
+                Strings.escapeHTML(Strings.escapeUnicodeWithHTMLEntities(getTitle())) +
                 "\"");
         if (getIdentifierref() == null) {
             out.print(",null");
         } else {
-            out.print(",\""+gen.getIdentifier(getIdentifierref())+"\"");
+            out.print(",\"" + gen.getIdentifier(getIdentifierref()) + "\"");
         }
         if (getParameters() == null) {
             out.print(",null");
         } else {
-            out.print(",\""+getParameters()+"\"");
+            out.print(",\"" + getParameters() + "\"");
         }
         if (getDataFromLMSElement() == null) {
             out.print(",null");
         } else {
-            out.print(",\""+getDataFromLMSElement().getDataFromLMS()+"\"");
+            out.print(",\"" + getDataFromLMSElement().getDataFromLMS() + "\"");
         }
         if (itemList.size() == 0) {
             out.print((depth == 0) ? ",[]);" : ",[])");
         } else {
             out.println(",[");
-            
+
             Iterator<ItemElement> iter = itemList.iterator();
             while (iter.hasNext()) {
                 ((ItemElement) iter.next()).exportToJavaScript(out, depth + 1, gen);
-                if (iter.hasNext()){
+                if (iter.hasNext()) {
                     out.println(",");
                 }
             }
@@ -230,40 +244,55 @@ public class ItemElement extends AbstractElement{
             out.print((depth == 0) ? "]);" : "])");
         }
     }
-    
+
     public String getIdentifier() {
         return identifier;
     }
+
     public String getTitle() {
         return (titleElement == null) ? null : titleElement.getTitle();
     }
+
     public String getIdentifierref() {
         return identifierref;
     }
+
     public String getParameters() {
         return parameters;
     }
-    
+
     public DataFromLMSElement getDataFromLMSElement() {
         return dataFromLMSElement;
     }
-    
+
     public String toString() {
         StringBuffer buf = new StringBuffer();
-        
+
         buf.append("<html><font size=-1 face=SansSerif>");
-        if (! isValid()) buf.append("<font size=-1 color=red face=SansSerif>* </font>");
+        if (!isValid()) {
+            buf.append("<font size=-1 color=red face=SansSerif>* </font>");
+        }
         buf.append("<b>Item</b> id:");
-        if (! isIdentifierValid()) buf.append("<font color=red>");
+        if (!isIdentifierValid()) {
+            buf.append("<font color=red>");
+        }
         buf.append(identifier);
-        if (! isIdentifierValid()) buf.append(" <b>DUPLICATE ID</b></font>");
+        if (!isIdentifierValid()) {
+            buf.append(" <b>DUPLICATE ID</b></font>");
+        }
         if (identifierref != null) {
             buf.append(" idref:");
-            if (! isIdentifierrefValid()) buf.append("<font color=red>");
+            if (!isIdentifierrefValid()) {
+                buf.append("<font color=red>");
+            }
             buf.append(identifierref);
-            if (! isIdentifierrefValid()) buf.append(" <b>NO RESOURCE</b></font>");
+            if (!isIdentifierrefValid()) {
+                buf.append(" <b>NO RESOURCE</b></font>");
+            }
         }
-        if (! isVisible) buf.append(" visible:"+isVisible);
+        if (!isVisible) {
+            buf.append(" visible:" + isVisible);
+        }
         if (parameters != null) {
             buf.append(" parameters:\"");
             buf.append(parameters);
@@ -272,11 +301,11 @@ public class ItemElement extends AbstractElement{
         buf.append("</font>");
         return buf.toString();
     }
-    
+
     public List<ItemElement> getItemList() {
         return Collections.unmodifiableList(itemList);
     }
-    
+
     /**
      * Validates this CAM element.
      *
@@ -284,7 +313,9 @@ public class ItemElement extends AbstractElement{
      */
     public boolean validate() {
         isValid = super.validate();
-        if (getIdentifier() == null) isValid = false;
+        if (getIdentifier() == null) {
+            isValid = false;
+        }
         if (identifierref != null) {
             isIdentifierrefValid = false;
             Enumeration<TreeNode> enm = getIMSManifestDocument().getResourcesElement().preorderEnumeration();
@@ -295,11 +326,13 @@ public class ItemElement extends AbstractElement{
                     break;
                 }
             }
-            if (! isIdentifierrefValid) isValid = false;
+            if (!isIdentifierrefValid) {
+                isValid = false;
+            }
         }
         return isValid;
     }
-    
+
     /**
      * The return value of this method is unspecified until
      * validate() has been done.
@@ -310,10 +343,10 @@ public class ItemElement extends AbstractElement{
     public boolean isIdentifierrefValid() {
         return isIdentifierrefValid;
     }
-    
+
     public ResourceElement getResource() {
         return (getIdentifierref() == null)
-        ? null
+                ? null
                 : getIMSManifestDocument().getResourcesElement().findResource(getIdentifierref());
     }
 }

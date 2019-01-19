@@ -12,6 +12,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+
 /**
  * Represents a SCORM 1.2 LOM 'educational' Element.
  * <p>
@@ -42,13 +43,13 @@ import java.io.IOException;
  * The SCORM Content Aggregation Model. October 1, 2001.
  * Internet (2003-01-20): http://www.adlnet.org
  *
- * @author  Werner Randelshofer
+ * @author Werner Randelshofer
  * @version 1.1 2006-10-11 Parse using XML namespaces.
  * <br>1.0.1 2004-01-19 Comments updated.
  * <br>1.0 5. Januar 2004  Created.
  */
 public class EducationalElement extends AbstractElement {
-    private final static long serialVersionUID=1L;
+    private final static long serialVersionUID = 1L;
     /*
     private GeneralElement generalElement;
     private LifecycleElement lifecycleElement;
@@ -59,31 +60,36 @@ public class EducationalElement extends AbstractElement {
     private RelationElement relationElement;
     private AnnotationElement annotationElement;
     private ClassificationElement classificationElement;*/
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public EducationalElement() {
     }
-    
+
     /**
      * Parses the specified DOM Element and incorporates its contents into this element.
+     *
      * @param elem An XML element with the tag name 'file'.
      */
     public void parse(Element elem)
-    throws IOException, ParserConfigurationException, SAXException {
-        if (! DOMs.isElement(elem, LOM.NS, "educational")) {
-            throw new IOException("'educational' element expected, but found '"+elem.getTagName()+"' element.");
+            throws IOException, ParserConfigurationException, SAXException {
+        if (!DOMs.isElement(elem, LOM.NS, "educational")) {
+            throw new IOException("'educational' element expected, but found '" + elem.getTagName() + "' element.");
         }
     }
 
     public void dump(StringBuffer buf, int depth) {
     }
-    
+
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append("<html><font size=-1 face=SansSerif>");
-        if (! isValid()) buf.append("<font color=red>* </font>");
+        if (!isValid()) {
+            buf.append("<font color=red>* </font>");
+        }
         buf.append("<b>Educational</b> ");
-        
+
         buf.append("</font>");
         return buf.toString();
     }

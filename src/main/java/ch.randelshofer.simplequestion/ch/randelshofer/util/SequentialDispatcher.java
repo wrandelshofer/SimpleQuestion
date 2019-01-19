@@ -4,7 +4,7 @@
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.
  * All rights reserved.
  *
- * This software is the confidential and proprietary information of 
+ * This software is the confidential and proprietary information of
  * Werner Randelshofer. ("Confidential Information").  You shall not
  * disclose such Confidential Information and shall use it only in
  * accordance with the terms of the license agreement you entered into
@@ -14,13 +14,13 @@ package ch.randelshofer.util;
 
 /**
  * Processes Runnable objects sequentially on a processor thread.
- * The order in which the runnable objects are processed is 
+ * The order in which the runnable objects are processed is
  * the same in which they were added to the dispatcher.
  * <p>
  * Design pattern used: Acceptor
  * Role in design pattern: EventCollector and EventProcessor
  *
- * @author  Werner Randelshofef
+ * @author Werner Randelshofef
  * @version 1.0 2002-05-18 Created
  */
 public class SequentialDispatcher extends EventLoop {
@@ -30,6 +30,7 @@ public class SequentialDispatcher extends EventLoop {
      */
     public SequentialDispatcher() {
     }
+
     /**
      * Creates a new SequentialDispatcher which processes Runnable Objects
      * at the desired thread priority.
@@ -49,7 +50,7 @@ public class SequentialDispatcher extends EventLoop {
         Runnable r = (Runnable) event;
         r.run();
     }
-    
+
     /**
      * Queues the Runnable object for later execution on the
      * processor thread.

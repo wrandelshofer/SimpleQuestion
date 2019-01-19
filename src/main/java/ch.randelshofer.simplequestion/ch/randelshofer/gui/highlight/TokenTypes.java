@@ -48,36 +48,36 @@ public interface TokenTypes {
             SEPARATOR = 19,
             URL = 20,
             EXTRA = 21;
-    
+
     /**
      * The names of the token types, indexed by type, are provided for
      * descriptive purposes.
      */
     public static final String[] typeNames = {
-        "bad token",
-        "whitespace",
-        "word",
-        "number",
-        "punctuation",
-        "comment",
-        "start of comment",
-        "middle of comment",
-        "end of comment",
-        "tag",
-        "end tag",
-        "keyword",
-        "keyword 2",
-        "identifier",
-        "literal",
-        "string",
-        "character",
-        "operator",
-        "bracket",
-        "separator",
-        "url",
-        "extra",
-        "t1","t2","t3","t4","t5","t6","t7","t8","t9","t10",
-        "t11","t12","t13","t14","t15","t16","t17","t18","t19","t20",
-        "t31","t32","t33","t34","t35","t36","t37","t38","t39","t40",
-        };
+            "bad token",
+            "whitespace",
+            "word",
+            "number",
+            "punctuation",
+            "comment",
+            "start of comment",
+            "middle of comment",
+            "end of comment",
+            "tag",
+            "end tag",
+            "keyword",
+            "keyword 2",
+            "identifier",
+            "literal",
+            "string",
+            "character",
+            "operator",
+            "bracket",
+            "separator",
+            "url",
+            "extra",
+            "t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8", "t9", "t10",
+            "t11", "t12", "t13", "t14", "t15", "t16", "t17", "t18", "t19", "t20",
+            "t31", "t32", "t33", "t34", "t35", "t36", "t37", "t38", "t39", "t40",
+    };
 }

@@ -25,6 +25,7 @@ import javax.swing.text.LabelView;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.View;
 import javax.swing.text.ViewFactory;
+
 /**
  * NumberedViewFactory.
  *
@@ -33,36 +34,38 @@ import javax.swing.text.ViewFactory;
  */
 public class NumberedViewFactory implements ViewFactory {
     private boolean isLineNumbersVisible;
-    
+
     public void setLineNumbersVisible(boolean newValue) {
         boolean oldValue = isLineNumbersVisible;
         isLineNumbersVisible = newValue;
     }
+
     public boolean isLineNumbersVisible() {
         return isLineNumbersVisible;
     }
-    
+
     public View create(Element elem) {
         String kind = elem.getName();
-        if (kind != null)
+        if (kind != null) {
             if (kind.equals(AbstractDocument.ContentElementName)) {
-            return new LabelView(elem);
+                return new LabelView(elem);
             } else if (kind.equals(AbstractDocument.
-                ParagraphElementName)) {
-           // if (isLineNumbersVisible()) {
+                    ParagraphElementName)) {
+                // if (isLineNumbersVisible()) {
                 return new NumberedParagraphView(elem, this);
-           // } else {
-               // return new ParagraphView(elem);
-            //}
+                // } else {
+                // return new ParagraphView(elem);
+                //}
             } else if (kind.equals(AbstractDocument.
-                SectionElementName)) {
-            return new BoxView(elem, View.Y_AXIS);
+                    SectionElementName)) {
+                return new BoxView(elem, View.Y_AXIS);
             } else if (kind.equals(StyleConstants.
-                ComponentElementName)) {
-            return new ComponentView(elem);
+                    ComponentElementName)) {
+                return new ComponentView(elem);
             } else if (kind.equals(StyleConstants.IconElementName)) {
-            return new IconView(elem);
+                return new IconView(elem);
             }
+        }
         // default to text display
         return new LabelView(elem);
     }

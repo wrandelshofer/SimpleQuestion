@@ -51,7 +51,7 @@ import java.util.ResourceBundle;
  * <br>1.0 August 24, 2003  Created.
  */
 public class StudentsTableModel extends AbstractTableModel implements MutableTableModel {
-    public final static long serialVersionUID=1L;
+    public final static long serialVersionUID = 1L;
     /**
      * We store our rows in an array list.
      * Each row contains a StudentModel object.

@@ -4,7 +4,7 @@
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.
  * All rights reserved.
  *
- * This software is the confidential and proprietary information of 
+ * This software is the confidential and proprietary information of
  * Werner Randelshofer. ("Confidential Information").  You shall not
  * disclose such Confidential Information and shall use it only in
  * accordance with the terms of the license agreement you entered into
@@ -15,16 +15,19 @@ package ch.randelshofer.gui.tree;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.AbstractList;
+
 /**
  * Wraps a default mutable tree node with the List interface.
  *
- * @author  Werni Randelshofer
+ * @author Werni Randelshofer
  * @version 1.0 2001-10-08
  */
 public class TreeNodeCollection extends AbstractList<Object> {
     DefaultMutableTreeNode model;
 
-    /** Creates new TreeNodeCollection */
+    /**
+     * Creates new TreeNodeCollection
+     */
     public TreeNodeCollection(DefaultMutableTreeNode n) {
         model = n;
     }
@@ -32,7 +35,7 @@ public class TreeNodeCollection extends AbstractList<Object> {
     public Object get(int index) {
         return model.getChildAt(index);
     }
-    
+
     public int size() {
         return model.getChildCount();
     }

@@ -12,6 +12,7 @@ import org.jhotdraw.util.ResourceBundleUtil;
 
 import java.awt.event.ActionEvent;
 import java.util.ResourceBundle;
+
 /**
  * VerifySyntaxAction.
  *
@@ -19,13 +20,15 @@ import java.util.ResourceBundle;
  * @version 1.0 11. Mai 2006 Created.
  */
 public class VerifySyntaxAction extends AbstractViewAction {
-    public final static long serialVersionUID=1L;
+    public final static long serialVersionUID = 1L;
     public final static String ID = "verifySyntax";
     private ResourceBundleUtil labels = new ResourceBundleUtil(ResourceBundle.getBundle("ch.randelshofer.simplequestion.Labels"));
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public VerifySyntaxAction(Application app, View v) {
-        super(app,v);
+        super(app, v);
         labels.configureAction(this, ID);
     }
 
@@ -33,5 +36,5 @@ public class VerifySyntaxAction extends AbstractViewAction {
     public void actionPerformed(ActionEvent e) {
         ((SimpleQuestionView) getActiveView()).verifySyntax();
     }
-    
+
 }

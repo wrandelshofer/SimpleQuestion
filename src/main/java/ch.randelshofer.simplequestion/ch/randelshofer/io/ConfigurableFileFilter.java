@@ -12,10 +12,9 @@ import javax.swing.filechooser.FileFilter;
  * In order to work, the ConfigurableFileFilterAccessory must be set on
  * the JFileChooser.
  *
- * @see ConfigurableFileFilterAccessory
- * 
  * @author Werner Randelshofer
  * @version 1.0 2. August 2006 Created.
+ * @see ConfigurableFileFilterAccessory
  */
 public abstract class ConfigurableFileFilter extends FileFilter {
     /**
@@ -24,6 +23,7 @@ public abstract class ConfigurableFileFilter extends FileFilter {
      * @return The accessory or null, if the file filter does not have one.
      */
     public abstract JComponent getAccessory();
+
     /**
      * Sets an accessory for the JFileChooser.
      *
@@ -34,18 +34,18 @@ public abstract class ConfigurableFileFilter extends FileFilter {
     /**
      * Returns the value of the property with the specified key.  Only
      * properties added with <code>putClientProperty</code> will return
-     * a non-<code>null</code> value.  
-     * 
+     * a non-<code>null</code> value.
+     *
      * @param key the being queried
      * @return the value of this property or <code>null</code>
      * @see #putClientProperty
      */
     public abstract Object getClientProperty(Object key);
-    
+
     /**
      * Adds an arbitrary key/value "client property" to this component.
      * <p>
-     * 
+     *
      * @param key the new client property key
      */
     public abstract void putClientProperty(Object key, Object value);

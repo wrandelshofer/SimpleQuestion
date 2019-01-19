@@ -84,7 +84,9 @@ public class ILIASQuestionPoolExporter implements Exporter {
         }
     }
 
-    /** This method is package private for unit tests. */
+    /**
+     * This method is package private for unit tests.
+     */
     void computeQuestionOIds(List<Question> questions) {
         oidMap = new HashMap<Object, String>();
         oidLen = (int) Math.log10(questions.size() + 1) + 1;
@@ -159,7 +161,9 @@ public class ILIASQuestionPoolExporter implements Exporter {
         w.flush();
     }
 
-    /** This method is package private for unit tests. */
+    /**
+     * This method is package private for unit tests.
+     */
     void exportQTI(List<Question> questions, OutputStream out) throws IOException {
         XMLElement questestinterop = dom.createElement("questestinterop");
         /*

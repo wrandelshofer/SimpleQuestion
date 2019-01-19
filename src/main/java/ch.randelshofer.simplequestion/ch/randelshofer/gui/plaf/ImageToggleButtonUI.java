@@ -24,8 +24,7 @@ import java.awt.Rectangle;
 /**
  * MetalToggleButton implementation
  *
- * @author  Werner Randelshofer
- * @version 
+ * @author Werner Randelshofer
  */
 public class ImageToggleButtonUI extends BasicToggleButtonUI implements PlafConstants {
 
@@ -53,37 +52,37 @@ public class ImageToggleButtonUI extends BasicToggleButtonUI implements PlafCons
     // ********************************
     public void installDefaults(AbstractButton b) {
         super.installDefaults(b);
-	if(!defaults_initialized) {
+        if (!defaults_initialized) {
             //LookAndFeel.installBorder(b, getPropertyPrefix() + "border");
             PlafUtils.installBevelBorder(b, getPropertyPrefix() + "border");
 
-            LookAndFeel.installColors(b, getPropertyPrefix()+".background", getPropertyPrefix()+".foreground");
+            LookAndFeel.installColors(b, getPropertyPrefix() + ".background", getPropertyPrefix() + ".foreground");
 
             focusColor = UIManager.getColor(getPropertyPrefix() + "focus");
-	    selectColor = UIManager.getColor(getPropertyPrefix() + "select");
-	    disabledTextColor = UIManager.getColor(getPropertyPrefix() + "disabledText");
-	    defaults_initialized = true;
-	}
+            selectColor = UIManager.getColor(getPropertyPrefix() + "select");
+            disabledTextColor = UIManager.getColor(getPropertyPrefix() + "disabledText");
+            defaults_initialized = true;
+        }
     }
 
     protected void uninstallDefaults(AbstractButton b) {
-	super.uninstallDefaults(b);
-	defaults_initialized = false;
+        super.uninstallDefaults(b);
+        defaults_initialized = false;
     }
 
     // ********************************
     //         Default Accessors 
     // ********************************
     protected Color getSelectColor() {
-	return selectColor;
+        return selectColor;
     }
 
     protected Color getDisabledTextColor() {
-	return disabledTextColor;
+        return disabledTextColor;
     }
 
     protected Color getFocusColor() {
-	return focusColor;
+        return focusColor;
     }
 
 
@@ -98,7 +97,7 @@ public class ImageToggleButtonUI extends BasicToggleButtonUI implements PlafCons
         g.fillRect(0, 0, c.getWidth(), c.getHeight());
         PlafUtils.paintBevel(c, g, 0, 0, c.getWidth(), c.getHeight(), true/* model.isEnabled()*/, model.isPressed() & model.isArmed(), model.isSelected());
 
-	
+
         Dimension size = b.getSize();
         FontMetrics fm = g.getFontMetrics();
 
@@ -119,41 +118,41 @@ public class ImageToggleButtonUI extends BasicToggleButtonUI implements PlafCons
 
         // layout the text and icon
         String text = SwingUtilities.layoutCompoundLabel(
-            c, fm, b.getText(), b.getIcon(),
-            b.getVerticalAlignment(), b.getHorizontalAlignment(),
-            b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
-            viewRect, iconRect, textRect, b.getText() == null ? 0 : getDefaultTextIconGap(b)
+                c, fm, b.getText(), b.getIcon(),
+                b.getVerticalAlignment(), b.getHorizontalAlignment(),
+                b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
+                viewRect, iconRect, textRect, b.getText() == null ? 0 : getDefaultTextIconGap(b)
         );
 
 
         g.setColor(b.getBackground());
 
         if (model.isArmed() && model.isPressed() || model.isSelected()) {
-            paintButtonPressed(g,b);
-	} else {
-	    Insets insets = b.getInsets();
-	    Insets margin = b.getMargin();
+            paintButtonPressed(g, b);
+        } else {
+            Insets insets = b.getInsets();
+            Insets margin = b.getMargin();
             /*
 	    g.fillRect(insets.left - margin.left,
 		       insets.top - margin.top, 
 		       size.width - (insets.left-margin.left) - (insets.right - margin.right),
 		       size.height - (insets.top-margin.top) - (insets.bottom - margin.bottom));
              */
-	}
-	
+        }
+
         // Paint the Icon
-        if(b.getIcon() != null) { 
+        if (b.getIcon() != null) {
             paintIcon(g, b, iconRect);
         }
-	
+
         // Draw the Text
-        if(text != null && !text.equals("")) {
+        if (text != null && !text.equals("")) {
             paintText(g, b, textRect, text);
         }
-	
+
         // draw the dashed focus line.
         if (b.isFocusPainted() && b.hasFocus()) {
-	    paintFocus(g, b, viewRect, textRect, iconRect);
+            paintFocus(g, b, viewRect, textRect, iconRect);
         }
     }
 
@@ -171,29 +170,28 @@ public class ImageToggleButtonUI extends BasicToggleButtonUI implements PlafCons
     }
 
     protected void paintText(Graphics g, AbstractButton b, Rectangle textRect, String text) {
-	ButtonModel model = b.getModel();
-	FontMetrics fm = g.getFontMetrics();
+        ButtonModel model = b.getModel();
+        FontMetrics fm = g.getFontMetrics();
 
-	/* Draw the Text */
-	if(model.isEnabled()) {
-	    /*** paint the text normally */
-	    g.setColor(b.getForeground());
-	    BasicGraphicsUtils.drawString(g,text, model.getMnemonic(), textRect.x, textRect.y + fm.getAscent());
-	}
-	else {
-	    /*** paint the text disabled ***/
-	    if (model.isSelected()) {
-		g.setColor(b.getBackground());
-	    } else {
-	        g.setColor(getDisabledTextColor());
-	    }
-	    BasicGraphicsUtils.drawString(g, text, model.getMnemonic(), textRect.x, textRect.y + fm.getAscent());
+        /* Draw the Text */
+        if (model.isEnabled()) {
+            /*** paint the text normally */
+            g.setColor(b.getForeground());
+            BasicGraphicsUtils.drawString(g, text, model.getMnemonic(), textRect.x, textRect.y + fm.getAscent());
+        } else {
+            /*** paint the text disabled ***/
+            if (model.isSelected()) {
+                g.setColor(b.getBackground());
+            } else {
+                g.setColor(getDisabledTextColor());
+            }
+            BasicGraphicsUtils.drawString(g, text, model.getMnemonic(), textRect.x, textRect.y + fm.getAscent());
 
-	}
+        }
     }
 
     protected void paintFocus(Graphics g, AbstractButton b,
-			      Rectangle viewRect, Rectangle textRect, Rectangle iconRect){
+                              Rectangle viewRect, Rectangle textRect, Rectangle iconRect) {
         // Don't paint focus
         /*                              
         Rectangle focusRect = new Rectangle();
@@ -218,6 +216,6 @@ public class ImageToggleButtonUI extends BasicToggleButtonUI implements PlafCons
 	g.drawRect((focusRect.x-1), (focusRect.y-1),
 		  focusRect.width+1, focusRect.height+1);
          */
-	
+
     }
 }

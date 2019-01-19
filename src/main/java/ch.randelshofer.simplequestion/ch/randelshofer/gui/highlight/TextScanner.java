@@ -12,16 +12,17 @@ public class TextScanner extends Scanner {
     //  @ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~.
 
     static final String cs =
-        "1111111112211111111111111111111127777774777774675555555555777777"
-        + "7333333333333333333333333337777473333333333333333333333333377771";
+            "1111111112211111111111111111111127777774777774675555555555777777"
+                    + "7333333333333333333333333337777473333333333333333333333333377771";
 
     static final byte[] kinds = new byte[cs.length()];
+
     {
         for (int i = 0; i < cs.length(); i++) {
             kinds[i] = (byte) (cs.charAt(i) - '0');
         }
     }
-    
+
     /**
      * Kind for characters that don't fit into the 128 ASCII range.
      */
@@ -35,18 +36,18 @@ public class TextScanner extends Scanner {
     // The raw numbers +t must use or match the constants in TokenTypes.
 
     int[][] table = {
-        //   $  \0  \n   z  '-_  9   .   (    // $ = end of text, must be column 0
-        {+1, -1, -2, -3, -4, -5, -4, -4}, // s=0: start token
-        {
-            +1, +1, +1, +1, +1, +1, +1, +1}, // s=1: illegal character (t=1)
-        {
-            +0, +0, -2, +0, +0, +0, +0, +0}, // s=2: whitespace (t=0)
-        {
-            +2, +2, +2, -3, -3, -3, +2, +2}, // s=3: word (t=2)
-        {
-            +4, +4, +4, +4, +4, +4, +4, +4}, // s=4: punctuation (t=4)
-        {
-            +3, +3, +3, +3, +3, -5, -5, +3} // s=5: number (t=3)
+            //   $  \0  \n   z  '-_  9   .   (    // $ = end of text, must be column 0
+            {+1, -1, -2, -3, -4, -5, -4, -4}, // s=0: start token
+            {
+                    +1, +1, +1, +1, +1, +1, +1, +1}, // s=1: illegal character (t=1)
+            {
+                    +0, +0, -2, +0, +0, +0, +0, +0}, // s=2: whitespace (t=0)
+            {
+                    +2, +2, +2, -3, -3, -3, +2, +2}, // s=3: word (t=2)
+            {
+                    +4, +4, +4, +4, +4, +4, +4, +4}, // s=4: punctuation (t=4)
+            {
+                    +3, +3, +3, +3, +3, -5, -5, +3} // s=5: number (t=3)
     };
 
     // Now all we have to do is to override read(), using the parent variables
@@ -59,8 +60,9 @@ public class TextScanner extends Scanner {
         int type;
         while (true) {
             type = table[state][kind];
-            if (type >= 0)
+            if (type >= 0) {
                 break;
+            }
             state = -type;
             start++;
             if (start >= end) {

@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
 /**
  * NumberedParagraphView.
  *
@@ -26,16 +27,16 @@ import java.awt.Rectangle;
  * @version $Id: NumberedParagraphView.java 527 2009-06-07 14:28:19Z rawcoder $
  */
 public class NumberedParagraphView extends ParagraphView {
-    public static short NUMBERS_WIDTH=30;
-    private static Font numberFont = new Font("Dialog",Font.PLAIN,10);
+    public static short NUMBERS_WIDTH = 30;
+    private static Font numberFont = new Font("Dialog", Font.PLAIN, 10);
     private NumberedViewFactory viewFactory;
+
     public NumberedParagraphView(Element e, NumberedViewFactory viewFactory) {
         super(e);
         this.viewFactory = viewFactory;
     }
-    
-    
-    
+
+
     /**
      * Gets the left inset.
      *
@@ -45,8 +46,8 @@ public class NumberedParagraphView extends ParagraphView {
         short left = super.getLeftInset();
         return (viewFactory.isLineNumbersVisible()) ? (short) (left + NUMBERS_WIDTH) : left;
     }
-    
-    
+
+
     public void paintChild(Graphics g, Rectangle r, int n) {
         super.paintChild(g, r, n);
         if (viewFactory.isLineNumbersVisible()) {
@@ -58,7 +59,7 @@ public class NumberedParagraphView extends ParagraphView {
                 int lineNumber = getDocument().
                         getDefaultRootElement().
                         getElementIndex(getStartOffset());
-                
+
                 int numberX = r.x - getLeftInset();
                 //int numberY = r.y + g.getFontMetrics().getAscent();
                 int numberY = r.y + lineAscent;

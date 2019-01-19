@@ -34,17 +34,18 @@ import java.net.URL;
  * of all JavaBeans<sup><font size="-2">TM</font></sup>
  * has been added to the <code>java.beans</code> package.
  * Please see {@link java.beans.XMLEncoder}.
- * 
- * @version 1.49 12/03/01
+ *
  * @author Jeff Dinkins
  * @author Lynn Monsanto
+ * @version 1.49 12/03/01
  */
 public class ImageIconAWT implements IconAWT {
     transient Image image;
     transient int loadStatus = 0;
     ImageObserver imageObserver;
 
-    protected final static Component component = new Component() {};
+    protected final static Component component = new Component() {
+    };
     protected final static MediaTracker tracker = new MediaTracker(component);
 
     /**
@@ -59,15 +60,16 @@ public class ImageIconAWT implements IconAWT {
      * Creates an ImageIcon from the specified file. The image will
      * be preloaded by using MediaTracker to monitor the loading state
      * of the image.
+     *
      * @param filename the name of the file containing the image
      * @see #ImageIcon(String)
      */
     public ImageIconAWT(String filename) {
-	image = Toolkit.getDefaultToolkit().getImage(filename);
+        image = Toolkit.getDefaultToolkit().getImage(filename);
         if (image == null) {
             return;
         }
-	loadImage(image);
+        loadImage(image);
     }
 
 
@@ -75,30 +77,32 @@ public class ImageIconAWT implements IconAWT {
      * Creates an ImageIcon from the specified URL. The image will
      * be preloaded by using MediaTracker to monitor the loaded state
      * of the image.
-     * @param location the URL for the image
+     *
+     * @param location    the URL for the image
      * @param description a brief textual description of the image
      * @see #ImageIcon(String)
      */
     public ImageIconAWT(URL location) {
-	image = Toolkit.getDefaultToolkit().getImage(location);
+        image = Toolkit.getDefaultToolkit().getImage(location);
         if (image == null) {
             return;
-        } 
-	loadImage(image);
+        }
+        loadImage(image);
     }
 
 
     /**
-     * Creates an ImageIcon from an image object. 
+     * Creates an ImageIcon from an image object.
      * If the image has a "comment" property that is a string,
      * then the string is used as the description of this icon.
+     *
      * @param image the image
      * @see #getDescription
      * @see java.awt.Image#getProperty
      */
     public ImageIconAWT(Image image) {
-	this.image = image;
-	loadImage(image);
+        this.image = image;
+        loadImage(image);
     }
 
     /**
@@ -108,16 +112,16 @@ public class ImageIconAWT implements IconAWT {
      * by reading an image using Class.getResourceAsStream(), but
      * the byte array may also be statically stored in a class.
      *
-     * @param  imageData an array of pixels in an image format supported
-     *         by the AWT Toolkit, such as GIF or JPEG.
-     * @see    java.awt.Toolkit#createImage
+     * @param imageData an array of pixels in an image format supported
+     *                  by the AWT Toolkit, such as GIF or JPEG.
+     * @see java.awt.Toolkit#createImage
      */
     public ImageIconAWT(byte[] imageData) {
-	this.image = Toolkit.getDefaultToolkit().createImage(imageData);
+        this.image = Toolkit.getDefaultToolkit().createImage(imageData);
         if (image == null) {
             return;
         }
-	loadImage(image);
+        loadImage(image);
     }
 
     /**
@@ -128,37 +132,39 @@ public class ImageIconAWT implements IconAWT {
 
     /**
      * Loads the image, returning only when the image is loaded.
+     *
      * @param image the image
      */
     protected void loadImage(Image image) {
-	synchronized(tracker) {
+        synchronized (tracker) {
             int id = getNextID();
 
-	    tracker.addImage(image, id);
-	    try {
-		tracker.waitForID(id, 0);
-	    } catch (InterruptedException e) {
-		System.out.println("INTERRUPTED while loading Image");
-	    }
+            tracker.addImage(image, id);
+            try {
+                tracker.waitForID(id, 0);
+            } catch (InterruptedException e) {
+                System.out.println("INTERRUPTED while loading Image");
+            }
             loadStatus = tracker.statusID(id, false);
-	    tracker.removeImage(image, id);
+            tracker.removeImage(image, id);
 
-	    width = image.getWidth(imageObserver);
-	    height = image.getHeight(imageObserver);
-	}
+            width = image.getWidth(imageObserver);
+            height = image.getHeight(imageObserver);
+        }
     }
 
     /**
      * Returns an ID to use with the MediaTracker in loading an image.
      */
     private int getNextID() {
-        synchronized(tracker) {
+        synchronized (tracker) {
             return ++mediaTrackerID;
         }
     }
 
     /**
      * Returns the status of the image loading operation.
+     *
      * @return the loading status as defined by java.awt.MediaTracker
      * @see java.awt.MediaTracker#ABORTED
      * @see java.awt.MediaTracker#ERRORED
@@ -170,24 +176,26 @@ public class ImageIconAWT implements IconAWT {
 
     /**
      * Returns this icon's <code>Image</code>.
+     *
      * @return the <code>Image</code> object for this <code>ImageIcon</code>
      */
     public Image getImage() {
-	return image;
+        return image;
     }
 
     /**
      * Sets the image displayed by this icon.
+     *
      * @param image the image
      */
     public void setImage(Image image) {
-	this.image = image;
-	loadImage(image);
+        this.image = image;
+        loadImage(image);
     }
 
     /**
      * Paints the icon.
-     * The top-left corner of the icon is drawn at 
+     * The top-left corner of the icon is drawn at
      * the point (<code>x</code>, <code>y</code>)
      * in the coordinate space of the graphics context <code>g</code>.
      * If this icon has no image observer,
@@ -196,15 +204,15 @@ public class ImageIconAWT implements IconAWT {
      *
      * @param c the component to be used as the observer
      *          if this icon has no image observer
-     * @param g the graphics context 
+     * @param g the graphics context
      * @param x the X coordinate of the icon's top-left corner
      * @param y the Y coordinate of the icon's top-left corner
      */
     public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
-        if(imageObserver == null) {
-           g.drawImage(image, x, y, c);
+        if (imageObserver == null) {
+            g.drawImage(image, x, y, c);
         } else {
-	   g.drawImage(image, x, y, imageObserver);
+            g.drawImage(image, x, y, imageObserver);
         }
     }
 
@@ -214,7 +222,7 @@ public class ImageIconAWT implements IconAWT {
      * @return the width in pixels of this icon
      */
     public int getIconWidth() {
-	return width;
+        return width;
     }
 
     /**
@@ -223,10 +231,10 @@ public class ImageIconAWT implements IconAWT {
      * @return the height in pixels of this icon
      */
     public int getIconHeight() {
-	return height;
+        return height;
     }
 
-    /** 
+    /**
      * Sets the image observer for the image.  Set this
      * property if the ImageIcon contains an animated GIF, so
      * the observer is notified to update its display.

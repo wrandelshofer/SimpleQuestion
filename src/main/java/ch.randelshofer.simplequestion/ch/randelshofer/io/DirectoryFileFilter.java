@@ -7,6 +7,7 @@ package ch.randelshofer.io;
 import javax.swing.JComponent;
 import java.io.File;
 import java.util.HashMap;
+
 /**
  * Filters all files except directories.
  *
@@ -16,44 +17,46 @@ import java.util.HashMap;
 public class DirectoryFileFilter extends ConfigurableFileFilter {
     private String description;
     private JComponent accessory;
-    private HashMap<Object,Object> clientProperties;
-    
+    private HashMap<Object, Object> clientProperties;
+
     /**
      * Creates a new instance.
+     *
      * @param description A human readable description.
      */
     public DirectoryFileFilter(String description) {
         this.description = description;
     }
-    
+
     public boolean accept(File pathname) {
         if (pathname.isDirectory()) {
             return true;
         } else {
-                return false;
+            return false;
         }
     }
-    
+
     public String getDescription() {
         return description;
     }
-    
+
     public void setAccessory(JComponent c) {
         accessory = c;
     }
-    
+
     public JComponent getAccessory() {
         return accessory;
     }
+
     public Object getClientProperty(Object key) {
         return (clientProperties == null) ?
-            null :
-            clientProperties.get(key);
+                null :
+                clientProperties.get(key);
     }
 
     public void putClientProperty(Object key, Object value) {
         if (clientProperties == null) {
-            clientProperties = new HashMap<Object,Object>();
+            clientProperties = new HashMap<Object, Object>();
         }
         clientProperties.put(key, value);
     }

@@ -26,18 +26,19 @@ public class JavaScanner extends Scanner {
         super();
         initKind();
         initUniKind();
-        if (version.equals("1.1"))
+        if (version.equals("1.1")) {
             this.version = 11;
-        else if (version.equals("1.2"))
+        } else if (version.equals("1.2")) {
             this.version = 12;
-        else if (version.equals("1.3"))
+        } else if (version.equals("1.3")) {
             this.version = 13;
-        else if (version.equals("1.4"))
+        } else if (version.equals("1.4")) {
             this.version = 14;
-        else if (version.equals("1.5"))
+        } else if (version.equals("1.5")) {
             this.version = 15;
-        else
+        } else {
             throw new Error("Unknown version of Java: " + version);
+        }
     }
 
     /**
@@ -45,44 +46,52 @@ public class JavaScanner extends Scanner {
      */
     protected int read() {
         int type, saveStart = 0;
-        if (debug)
+        if (debug) {
             saveStart = start;
+        }
 
-        if (start >= end)
+        if (start >= end) {
             return WHITESPACE;
+        }
 
         switch (state) {
             case MID_COMMENT:
             case END_COMMENT:
                 type = readComment(MID_COMMENT);
-                if (type == END_COMMENT)
+                if (type == END_COMMENT) {
                     state = WHITESPACE;
-                else
+                } else {
                     state = MID_COMMENT;
+                }
                 return type;
-            default :
+            default:
                 char c = buffer[start];
-                if (c == '\\')
+                if (c == '\\') {
                     c = next();
-                if (c < 128)
+                }
+                if (c < 128) {
                     type = kind[c];
-                else
+                } else {
                     type = unikind[Character.getType(c)];
+                }
                 switch (type) {
                     case WHITESPACE:
                         start = start + charlength;
                         charlength = 1;
                         while (start < end) {
                             c = buffer[start];
-                            if (c == '\\')
+                            if (c == '\\') {
                                 c = next();
+                            }
                             int k;
-                            if (c < 128)
+                            if (c < 128) {
                                 k = kind[c];
-                            else
+                            } else {
                                 k = unikind[Character.getType(c)];
-                            if (k != WHITESPACE)
+                            }
+                            if (k != WHITESPACE) {
                                 break;
+                            }
                             start = start + charlength;
                             charlength = 1;
                         }
@@ -113,15 +122,18 @@ public class JavaScanner extends Scanner {
                         charlength = 1;
                         while (start < end) {
                             c = buffer[start];
-                            if (c == '\\')
+                            if (c == '\\') {
                                 c = next();
+                            }
                             int k;
-                            if (c < 128)
+                            if (c < 128) {
                                 k = kind[c];
-                            else
+                            } else {
                                 k = unikind[Character.getType(c)];
-                            if (k != IDENTIFIER && k != NUMBER)
+                            }
+                            if (k != IDENTIFIER && k != NUMBER) {
                                 break;
+                            }
                             start = start + charlength;
                             charlength = 1;
                         }
@@ -140,8 +152,9 @@ public class JavaScanner extends Scanner {
                         start = start + charlength;
                         charlength = 1;
                         type = readSlash();
-                        if (type == START_COMMENT)
+                        if (type == START_COMMENT) {
                             state = MID_COMMENT;
+                        }
                         break;
                 }
         }
@@ -153,8 +166,9 @@ public class JavaScanner extends Scanner {
     }
 
     private int readOperator(char c) {
-        if (start >= end)
+        if (start >= end) {
             return OPERATOR;
+        }
         char c2;
 
         switch (c) {
@@ -167,10 +181,12 @@ public class JavaScanner extends Scanner {
             case '&':
             case '|':
                 c2 = buffer[start];
-                if (c2 == '\\')
+                if (c2 == '\\') {
                     c2 = next();
-                if (c2 != c && c2 != '=')
+                }
+                if (c2 != c && c2 != '=') {
                     break;
+                }
                 start = start + charlength;
                 charlength = 1;
                 break;
@@ -181,29 +197,34 @@ public class JavaScanner extends Scanner {
             case '%':
             case '/':
                 c2 = buffer[start];
-                if (c2 == '\\')
+                if (c2 == '\\') {
                     c2 = next();
-                if (c2 != '=')
+                }
+                if (c2 != '=') {
                     break;
+                }
                 start = start + charlength;
                 charlength = 1;
                 break;
             case '<':
             case '>':
                 c2 = buffer[start];
-                if (c2 == '\\')
+                if (c2 == '\\') {
                     c2 = next();
+                }
                 if (c2 == '=') {
                     start = start + charlength;
                     charlength = 1;
                 } else if (c2 == c) {
                     start = start + charlength;
                     charlength = 1;
-                    if (start >= end)
+                    if (start >= end) {
                         break;
+                    }
                     char c3 = buffer[start];
-                    if (c3 == '\\')
+                    if (c3 == '\\') {
                         c3 = next();
+                    }
                     if (c3 == '=') {
                         start = start + charlength;
                         charlength = 1;
@@ -211,13 +232,16 @@ public class JavaScanner extends Scanner {
                     {
                         start = start + charlength;
                         charlength = 1;
-                        if (start >= end)
+                        if (start >= end) {
                             break;
+                        }
                         char c4 = buffer[start];
-                        if (c4 == '\\')
+                        if (c4 == '\\') {
                             c4 = next();
-                        if (c4 != '=')
+                        }
+                        if (c4 != '=') {
                             break;
+                        }
                         start = start + charlength;
                         charlength = 1;
                     }
@@ -228,46 +252,54 @@ public class JavaScanner extends Scanner {
     }
 
     private int readCharLiteral() {
-        if (start >= end)
+        if (start >= end) {
             return bad(CHARACTER);
+        }
         char c2 = buffer[start];
-        if (c2 == '\\')
+        if (c2 == '\\') {
             c2 = next();
+        }
 
         switch (c2) {
             case '\\':
                 start = start + charlength;
                 charlength = 1;
                 boolean ok = readEscapeSequence();
-                if (!ok)
+                if (!ok) {
                     return bad(CHARACTER);
+                }
                 break;
             case '\'':
             case '\n':
                 return bad(CHARACTER);
-            default :
+            default:
                 start = start + charlength;
                 charlength = 1;
                 break;
         }
-        if (start >= end)
+        if (start >= end) {
             return bad(CHARACTER);
+        }
         char c3 = buffer[start];
-        if (c3 == '\\')
+        if (c3 == '\\') {
             c3 = next();
-        if (c3 != '\'')
+        }
+        if (c3 != '\'') {
             return bad(CHARACTER);
+        }
         start = start + charlength;
         charlength = 1;
         return CHARACTER;
     }
 
     private int readStringLiteral() {
-        if (start >= end)
+        if (start >= end) {
             return bad(STRING);
+        }
         char c = buffer[start];
-        if (c == '\\')
+        if (c == '\\') {
             c = next();
+        }
 
         while (c != '"') {
             switch (c) {
@@ -275,44 +307,52 @@ public class JavaScanner extends Scanner {
                     start = start + charlength;
                     charlength = 1;
                     boolean ok = readEscapeSequence();
-                    if (!ok)
+                    if (!ok) {
                         return bad(STRING);
+                    }
                     break;
                 case '\n':
                     return bad(STRING);
-                default :
+                default:
                     start = start + charlength;
                     charlength = 1;
-                    if (start >= end)
+                    if (start >= end) {
                         return bad(STRING);
+                    }
                     break;
             }
             c = buffer[start];
-            if (c == '\\')
+            if (c == '\\') {
                 c = next();
+            }
         }
-        if (c != '"')
+        if (c != '"') {
             return bad(STRING);
+        }
         start = start + charlength;
         charlength = 1;
         return STRING;
     }
 
     private int readSlash() {
-        if (start >= end)
+        if (start >= end) {
             return OPERATOR;
+        }
         char c = buffer[start];
-        if (c == '\\')
+        if (c == '\\') {
             c = next();
+        }
         if (c == '/') {
             while (c != '\n') {
                 start = start + charlength;
                 charlength = 1;
-                if (start >= end)
+                if (start >= end) {
                     return COMMENT;
+                }
                 c = buffer[start];
-                if (c == '\\')
+                if (c == '\\') {
                     c = next();
+                }
             }
             start = start + charlength;
             charlength = 1;
@@ -327,38 +367,46 @@ public class JavaScanner extends Scanner {
 
     // Read one line of a /*...*/ comment, given the expected type
     int readComment(int type) {
-        if (start >= end)
+        if (start >= end) {
             return type;
+        }
         char c = buffer[start];
-        if (c == '\\')
+        if (c == '\\') {
             c = next();
+        }
 
         while (true) {
             while (c != '*' && c != '\n') {
                 start = start + charlength;
                 charlength = 1;
-                if (start >= end)
+                if (start >= end) {
                     return type;
+                }
                 c = buffer[start];
-                if (c == '\\')
+                if (c == '\\') {
                     c = next();
+                }
             }
             start = start + charlength;
             charlength = 1;
-            if (c == '\n')
+            if (c == '\n') {
                 return type;
-            if (start >= end)
+            }
+            if (start >= end) {
                 return type;
+            }
             c = buffer[start];
-            if (c == '\\')
+            if (c == '\\') {
                 c = next();
+            }
             if (c == '/') {
                 start = start + charlength;
                 charlength = 1;
-                if (type == START_COMMENT)
+                if (type == START_COMMENT) {
                     return COMMENT;
-                else
+                } else {
                     return END_COMMENT;
+                }
             }
         }
     }
@@ -370,19 +418,22 @@ public class JavaScanner extends Scanner {
             int saveStart = start, saveLength = charlength;
             start = start + charlength;
             charlength = 1;
-            if (start >= end)
+            if (start >= end) {
                 return NUMBER;
+            }
             char c2 = buffer[start];
-            if (c2 == '\\')
+            if (c2 == '\\') {
                 c2 = next();
+            }
             switch (c2) {
                 case 'x':
                 case 'X':
                     start = start + charlength;
                     charlength = 1;
                     boolean ok = readDigits(16);
-                    if (!ok)
+                    if (!ok) {
                         return bad(NUMBER);
+                    }
                     readSuffix();
                     return NUMBER;
                 case 0:
@@ -420,11 +471,13 @@ public class JavaScanner extends Scanner {
         if ('0' <= c && c <= '9') {
             hasDigits = true;
             readDigits(10);
-            if (start >= end)
+            if (start >= end) {
                 return NUMBER;
+            }
             c = buffer[start];
-            if (c == '\\')
+            if (c == '\\') {
                 c = next();
+            }
             if (c == 'l' || c == 'L') {
                 start = start + charlength;
                 charlength = 1;
@@ -434,41 +487,50 @@ public class JavaScanner extends Scanner {
         if (c == '.') {
             start = start + charlength;
             charlength = 1;
-            if (start >= end)
+            if (start >= end) {
                 return NUMBER;
+            }
             c = buffer[start];
-            if (c == '\\')
+            if (c == '\\') {
                 c = next();
+            }
             if ('0' <= c && c <= '9') {
                 hasDigits = true;
                 readDigits(10);
-                if (start >= end)
+                if (start >= end) {
                     return NUMBER;
+                }
                 c = buffer[start];
-                if (c == '\\')
+                if (c == '\\') {
                     c = next();
+                }
             }
         }
-        if (!hasDigits)
+        if (!hasDigits) {
             return bad(NUMBER);
+        }
         switch (c) {
             case 'e':
             case 'E':
                 start = start + charlength;
                 charlength = 1;
-                if (start >= end)
+                if (start >= end) {
                     return bad(NUMBER);
+                }
                 c = buffer[start];
-                if (c == '\\')
+                if (c == '\\') {
                     c = next();
+                }
                 if (c == '+' || c == '-') {
                     start = start + charlength;
                     charlength = 1;
-                    if (start >= end)
+                    if (start >= end) {
                         return bad(NUMBER);
+                    }
                     c = buffer[start];
-                    if (c == '\\')
+                    if (c == '\\') {
                         c = next();
+                    }
                 }
                 readDigits(10);
                 break;
@@ -484,31 +546,38 @@ public class JavaScanner extends Scanner {
     }
 
     boolean readDigits(int radix) {
-        if (start >= end)
+        if (start >= end) {
             return false;
+        }
         char c = buffer[start];
-        if (c == '\\')
+        if (c == '\\') {
             c = next();
-        if (Character.digit(c, radix) == -1)
+        }
+        if (Character.digit(c, radix) == -1) {
             return false;
+        }
         while (Character.digit(c, radix) != -1) {
             start = start + charlength;
             charlength = 1;
-            if (start >= end)
+            if (start >= end) {
                 return true;
+            }
             c = buffer[start];
-            if (c == '\\')
+            if (c == '\\') {
                 c = next();
+            }
         }
         return true;
     }
 
     void readSuffix() {
-        if (start >= end)
+        if (start >= end) {
             return;
+        }
         char c = buffer[start];
-        if (c == '\\')
+        if (c == '\\') {
             c = next();
+        }
         switch (c) {
             case 'f':
             case 'F':
@@ -522,28 +591,34 @@ public class JavaScanner extends Scanner {
     }
 
     private int readDot() {
-        if (start >= end)
+        if (start >= end) {
             return SEPARATOR;
+        }
         char c2 = buffer[start];
-        if (c2 == '\\')
+        if (c2 == '\\') {
             c2 = next();
+        }
         if (Character.isDigit(c2)) {
             return readNumber('.');
         }
-        if (start + 1 >= end || version < 15)
+        if (start + 1 >= end || version < 15) {
             return SEPARATOR;
-        if (c2 != '.' || buffer[start + 1] != '.')
+        }
+        if (c2 != '.' || buffer[start + 1] != '.') {
             return SEPARATOR;
+        }
         start = start + 2;
         return SEPARATOR;
     }
 
     private boolean readEscapeSequence() {
-        if (start >= end)
+        if (start >= end) {
             return false;
+        }
         char c2 = buffer[start];
-        if (c2 == '\\')
+        if (c2 == '\\') {
             c2 = next();
+        }
 
         switch (c2) {
             case 'b':
@@ -567,17 +642,19 @@ public class JavaScanner extends Scanner {
             case '6':
             case '7':
                 return readOctal(2);
-            default :
+            default:
                 return false;
         }
     }
 
     boolean readOctal(int maxlength) {
-        if (start >= end)
+        if (start >= end) {
             return false;
+        }
         char c = buffer[start];
-        if (c == '\\')
+        if (c == '\\') {
             c = next();
+        }
 
         int i, val = 0;
         for (i = 0; i < maxlength; i++) {
@@ -585,16 +662,20 @@ public class JavaScanner extends Scanner {
                 val = 8 * val + Character.digit(c, 8);
                 start = start + charlength;
                 charlength = 1;
-                if (start >= end)
+                if (start >= end) {
                     break;
+                }
                 c = buffer[start];
-                if (c == '\\')
+                if (c == '\\') {
                     c = next();
-            } else
+                }
+            } else {
                 break;
+            }
         }
-        if ((i == 0) || (val > 0xFF))
+        if ((i == 0) || (val > 0xFF)) {
             return false;
+        }
         return true;
     }
 
@@ -617,27 +698,33 @@ public class JavaScanner extends Scanner {
     private int pair = 0;
 
     private char next() {
-        if (start >= end)
+        if (start >= end) {
             return 26; // EOF
+        }
         char c = buffer[start];
-        if (c != '\\')
+        if (c != '\\') {
             return c;
+        }
         if (start == pair) {
             pair = 0;
             return '\\';
         }
-        if (start + 1 >= end)
+        if (start + 1 >= end) {
             return '\\';
+        }
 
         c = buffer[start + 1];
-        if (c == '\\')
+        if (c == '\\') {
             pair = start + 1;
-        if (c != 'u')
+        }
+        if (c != 'u') {
             return '\\';
+        }
 
         int pos = start + 2;
-        while (pos < end && buffer[pos] == 'u')
+        while (pos < end && buffer[pos] == 'u') {
             pos++;
+        }
         if (pos + 4 > end) {
             charlength = end - start;
             return '\0';
@@ -660,8 +747,9 @@ public class JavaScanner extends Scanner {
 
     protected void initSymbolTable() {
         lookup(KEYWORD, "abstract");
-        if (version >= 14)
+        if (version >= 14) {
             lookup(KEYWORD, "assert");
+        }
         lookup(KEYWORD, "boolean");
         lookup(KEYWORD, "break");
         lookup(KEYWORD, "byte");
@@ -675,8 +763,9 @@ public class JavaScanner extends Scanner {
         lookup(KEYWORD, "do");
         lookup(KEYWORD, "double");
         lookup(KEYWORD, "else");
-        if (version >= 15)
+        if (version >= 15) {
             lookup(KEYWORD, "enum");
+        }
         lookup(KEYWORD, "extends");
         lookup(KEYWORD, "final");
         lookup(KEYWORD, "finally");
@@ -699,8 +788,9 @@ public class JavaScanner extends Scanner {
         lookup(KEYWORD, "return");
         lookup(KEYWORD, "short");
         lookup(KEYWORD, "static");
-        if (version >= 12)
+        if (version >= 12) {
             lookup(KEYWORD, "strictfp");
+        }
         lookup(KEYWORD, "super");
         lookup(KEYWORD, "switch");
         lookup(KEYWORD, "synchronized");
@@ -723,17 +813,20 @@ public class JavaScanner extends Scanner {
     private Symbol temp = new Symbol(0, null);
 
     protected Symbol lookup(int type, String name) {
-        if (type != IDENTIFIER)
+        if (type != IDENTIFIER) {
             return super.lookup(type, name);
+        }
         temp.type = KEYWORD;
         temp.name = name;
         Symbol sym = symbolTable.get(temp);
-        if (sym != null)
+        if (sym != null) {
             return sym;
+        }
         temp.type = LITERAL;
         sym = symbolTable.get(temp);
-        if (sym != null)
+        if (sym != null) {
             return sym;
+        }
         return super.lookup(type, name);
     }
 
@@ -750,9 +843,10 @@ public class JavaScanner extends Scanner {
     // Token types from the TokenTypes class are used to classify characters.
 
     private void initKind() {
-        for (char c = 0; c < 128; c++)
+        for (char c = 0; c < 128; c++) {
             kind[c] = -1;
-        for (char c = 0; c < 128; c++)
+        }
+        for (char c = 0; c < 128; c++) {
             switch (c) {
                 case 0:
                 case 1:
@@ -905,15 +999,19 @@ public class JavaScanner extends Scanner {
                     kind[c] = SEPARATOR;
                     break;
             }
-        for (char c = 0; c < 128; c++)
-            if (kind[c] == -1)
+        }
+        for (char c = 0; c < 128; c++) {
+            if (kind[c] == -1) {
                 System.out.println("Char " + ((int) c) + " hasn't been classified");
+            }
+        }
     }
 
     private void initUniKind() {
-        for (byte b = 0; b < 31; b++)
+        for (byte b = 0; b < 31; b++) {
             unikind[b] = -1;
-        for (byte b = 0; b < 31; b++)
+        }
+        for (byte b = 0; b < 31; b++) {
             switch (b) {
                 case Character.UNASSIGNED:
                 case Character.ENCLOSING_MARK:
@@ -954,9 +1052,12 @@ public class JavaScanner extends Scanner {
                     unikind[b] = NUMBER;
                     break;
             }
-        for (byte b = 0; b < 31; b++)
-            if (unikind[b] == -1)
+        }
+        for (byte b = 0; b < 31; b++) {
+            if (unikind[b] == -1) {
                 System.out.println("Unicode cat " + b + " hasn't been classified");
+            }
+        }
     }
 
 }

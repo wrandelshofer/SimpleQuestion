@@ -1,6 +1,6 @@
 /* @(#)MatchType.java
  *
-  * Copyright (c) 2004-2005 by the original authors of JHotDraw
+ * Copyright (c) 2004-2005 by the original authors of JHotDraw
  * and all its contributors.
  * All rights reserved.
  *
@@ -16,7 +16,7 @@ package ch.randelshofer.teddy.regex;
 /**
  * Typesafe Enumeration of Syntaxes for the Parser.
  *
- * @author  Werner Randelshofer
+ * @author Werner Randelshofer
  * @version $Id: MatchType.java 527 2009-06-07 14:28:19Z rawcoder $
  */
 public class MatchType  /*implements Comparable*/ {

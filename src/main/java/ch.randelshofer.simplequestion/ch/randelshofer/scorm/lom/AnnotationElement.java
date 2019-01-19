@@ -12,6 +12,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+
 /**
  * Represents a SCORM 1.2 LOM 'annotation' Element.
  * <p>
@@ -35,38 +36,43 @@ import java.io.IOException;
  * The SCORM Content Aggregation Model. October 1, 2001.
  * Internet (2003-01-20): http://www.adlnet.org
  *
- * @author  Werner Randelshofer
- * @version 1.1 2006-10-11 Parse using XML namespaces. 
- * <br>1.0.1  2004-01-19  Comments updated. 
+ * @author Werner Randelshofer
+ * @version 1.1 2006-10-11 Parse using XML namespaces.
+ * <br>1.0.1  2004-01-19  Comments updated.
  * <br>1.0  2004-01-05  Created.
  */
 public class AnnotationElement extends AbstractElement {
     static final long serialVersionUID = 1L;
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public AnnotationElement() {
     }
-    
+
     /**
      * Parses the specified DOM Element and incorporates its contents into this element.
+     *
      * @param elem An XML element with the tag name 'file'.
      */
     public void parse(Element elem)
-    throws IOException, ParserConfigurationException, SAXException {
-        if (! DOMs.isElement(elem, LOM.NS, "annotation")) {
-            throw new IOException("'annotation' element expected, but found '"+elem.getTagName()+"' element.");
+            throws IOException, ParserConfigurationException, SAXException {
+        if (!DOMs.isElement(elem, LOM.NS, "annotation")) {
+            throw new IOException("'annotation' element expected, but found '" + elem.getTagName() + "' element.");
         }
     }
 
     public void dump(StringBuffer buf, int depth) {
     }
-    
+
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append("<html><font size=-1 face=SansSerif>");
-        if (! isValid()) buf.append("<font color=red>* </font>");
+        if (!isValid()) {
+            buf.append("<font color=red>* </font>");
+        }
         buf.append("<b>Annotation</b> ");
-        
+
         buf.append("</font>");
         return buf.toString();
     }

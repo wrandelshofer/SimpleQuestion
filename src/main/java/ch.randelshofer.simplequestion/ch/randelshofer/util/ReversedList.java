@@ -15,6 +15,7 @@ package ch.randelshofer.util;
 
 import java.util.AbstractList;
 import java.util.List;
+
 /**
  * A ReversedList provides in unmodifiable view on a List in reverse order.
  *
@@ -22,8 +23,10 @@ import java.util.List;
  */
 public class ReversedList<T> extends AbstractList<T> {
     private List<T> target;
-    
-    /** Creates a new instance of ReversedList */
+
+    /**
+     * Creates a new instance of ReversedList
+     */
     public ReversedList(List<T> target) {
         this.target = target;
     }
@@ -35,5 +38,5 @@ public class ReversedList<T> extends AbstractList<T> {
     public int size() {
         return target.size();
     }
-    
+
 }

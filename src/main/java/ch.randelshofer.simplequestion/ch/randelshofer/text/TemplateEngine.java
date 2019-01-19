@@ -1,8 +1,8 @@
 /* @(#)TemplateEngine.java
- * 
+ *
  * Copyright (c) 2011 Werner Randelshofer, Immensee, Switzerland.
  * All rights reserved.
- * 
+ *
  * You may not use, copy or modify this file, except in compliance with the
  * license agreement you entered into with Werner Randelshofer.
  * For details see accompanying license terms.
@@ -34,30 +34,35 @@ import java.util.Map;
  */
 public class TemplateEngine {
 
-    /** The key-value map. */
+    /**
+     * The key-value map.
+     */
     private Map<String, String> map;
 
     public TemplateEngine() {
     }
 
 
-    /** Processes a template and replaces all placeholders with the values from
+    /**
+     * Processes a template and replaces all placeholders with the values from
      * the given key-value map.
      *
-     * @param in The template string.
+     * @param in  The template string.
      * @param map Key value pairs.
      * @throws IOException
      */
     public static String process(String in, String... map) throws IOException {
-        StringWriter out=new StringWriter();
-        HashMap<String,String> hm=new HashMap<String,String>();
-        for (int i=0;i<map.length;i+=2) {
-            hm.put(map[i], map[i+1]);
+        StringWriter out = new StringWriter();
+        HashMap<String, String> hm = new HashMap<String, String>();
+        for (int i = 0; i < map.length; i += 2) {
+            hm.put(map[i], map[i + 1]);
         }
         process(out, new StringReader(in), hm);
         return out.toString();
     }
-    /** Processes a template and replaces all placeholders with the values from
+
+    /**
+     * Processes a template and replaces all placeholders with the values from
      * the given key-value map.
      *
      * @param in
@@ -65,11 +70,13 @@ public class TemplateEngine {
      * @throws IOException
      */
     public static String process(String in, Map<String, String> map) throws IOException {
-        StringWriter out=new StringWriter();
+        StringWriter out = new StringWriter();
         process(out, new StringReader(in), map);
         return out.toString();
     }
-    /** Processes a template and replaces all placeholders with the values from
+
+    /**
+     * Processes a template and replaces all placeholders with the values from
      * the given key-value map.
      *
      * @param out
@@ -103,7 +110,7 @@ public class TemplateEngine {
                     if (tt.ttype != '}') {
                         throw new IOException("\"}\" missing after \"${" + keyb.toString() + "\" in line " + tt.lineno());
                     }
-                    String key=keyb.toString().trim();
+                    String key = keyb.toString().trim();
                     out.write(map.get(key));
                     break;
                 }

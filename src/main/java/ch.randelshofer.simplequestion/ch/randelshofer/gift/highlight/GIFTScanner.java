@@ -44,9 +44,12 @@ public class GIFTScanner extends Scanner implements GIFTTokenTypes {
     private final static int CONTEXT_NUMERICAL_ANSWER = 13;
     private final static int CONTEXT_NUMERICAL_ANSWERFEEDBACK = 14;
     private boolean debug = false;
-    /** Classify the ascii characters using an array of kinds. */
+    /**
+     * Classify the ascii characters using an array of kinds.
+     */
     private static final byte[] kind = new byte[128];
-    /** Classify all
+    /**
+     * Classify all
      * other unicode characters using an array indexed by unicode category.
      * See the source file java/lang/Character.java for the categories.
      * To find the classification of a character, use:
@@ -57,9 +60,10 @@ public class GIFTScanner extends Scanner implements GIFTTokenTypes {
      * Record the number of source code characters used up.
      */
     private int charlength = 1;
-    /** To deal with an odd
+    /**
+     * To deal with an odd
      * or even number of backslashes preceding a unicode escape, whenever a
-     *  second backslash is coming up, mark its position as a pair.
+     * second backslash is coming up, mark its position as a pair.
      */
     private int pair = 0;
 
@@ -1093,6 +1097,7 @@ public class GIFTScanner extends Scanner implements GIFTTokenTypes {
 
     /**
      * Detects and consumes the title operator "::".
+     *
      * @param c the first operator character ':'
      * @return OPERATOR, if the operator is a title operator.
      * WORD, in all other cases.
@@ -1118,6 +1123,7 @@ public class GIFTScanner extends Scanner implements GIFTTokenTypes {
 
     /**
      * Detects and consumes the question separator "\n" (Whitespace)* "\n".
+     *
      * @param c the first operator character '\n'
      * @return QUESTION_SEPARATOR, if the operator is a title operator.
      * WHITESPACE, in all other cases.
@@ -1299,7 +1305,9 @@ public class GIFTScanner extends Scanner implements GIFTTokenTypes {
     return '\\';
     }*/
 
-    /** A malformed or incomplete token has a negative type. */
+    /**
+     * A malformed or incomplete token has a negative type.
+     */
     private int bad(int type) {
         return -type;
     }

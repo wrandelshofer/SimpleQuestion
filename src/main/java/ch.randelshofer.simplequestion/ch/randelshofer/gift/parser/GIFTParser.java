@@ -4,9 +4,9 @@
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland
  * All rights reserved.
  *
- * The copyright of this software is owned by Werner Randelshofer. 
- * You may not use, copy or modify this software, except in  
- * accordance with the license agreement you entered into with  
+ * The copyright of this software is owned by Werner Randelshofer.
+ * You may not use, copy or modify this software, except in
+ * accordance with the license agreement you entered into with
  * Werner Randelshofer. For details see accompanying license terms.
  */
 package ch.randelshofer.gift.parser;
@@ -30,7 +30,7 @@ import static org.jhotdraw.io.StreamPosTokenizer.TT_WORD;
  *
  * @author Werner Randelshofer
  * @version 1.3.1 2008-12-03 The character immediately following a colon in a
- * question was suppressed due to the next token being looked ahead but not 
+ * question was suppressed due to the next token being looked ahead but not
  * being pushed back.
  * <br>1.3 2008-02-22 Fixed endless loops in parseExternalAnswerList and
  * in parseNumericalAnswer.
@@ -45,7 +45,9 @@ public class GIFTParser {
 
     private ResourceBundleUtil labels;
 
-    /** Creates a new instance. */
+    /**
+     * Creates a new instance.
+     */
     public GIFTParser() {
         labels = new ResourceBundleUtil(ResourceBundle.getBundle("ch/randelshofer/gift/Labels"));
     }
@@ -105,14 +107,13 @@ public class GIFTParser {
 
     /**
      * Parses a single GIFT question.
-     *
+     * <p>
      * A question has the following EBNF syntax productions:
-     *
+     * <p>
      * question ::= ["::" title ] { text | "{" answerList } (EOL EOL | EOF)
      * title ::= [{word}] "::"
      * text ::= {word}
      * answerList ::= {answer} "}"
-     *
      */
     private Question parseQuestion(StreamPosTokenizer st) throws IOException {
         Question question = new Question();
@@ -194,15 +195,15 @@ public class GIFTParser {
                     break;
                 case '}':
                     throw new ch.randelshofer.io.ParseException(labels.getFormatted("parser.illegalCharacter", (char) st.ttype, st.lineno()), st.getStartPosition(), st.getEndPosition());
-            case ':':
-                if (st.nextToken() == ':') {
-                    throw new ch.randelshofer.io.ParseException(labels.getFormatted("parser.illegalCharacter", (char) st.ttype, st.lineno()), st.getStartPosition(), st.getEndPosition());
-                }
+                case ':':
+                    if (st.nextToken() == ':') {
+                        throw new ch.randelshofer.io.ParseException(labels.getFormatted("parser.illegalCharacter", (char) st.ttype, st.lineno()), st.getStartPosition(), st.getEndPosition());
+                    }
                     st.pushBack();
-                        text.append(whitespace.toString());
-                        whitespace.setLength(0);
-                        text.append(':');
-                        break;
+                    text.append(whitespace.toString());
+                    whitespace.setLength(0);
+                    text.append(':');
+                    break;
                 default:
                     if (st.ttype <= ' ') {
                         whitespace.append((char) st.ttype);
@@ -224,9 +225,9 @@ public class GIFTParser {
 
     /**
      * Parses a GIFT title.
-     *
+     * <p>
      * A title has the following EBNF syntax productions:
-     *
+     * <p>
      * title ::= [{word}] "::"
      */
     private String parseTitle(StreamPosTokenizer st) throws IOException {
@@ -243,7 +244,7 @@ public class GIFTParser {
                     break;
                 case TT_EOF:
                     throw new ch.randelshofer.io.ParseException(labels.getFormatted("parser.unexpectedEOFInTitle", st.lineno()), st.getStartPosition(), st.getEndPosition());
-                //break; not reached
+                    //break; not reached
                 case '\\':
                     // Treat next special char like ordinary char
                     if (st.nextToken() >= 0) {
@@ -274,9 +275,9 @@ public class GIFTParser {
 
     /**
      * Parses an answer list.
-     *
+     * <p>
      * A answerList has the following EBNF syntax productions:
-     *
+     * <p>
      * answerList ::= textualAnswerList | "#" numericalAnswerList | "%" externalAnswerList
      * textualAnswerList = {textualAnswer} "}"
      * numericalAnswerList = {numericalAnswer} "}"
@@ -306,9 +307,9 @@ public class GIFTParser {
 
     /**
      * Parses a text answer list.
-     *
+     * <p>
      * A textualAnswerList has the following EBNF syntax productions:
-     *
+     * <p>
      * textualAnswerList = {textualAnswer} "}"
      */
     private AnswerList parseTextualAnswerList(StreamPosTokenizer st) throws IOException {
@@ -338,9 +339,9 @@ public class GIFTParser {
 
     /**
      * Parses a numerical answer list.
-     *
+     * <p>
      * A numericalAnswerList has the following EBNF syntax productions:
-     *
+     * <p>
      * numericalAnswerList = {numericalAnswer} "}"
      */
     private AnswerList parseNumericalAnswerList(StreamPosTokenizer st) throws IOException {
@@ -366,9 +367,9 @@ public class GIFTParser {
 
     /**
      * Parses an external answer list.
-     *
+     * <p>
      * An externalAnswerList has the following EBNF syntax productions:
-     *
+     * <p>
      * externalAnswerList = externalAnswer "}"
      */
     private AnswerList parseExternalAnswerList(StreamPosTokenizer st) throws IOException {
@@ -393,9 +394,9 @@ public class GIFTParser {
 
     /**
      * Parses a textual answer.
-     *
+     * <p>
      * A textualAnswer has the following EBNF syntax productions:
-     *
+     * <p>
      * textualAnswer ::= booleanAnswer | choiceAnswer | matchingPairAnswer
      * booleanAnswer ::= "T" | "F" | "TRUE" | "FALSE" ["#" feedbackComment]
      * choiceAnswer ::= ("~"|"=") weight {word} ["#" feedbackComment]
@@ -445,9 +446,9 @@ public class GIFTParser {
 
     /**
      * Parses a choice or a matching pair answer.
-     *
+     * <p>
      * A choice answer has the following EBNF syntax productions:
-     *
+     * <p>
      * choiceAnswer ::= ["~"|"="] weight {word} ["#" feedbackComment]
      * matchingPairAnswer ::= ("=") weight {word} "-" ">" {word} ["#" feedbackComment]
      * weight ::= ["%" number "%"]
@@ -509,7 +510,7 @@ public class GIFTParser {
                     break;
                 case TT_EOF:
                     throw new ch.randelshofer.io.ParseException(labels.getFormatted("parser.unexpectedEOFInChoice", st.lineno()), st.getStartPosition(), st.getEndPosition());
-                //break; not reached
+                    //break; not reached
                 case '\\':
                     // Treat next special char like ordinary char
                     if (st.nextToken() >= 0) {
@@ -581,7 +582,7 @@ public class GIFTParser {
                         break;
                     case TT_EOF:
                         throw new ch.randelshofer.io.ParseException(labels.getFormatted("parser.unexpectedEOFInMatchingPair", st.lineno()), st.getStartPosition(), st.getEndPosition());
-                    //break; not reatched
+                        //break; not reatched
                     case '\\':
                         // Treat next special char like ordinary char
                         if (st.nextToken() >= 0) {
@@ -598,14 +599,14 @@ public class GIFTParser {
                     case '}':
                         st.pushBack();
                         break whileLoop;
-                case '-':
-                    if (st.nextToken() == '>') {
+                    case '-':
+                        if (st.nextToken() == '>') {
                             throw new ch.randelshofer.io.ParseException(labels.getFormatted("parser.illegalCharacter", "->", st.lineno()), st.getStartPosition() - 1, st.getEndPosition());
-                    } else {
-                        text.append('-');
-                        st.pushBack();
-                        break;
-                    }
+                        } else {
+                            text.append('-');
+                            st.pushBack();
+                            break;
+                        }
                     case ' ':
                         whitespace.append(' ');
                         break;
@@ -616,9 +617,9 @@ public class GIFTParser {
                         break;
                 }
             }
-                        if (text.length() == 0) {
-                            throw new ch.randelshofer.io.ParseException(labels.getFormatted("parser.missingMatchingPairText", st.lineno()), st.getStartPosition() - 1, st.getEndPosition());
-                        }
+            if (text.length() == 0) {
+                throw new ch.randelshofer.io.ParseException(labels.getFormatted("parser.missingMatchingPairText", st.lineno()), st.getStartPosition() - 1, st.getEndPosition());
+            }
             answer.setValue(text.toString());
 
             theAnswer = answer;
@@ -647,7 +648,7 @@ public class GIFTParser {
 
     /**
      * Parses a numerical answer.
-     *
+     * <p>
      * A numerical answer has the following EBNF syntax productions:
      * <pre>
      * numericalAnswer ::= ["="] weight numberAnswer | intervalAnswer
@@ -863,7 +864,7 @@ public class GIFTParser {
 
     /**
      * Parses an external answer.
-     *
+     * <p>
      * An external answer has the following EBNF syntax productions:
      * <pre>
      * externalAnswer ::= externalReference
@@ -906,7 +907,7 @@ public class GIFTParser {
 
     /**
      * Parses a weight.
-     *
+     * <p>
      * A weight has the following EBNF syntax productions:
      * <pre>
      * weight ::= ["%" number "%"]
@@ -963,9 +964,9 @@ public class GIFTParser {
 
     /**
      * Parses a feedback comment
-     *
+     * <p>
      * A feedback comment has the following EBNF syntax productions:
-     *
+     * <p>
      * title ::= [{word}]  // until "~", "=", "}"
      */
     private String parseFeedbackComment(StreamPosTokenizer st) throws IOException {
@@ -987,7 +988,7 @@ public class GIFTParser {
                     break;
                 case TT_EOF:
                     throw new ch.randelshofer.io.ParseException(labels.getFormatted("parser.unexpectedEOFInFeedbackComment", st.lineno()), st.getStartPosition(), st.getEndPosition());
-                //break; not reached
+                    //break; not reached
                 case '\\':
                     // Treat next special char like ordinary char
                     if (st.nextToken() >= 0) {
@@ -1027,7 +1028,7 @@ public class GIFTParser {
         while (tt.hasMoreTokens()) {
             String token = tt.nextToken();
             if (token.equals(".") && buf.length() > 0) {
-            // skip full stops
+                // skip full stops
             } else {
                 buf.append(token);
             }

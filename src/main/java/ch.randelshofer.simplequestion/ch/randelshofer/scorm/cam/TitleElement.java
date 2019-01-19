@@ -11,6 +11,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+
 /**
  * Represents a SCORM CAM 'title' element.
  * <p>
@@ -22,7 +23,7 @@ import java.io.IOException;
  * <pre>
  * &lt;title&gt;string (maximum of 100 characters)&lt;/title&gt;
  * </pre>
- *
+ * <p>
  * Reference:
  * ADL (2001c). Advanced Distributed Learning.
  * Sharable Content Object Reference Model (SCORM(TM)) Version 1.2.
@@ -30,52 +31,59 @@ import java.io.IOException;
  * Internet (2003-01-20): http://www.adlnet.org
  *
  * @author Werner Randelshofer, Staldenmattweg 2, Immensee, CH-6405, Switzerland
- * @version 1.1 2006-10-10 Parse with XML namespaces. 
- * <br>1.0.1 2003-10-30 HTML output in method toString changed. 
+ * @version 1.1 2006-10-10 Parse with XML namespaces.
+ * <br>1.0.1 2003-10-30 HTML output in method toString changed.
  * <br>0.1 2003-02-02 Created.
  */
 public class TitleElement extends AbstractElement {
-    private final static long serialVersionUID=1L;
+    private final static long serialVersionUID = 1L;
     /**
      * The title. Smallest permitted maximum of 100 characters.
      */
     private String title;
-    
-    /** Creates a new instance of TitleElement */
+
+    /**
+     * Creates a new instance of TitleElement
+     */
     public TitleElement() {
     }
-    
+
     /**
      * Parses the specified DOM Element and incorporates its contents into this element.
+     *
      * @param elem An XML element with the tag name 'title'.
      */
     public void parse(Element elem)
-    throws IOException, ParserConfigurationException, SAXException {
-        if (! DOMs.isElement(elem, CAM.IMSCP_NS, "title")) {
-            throw new IOException("'adlcp:title' element expected, but found '"+elem.getTagName()+"' element.");
+            throws IOException, ParserConfigurationException, SAXException {
+        if (!DOMs.isElement(elem, CAM.IMSCP_NS, "title")) {
+            throw new IOException("'adlcp:title' element expected, but found '" + elem.getTagName() + "' element.");
         }
-        
+
         // Read the title
         this.title = DOMs.getText(elem);
     }
-    
+
     /**
      * Dumps the contents of this subtree into the provided string buffer.
      */
     public void dump(StringBuffer buf, int depth) {
-        for (int i=0; i < depth; i++) buf.append('.');
-        buf.append("<title>"+title+"</title>\n");
+        for (int i = 0; i < depth; i++) {
+            buf.append('.');
+        }
+        buf.append("<title>" + title + "</title>\n");
     }
-    
+
     public String getTitle() {
         return title;
     }
-    
+
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append("<html><font size=-1 face=SansSerif>");
-        if (! isValid()) buf.append("<font color=red>* </font>");
-        buf.append("<b>Title:</b> "+title);
+        if (!isValid()) {
+            buf.append("<font color=red>* </font>");
+        }
+        buf.append("<b>Title:</b> " + title);
         buf.append("</font>");
         return buf.toString();
     }

@@ -5,9 +5,7 @@
 package ch.randelshofer.gui.plaf;
 
 /**
- *
- * @author  Werner Randelshofer
- * @version 
+ * @author Werner Randelshofer
  */
 public interface PlafConstants {
     /**

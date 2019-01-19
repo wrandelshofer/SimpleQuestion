@@ -27,7 +27,7 @@ import java.util.prefs.Preferences;
 
 /**
  * ToolBarPrefsHandler.
- * 
+ *
  * @author Werner Randelshofer
  * @version 1.0 2. April 2004  Created.
  */
@@ -36,28 +36,27 @@ public class ToolBarPrefsHandler implements ComponentListener, AncestorListener 
     private String prefsPrefix;
     private Preferences prefs;
     private boolean firstTimeShown;
-    
+
     public ToolBarPrefsHandler(JToolBar toolbar, String prefsPrefix, Preferences prefs) {
         this.toolbar = toolbar;
         this.prefsPrefix = prefsPrefix;
         this.prefs = prefs;
-        
-        String constraint = prefs.get(prefsPrefix+".constraint", BorderLayout.NORTH);
+
+        String constraint = prefs.get(prefsPrefix + ".constraint", BorderLayout.NORTH);
         int orientation = (constraint.equals(BorderLayout.NORTH) || constraint.equals(BorderLayout.SOUTH)) ? JToolBar.HORIZONTAL : JToolBar.VERTICAL;
         toolbar.setOrientation(orientation);
         toolbar.getParent().add(constraint, toolbar);
-        toolbar.setVisible(prefs.getBoolean(prefsPrefix+".visible", true));
+        toolbar.setVisible(prefs.getBoolean(prefsPrefix + ".visible", true));
         /*
         if (prefs.getBoolean(prefsPrefix+".isFloating", false)) {
             makeToolBarFloat();
         }*/
-        
+
         toolbar.addComponentListener(this);
         toolbar.addAncestorListener(this);
     }
-    
-    
-    
+
+
     /*
      * XXX - This does not work
     private void makeToolBarFloat() {
@@ -76,22 +75,23 @@ public class ToolBarPrefsHandler implements ComponentListener, AncestorListener 
         window.toFront();
     }*/
     public void componentHidden(ComponentEvent e) {
-        prefs.putBoolean(prefsPrefix+".visible", false);
+        prefs.putBoolean(prefsPrefix + ".visible", false);
     }
-    
+
     public void componentMoved(ComponentEvent e) {
         locationChanged();
     }
+
     private void locationChanged() {
         // FIXME : use reflection to get hold of method 'isFloating'.
         if (toolbar.getUI() instanceof BasicToolBarUI) {
             BasicToolBarUI ui = (BasicToolBarUI) toolbar.getUI();
             boolean floating = ui.isFloating();
-            prefs.putBoolean(prefsPrefix+".isFloating", floating);
+            prefs.putBoolean(prefsPrefix + ".isFloating", floating);
             if (floating) {
                 Window window = SwingUtilities.getWindowAncestor(toolbar);
-                prefs.putInt(prefsPrefix+".floatingX", window.getX());
-                prefs.putInt(prefsPrefix+".floatingY", window.getY());
+                prefs.putInt(prefsPrefix + ".floatingX", window.getX());
+                prefs.putInt(prefsPrefix + ".floatingY", window.getY());
             } else if (toolbar.getParent() != null) {
                 int x = toolbar.getX();
                 int y = toolbar.getY();
@@ -102,23 +102,23 @@ public class ToolBarPrefsHandler implements ComponentListener, AncestorListener 
                 } else {
                     constraint = (toolbar.getOrientation() == JToolBar.HORIZONTAL) ? BorderLayout.SOUTH : BorderLayout.EAST;
                 }
-                prefs.put(prefsPrefix+".constraint", constraint);
+                prefs.put(prefsPrefix + ".constraint", constraint);
             }
         }
     }
-    
+
     public void componentResized(ComponentEvent e) {
         locationChanged();
     }
-    
+
     public void componentShown(ComponentEvent e) {
-        prefs.putBoolean(prefsPrefix+".visible", true);
+        prefs.putBoolean(prefsPrefix + ".visible", true);
     }
-    
+
     public void ancestorAdded(AncestorEvent event) {
         locationChanged();
     }
-    
+
     public void ancestorMoved(AncestorEvent event) {
         if (toolbar.getUI() instanceof BasicToolBarUI) {
             if (((BasicToolBarUI) toolbar.getUI()).isFloating()) {
@@ -126,7 +126,7 @@ public class ToolBarPrefsHandler implements ComponentListener, AncestorListener 
             }
         }
     }
-    
+
     public void ancestorRemoved(AncestorEvent event) {
         if (toolbar.getUI() instanceof BasicToolBarUI) {
             if (((BasicToolBarUI) toolbar.getUI()).isFloating()) {

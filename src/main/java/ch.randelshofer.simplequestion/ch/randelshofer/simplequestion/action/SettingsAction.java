@@ -1,12 +1,12 @@
 /* @(#)SettingsAction.java
- * 
+ *
  * Copyright (c) 2009 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.
  * All rights reserved.
- * 
- * The copyright of this software is owned by Werner Randelshofer. 
- * You may not use, copy or modify this software, except in  
- * accordance with the license agreement you entered into with  
+ *
+ * The copyright of this software is owned by Werner Randelshofer.
+ * You may not use, copy or modify this software, except in
+ * accordance with the license agreement you entered into with
  * Werner Randelshofer. For details see accompanying license terms.
  */
 
@@ -30,7 +30,7 @@ import java.util.prefs.Preferences;
  * @version 1.0 2009-09-07 Created.
  */
 public class SettingsAction extends AbstractPreferencesAction {
-    public final static long serialVersionUID=1L;
+    public final static long serialVersionUID = 1L;
     private SettingsDialog dialog;
 
     public SettingsAction(Application app) {
@@ -40,7 +40,7 @@ public class SettingsAction extends AbstractPreferencesAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         SettingsDialog d = getDialog(e);
-        if (! d.isShowing()) {
+        if (!d.isShowing()) {
             d.setVisible(true);
         } else {
             d.requestFocus();
@@ -50,13 +50,15 @@ public class SettingsAction extends AbstractPreferencesAction {
     private SettingsDialog getDialog(ActionEvent e) {
         if (dialog == null) {
             Component parent;
-            if (e != null && (e.getSource() instanceof Component))
-            parent=(Component)e.getSource();
-            else parent=getApplication().getComponent();
+            if (e != null && (e.getSource() instanceof Component)) {
+                parent = (Component) e.getSource();
+            } else {
+                parent = getApplication().getComponent();
+            }
             dialog = new SettingsDialog(//
-                    (JFrame) (parent==null?null:SwingUtilities.getWindowAncestor(parent)),
+                    (JFrame) (parent == null ? null : SwingUtilities.getWindowAncestor(parent)),
                     false
-                    );
+            );
             Preferences prefs = Preferences.userNodeForPackage(SimpleQuestionView.class);
             PreferencesUtil.installFramePrefsHandler(prefs, "settings", dialog);
         }

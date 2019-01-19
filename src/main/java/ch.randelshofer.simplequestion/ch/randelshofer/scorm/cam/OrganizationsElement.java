@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.LinkedList;
+
 /**
  * Represents a SCORM 1.2 CAM 'organizations' element.
  * <p>
@@ -32,14 +33,14 @@ import java.util.LinkedList;
  * <p>
  * An 'organizations' element has a structure as shown below.
  * Square brackets [ ] denote zero or one occurences.
- * Braces { } denote zero or more occurences. 
+ * Braces { } denote zero or more occurences.
  * Text in <b>bold</b> denotes non-terminal symbols.
  * <pre>
  * <b>organizations</b> ::= &lt;organizations default="<b>IDREF</b>"&gt;
  *                   {<b>organization</b>}
  *                   &lt;/organizations&gt;
  * </pre>
- *
+ * <p>
  * Reference:
  * ADL (2001). Advanced Distributed Learning.
  * Sharable Content Object Reference Model (SCORM(TM)) Version 1.2.
@@ -47,9 +48,9 @@ import java.util.LinkedList;
  * Internet (2003-01-20): http://www.adlnet.org
  *
  * @author Werner Randelshofer, Staldenmattweg 2, Immensee, CH-6405, Switzerland
- * @version 1.1 2006-10-10 Parse with XML namespaces. 
+ * @version 1.1 2006-10-10 Parse with XML namespaces.
  * <br>1.0.1 2004-01-19 Comments updated.
- * <br>1.0 2003-10-30 HTML output in method toString changed. 
+ * <br>1.0 2003-10-30 HTML output in method toString changed.
  * <br>0.18 2003-05-09 Export the default organization only.
  * <br>0.17 2003-03-16 Naming conventions streamlined with JavaScript code
  * of the LMS.
@@ -57,7 +58,7 @@ import java.util.LinkedList;
  * <br>0.1 2003-02-02 Created.
  */
 public class OrganizationsElement extends AbstractElement {
-    private final static long serialVersionUID=1L;
+    private final static long serialVersionUID = 1L;
     /**
      * This attribute is set by validate().
      */
@@ -71,25 +72,28 @@ public class OrganizationsElement extends AbstractElement {
      * The list of organization elements.
      */
     private LinkedList<OrganizationElement> organizationList = new LinkedList<>();
-    
-    /** Creates a new instance of OrganizationsElement */
+
+    /**
+     * Creates a new instance of OrganizationsElement
+     */
     public OrganizationsElement() {
     }
-    
+
     /**
      * Parses the specified DOM Element and incorporates its contents into this element.
+     *
      * @param elem An XML element with the tag name 'organizations'.
      */
     public void parse(Element elem)
-    throws IOException, ParserConfigurationException, SAXException {
-        if (! DOMs.isElement(elem, CAM.IMSCP_NS, "organizations")) {
-            throw new IOException("'adlcp:organizations' element expected, but found '"+elem.getTagName()+"' element.");
+            throws IOException, ParserConfigurationException, SAXException {
+        if (!DOMs.isElement(elem, CAM.IMSCP_NS, "organizations")) {
+            throw new IOException("'adlcp:organizations' element expected, but found '" + elem.getTagName() + "' element.");
         }
         this.defaultOrganization = DOMs.getAttributeNS(elem, CAM.IMSCP_NS, "default", null);
-        
+
         // Read the child elements
         NodeList nodes = elem.getChildNodes();
-        for (int i=0; i < nodes.getLength(); i++) {
+        for (int i = 0; i < nodes.getLength(); i++) {
             if (nodes.item(i) instanceof Element) {
                 Element child = (Element) nodes.item(i);
                 if (DOMs.isElement(child, CAM.IMSCP_NS, "organization")) {
@@ -101,30 +105,34 @@ public class OrganizationsElement extends AbstractElement {
             }
         }
     }
-    
+
     /**
      * Dumps the contents of this subtree into the provided string buffer.
      */
     public void dump(StringBuffer buf, int depth) {
-        for (int i=0; i < depth; i++) buf.append('.');
-        buf.append("<organizations default=\""+defaultOrganization+"\">\n");
+        for (int i = 0; i < depth; i++) {
+            buf.append('.');
+        }
+        buf.append("<organizations default=\"" + defaultOrganization + "\">\n");
         for (OrganizationElement organizationElement : organizationList) {
             ((AbstractElement) organizationElement).dump(buf, depth + 1);
         }
-        for (int i=0; i < depth; i++) buf.append('.');
+        for (int i = 0; i < depth; i++) {
+            buf.append('.');
+        }
         buf.append("</organizations>\n");
     }
-    
+
     /**
      * Exports this CAM subtree to JavaScript using the specified PrintWriter.
      *
-     * @param out The output stream.
+     * @param out   The output stream.
      * @param depth The current depth of the tree (used for indention).
-     * @param gen The identifier generator used to generate short(er) identifiers
-     *  whithin the JavaScript.
+     * @param gen   The identifier generator used to generate short(er) identifiers
+     *              whithin the JavaScript.
      */
     public void exportToJavaScript(PrintWriter out, int depth, IdentifierGenerator gen)
-    throws IOException {
+            throws IOException {
         indent(out, depth);
         out.println("new OrganizationsElement([");
         Iterator<OrganizationElement> iter = organizationList.iterator();
@@ -143,26 +151,32 @@ public class OrganizationsElement extends AbstractElement {
         indent(out, depth);
         out.print((depth == 0) ? "]);" : "])");
     }
-    
+
     public String toString() {
-        
+
         StringBuffer buf = new StringBuffer();
         buf.append("<html><font size=-1 face=SansSerif>");
-        if (! isValid()) buf.append("<font color=red>* </font>");
+        if (!isValid()) {
+            buf.append("<font color=red>* </font>");
+        }
         buf.append("<b>Organizations</b> default:");
-        if (! isDefaultOrganizationValid()) buf.append("<font color=red>");
+        if (!isDefaultOrganizationValid()) {
+            buf.append("<font color=red>");
+        }
         buf.append(defaultOrganization);
-        if (! isDefaultOrganizationValid()) buf.append(" <b>NO DEFAULT ORGANIZATION SPECIFIED</b></font>");
+        if (!isDefaultOrganizationValid()) {
+            buf.append(" <b>NO DEFAULT ORGANIZATION SPECIFIED</b></font>");
+        }
         buf.append("</font>");
         return buf.toString();
     }
-    
+
     /**
      * Returns the default organization.
      * Performance penalty: Does a linear search through its child nodes.
      */
     public OrganizationElement getDefaultOrganizationElement() {
-        for (int i=0; i < getChildCount(); i++) {
+        for (int i = 0; i < getChildCount(); i++) {
             OrganizationElement elem = (OrganizationElement) getChildAt(i);
             if (elem.getIdentifier().equals(defaultOrganization)) {
                 return elem;
@@ -170,6 +184,7 @@ public class OrganizationsElement extends AbstractElement {
         }
         return (OrganizationElement) ((getChildCount() > 0) ? getChildAt(0) : null);
     }
+
     /**
      * Returns the default organization.
      * Performance penalty: Does a linear search through its child nodes.
@@ -177,6 +192,7 @@ public class OrganizationsElement extends AbstractElement {
     public void setDefaultOrganizationElement(OrganizationElement elem) {
         defaultOrganization = elem.getIdentifier();
     }
+
     /**
      * Validates this CAM element.
      *
@@ -185,16 +201,19 @@ public class OrganizationsElement extends AbstractElement {
     public boolean validate() {
         isValid = super.validate();
         isDefaultOrganizationValid = false;
-        for (int i=0; i < getChildCount(); i++) {
+        for (int i = 0; i < getChildCount(); i++) {
             OrganizationElement elem = (OrganizationElement) getChildAt(i);
             if (elem.getIdentifier().equals(defaultOrganization)) {
                 isDefaultOrganizationValid = true;
                 break;
             }
         }
-        if (! isDefaultOrganizationValid) isValid = false;
+        if (!isDefaultOrganizationValid) {
+            isValid = false;
+        }
         return isValid;
     }
+
     /**
      * The return value of this method is unspecified until
      * validate() has been done.

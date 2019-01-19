@@ -127,7 +127,7 @@ import java.util.zip.ZipOutputStream;
  * <br>0.1 2003-02-04 Created.
  */
 public class CourseModel extends DefaultTreeModel implements MutableTreeModel {
-    public final static long serialVersionUID=1L;
+    public final static long serialVersionUID = 1L;
     /**
      * Property change support.
      */

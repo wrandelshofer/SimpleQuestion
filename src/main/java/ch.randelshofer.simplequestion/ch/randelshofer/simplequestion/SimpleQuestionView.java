@@ -1,12 +1,12 @@
 /* @(#)SimpleQuestionView.java
- * 
+ *
  * Copyright (c) 2009 Werner Randelshofer
  * Staldenmattweg 2, Immensee, CH-6405, Switzerland.
  * All rights reserved.
- * 
- * The copyright of this software is owned by Werner Randelshofer. 
- * You may not use, copy or modify this software, except in  
- * accordance with the license agreement you entered into with  
+ *
+ * The copyright of this software is owned by Werner Randelshofer.
+ * You may not use, copy or modify this software, except in
+ * accordance with the license agreement you entered into with
  * Werner Randelshofer. For details see accompanying license terms.
  */
 package ch.randelshofer.simplequestion;
@@ -74,7 +74,7 @@ import java.util.prefs.Preferences;
  * @version 1.0 2009-09-06 Created.
  */
 public class SimpleQuestionView extends TeddyView {
-    public final static long serialVersionUID=1L;
+    public final static long serialVersionUID = 1L;
 
     private ResourceBundleUtil labels;
     private Preferences prefs;
@@ -116,10 +116,10 @@ public class SimpleQuestionView extends TeddyView {
                 event.acceptDrop(DnDConstants.ACTION_COPY);
                 try {
                     @SuppressWarnings("unchecked")
-                    List<File> files= (List<File>) event.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+                    List<File> files = (List<File>) event.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
                     if (files.size() == 1) {
                         LoadFileAction action = new LoadFileAction(getApplication(), SimpleQuestionView.this);
-                        action.loadViewFromURI(SimpleQuestionView.this, files.get(0).toURI(),null);
+                        action.loadViewFromURI(SimpleQuestionView.this, files.get(0).toURI(), null);
                     }
                 } catch (UnsupportedFlavorException ex) {
                 } catch (IOException ex) {
@@ -130,25 +130,28 @@ public class SimpleQuestionView extends TeddyView {
         }
     };
 
-    /** Creates new form SimpleQuestionView */
+    /**
+     * Creates new form SimpleQuestionView
+     */
     public SimpleQuestionView() {
-        }
+    }
+
     @Override
     protected void init0() {
         try {
-        prefs = Preferences.userNodeForPackage(SimpleQuestionView.class);
-        prefs.addPreferenceChangeListener(new PreferenceChangeListener() {
+            prefs = Preferences.userNodeForPackage(SimpleQuestionView.class);
+            prefs.addPreferenceChangeListener(new PreferenceChangeListener() {
 
-            @Override
-            public void preferenceChange(PreferenceChangeEvent evt) {
-                if (evt.getKey().equals("editorFontFamily") ||
-                        evt.getKey().equals("editorFontSize")) {
-                    if (editor != null) {
-                        editor.setFont(new Font(prefs.get("editorFontFamily", "Dialog"), Font.PLAIN, prefs.getInt("editorFontSize", 13)));
+                @Override
+                public void preferenceChange(PreferenceChangeEvent evt) {
+                    if (evt.getKey().equals("editorFontFamily") ||
+                            evt.getKey().equals("editorFontSize")) {
+                        if (editor != null) {
+                            editor.setFont(new Font(prefs.get("editorFontFamily", "Dialog"), Font.PLAIN, prefs.getInt("editorFontSize", 13)));
+                        }
                     }
                 }
-            }
-        });
+            });
         } catch (NoClassDefFoundError e) {
             // Handle "Could not initialize java.util.prefs.MacOSX" error
         }
@@ -172,8 +175,9 @@ public class SimpleQuestionView extends TeddyView {
         sh.changeStyle(GIFTTokenTypes.QUESTION, Color.black);
         sh.changeStyle(GIFTTokenTypes.FEEDBACK, Color.magenta.darker(), Font.ITALIC);
         // sh.changeStyle(GIFTTokenTypes.UNRECOGNIZED, Color.red.brighter(), Font.BOLD);
-        if (prefs!=null)
-        sh.setFont(new Font(prefs.get("editorFontFamily", "Dialog"), Font.PLAIN, prefs.getInt("editorFontSize", 13)));
+        if (prefs != null) {
+            sh.setFont(new Font(prefs.get("editorFontFamily", "Dialog"), Font.PLAIN, prefs.getInt("editorFontSize", 13)));
+        }
         return sh;
     }
 
@@ -236,7 +240,7 @@ public class SimpleQuestionView extends TeddyView {
     public void clear() {
         labels = new ResourceBundleUtil(ResourceBundle.getBundle("ch/randelshofer/simplequestion/Labels"));
 
-        String templateChoice = prefs==null?"empty":prefs.get("templateChoice", "sample");
+        String templateChoice = prefs == null ? "empty" : prefs.get("templateChoice", "sample");
         if (!"empty".equals(templateChoice)) {
             InputStream in = null;
             try {
@@ -252,9 +256,9 @@ public class SimpleQuestionView extends TeddyView {
                 final StyledDocument doc = readDocument(in, "UTF8");
                 SwingUtilities.invokeAndWait(new Runnable() {
                     public void run() {
-                editor.setDocument(doc);
-                doc.addUndoableEditListener(undoManager);
-                }
+                        editor.setDocument(doc);
+                        doc.addUndoableEditListener(undoManager);
+                    }
                 });
             } catch (Throwable e) {
                 // Should never happen, because we read a resource.
@@ -318,18 +322,19 @@ public class SimpleQuestionView extends TeddyView {
             in.close();
         }
     }
+
     @Override
     public void write(URI f, URIChooser chooser) throws IOException {
-        if (chooser==null || !(chooser instanceof JFileURIChooser)) {
-            write(f,"UTF-8","\n");
+        if (chooser == null || !(chooser instanceof JFileURIChooser)) {
+            write(f, "UTF-8", "\n");
         } else {
             JFileURIChooser fc = (JFileURIChooser) chooser;
             if (fc.getAccessory() instanceof CharacterSetAccessory) {
 
-        write(f, ((CharacterSetAccessory) fc.getAccessory()).getCharacterSet(), ((CharacterSetAccessory) ((JFileURIChooser) chooser).getAccessory()).getLineSeparator());
-        } else {
+                write(f, ((CharacterSetAccessory) fc.getAccessory()).getCharacterSet(), ((CharacterSetAccessory) ((JFileURIChooser) chooser).getAccessory()).getLineSeparator());
+            } else {
                 export(new File(f), fc.getFileFilter(), fc.getAccessory());
-        }
+            }
         }
     }
 
@@ -344,7 +349,7 @@ public class SimpleQuestionView extends TeddyView {
             List<Question> questions = new GIFTParser().parse(editor.getText());
 
             if (filter instanceof ConfigurableFileFilter) {
-            ConfigurableFileFilter cff = (ConfigurableFileFilter) filter;
+                ConfigurableFileFilter cff = (ConfigurableFileFilter) filter;
                 Exporter exporter = (Exporter) cff.getClientProperty("exporter");
                 File baseFile = (getURI() != null) ? new File(getURI()) : f;
                 exporter.export(questions, f, cff, baseFile);
@@ -382,24 +387,24 @@ public class SimpleQuestionView extends TeddyView {
                     }
                     JSheet.showMessageSheet(editor,
                             "<html>" + UIManager.getString("OptionPane.css") +
-                            "<b>" + labels.getString("questionIsIncomplete") + "</b><p>" +
-                            text, //q.toString(),
+                                    "<b>" + labels.getString("questionIsIncomplete") + "</b><p>" +
+                                    text, //q.toString(),
                             JOptionPane.ERROR_MESSAGE, new SheetListener() {
 
-                        public void optionSelected(SheetEvent evt) {
+                                public void optionSelected(SheetEvent evt) {
 
-                            select(q.getStartPosition(), q.getEndPosition() + 1);
-                            editor.requestFocus();
-                        }
-                    });
+                                    select(q.getStartPosition(), q.getEndPosition() + 1);
+                                    editor.requestFocus();
+                                }
+                            });
                     return;
                 }
             }
 
             JSheet.showMessageSheet((JComponent) this,
                     "<html>" + UIManager.getString("OptionPane.css") +
-                    "<b>" + labels.getString("syntaxIsCorrect") + "</b><br>" +
-                    labels.getFormatted("syntaxThereAreNQuestions", questions.size()),
+                            "<b>" + labels.getString("syntaxIsCorrect") + "</b><br>" +
+                            labels.getFormatted("syntaxThereAreNQuestions", questions.size()),
                     JOptionPane.INFORMATION_MESSAGE);
 
         } catch (final ch.randelshofer.io.ParseException e) {
@@ -409,29 +414,30 @@ public class SimpleQuestionView extends TeddyView {
             // FIXME localize this error messsage
             JSheet.showMessageSheet(editor,
                     "<html>" + UIManager.getString("OptionPane.css") +
-                    "<b>" + labels.getString("syntaxIsIncorrect") + "</b><p>" +
-                    e.getMessage(),
+                            "<b>" + labels.getString("syntaxIsIncorrect") + "</b><p>" +
+                            e.getMessage(),
                     JOptionPane.ERROR_MESSAGE, new SheetListener() {
 
-                public void optionSelected(SheetEvent evt) {
-                    select(e.getStartPosition(), e.getEndPosition() + 1);
-                    editor.requestFocus();
-                }
-            });
+                        public void optionSelected(SheetEvent evt) {
+                            select(e.getStartPosition(), e.getEndPosition() + 1);
+                            editor.requestFocus();
+                        }
+                    });
 
         } catch (Exception e) {
             ((Throwable) e).printStackTrace();
             // FIXME localize this error messsage
             JSheet.showMessageSheet((JComponent) this,
                     "<html>" + UIManager.getString("OptionPane.css") +
-                    "<b>" + labels.getString("syntaxIsIncorrect") + "</b><p>" +
-                    e.getMessage(),
+                            "<b>" + labels.getString("syntaxIsIncorrect") + "</b><p>" +
+                            e.getMessage(),
                     JOptionPane.ERROR_MESSAGE);
 
         }
     }
 
-    /** This method is called from within the constructor to
+    /**
+     * This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.

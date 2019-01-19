@@ -18,6 +18,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
 /**
  * This class provides static utility operations for
  * <code>MutableTableModel</code>'s.
@@ -26,13 +27,13 @@ import java.util.StringTokenizer;
  * @version 1.0 2002-11-21 Created.
  */
 public class TableModels {
-    
+
     /**
      * Suppresses default constructor, ensuring non-instantiability.
      */
     public TableModels() {
     }
-    
+
     /**
      * Creates a transferable in text/html format from
      * a mutable table model.
@@ -44,10 +45,10 @@ public class TableModels {
             CharArrayWriter w = new CharArrayWriter();
             w.write("<html><body><table>");
             int columnCount = model.getColumnCount();
-            for (int i=0; i < rows.length; i++) {
+            for (int i = 0; i < rows.length; i++) {
                 w.write("<tr>");
-                for (int j=0; j < columnCount; j++) {
-                    w.write("<td>"+model.getValueAt(rows[i],j)+"</td>");
+                for (int j = 0; j < columnCount; j++) {
+                    w.write("<td>" + model.getValueAt(rows[i], j) + "</td>");
                 }
                 w.write("</tr>");
             }
@@ -58,6 +59,7 @@ public class TableModels {
             throw new InternalError(e.getMessage());
         }
     }
+
     /**
      * Creates a transferable in text/plain format from
      * a mutable table model.
@@ -67,16 +69,20 @@ public class TableModels {
     public static Transferable createPlainTransferable(MutableTableModel model, int[] rows) {
         StringBuffer buf = new StringBuffer();
         int columnCount = model.getColumnCount();
-        for (int i=0; i < rows.length; i++) {
-            for (int j=0; j < columnCount; j++) {
-                if (j != 0) buf.append('\t');
-                buf.append(model.getValueAt(rows[i],j));
+        for (int i = 0; i < rows.length; i++) {
+            for (int j = 0; j < columnCount; j++) {
+                if (j != 0) {
+                    buf.append('\t');
+                }
+                buf.append(model.getValueAt(rows[i], j));
             }
-            if (i != 0) buf.append('\n');
+            if (i != 0) {
+                buf.append('\n');
+            }
         }
         return new StringSelection(buf.toString());
     }
-    
+
     /**
      * Creates a local JVM transferable from
      * a mutable table model.
@@ -87,27 +93,26 @@ public class TableModels {
     public static Transferable createLocalTransferable(MutableTableModel model, int[] rows) {
         Object[][] table = new Object[rows.length][model.getColumnCount()];
         int columnCount = model.getColumnCount();
-        for (int i=0; i < rows.length; i++) {
+        for (int i = 0; i < rows.length; i++) {
             ArrayList<Object> c = new ArrayList<>(columnCount);
-            for (int j=0; j < columnCount; j++) {
-                table[i][j] = model.getValueAt(rows[i],j);
+            for (int j = 0; j < columnCount; j++) {
+                table[i][j] = model.getValueAt(rows[i], j);
             }
         }
         return new JVMLocalObjectTransferable(Object[][].class, table);
     }
 
-     /**
+    /**
      * Returns the contents of the transferable as
      * an <code>Object[][]</code> containing String's.
      * Where each row is determined by reading a line of text
      * from the transferable and each column by splitting
      * a line into tabulator delimited strings.
      *
-     * @exception UnsupportedFlavorException
-     * If the transferable does not support DataFlavor.getTextPlainUnicodeFlavor()
+     * @throws UnsupportedFlavorException If the transferable does not support DataFlavor.getTextPlainUnicodeFlavor()
      */
     public static Object[][] getPlainTable(Transferable t, int columnCount)
-    throws UnsupportedFlavorException, IOException {
+            throws UnsupportedFlavorException, IOException {
         List<Object> list = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new StringReader((String) t.getTransferData(DataFlavor.stringFlavor)))) {
             String line;
@@ -123,19 +128,18 @@ public class TableModels {
         return (Object[][]) list.toArray();
     }
 
-     /**
+    /**
      * Returns the contents of the transferable as
      * an <code>Object[][]</code> containing String's.
      * Where each row is determined by reading a line of text
      * from the transferable and each column by splitting
      * a line into tabulator delimited strings.
      *
-     * @exception UnsupportedFlavorException
-     * If the transferable does not support
-     * <code>DataFlavor.stringFlavor</code>
+     * @throws UnsupportedFlavorException If the transferable does not support
+     *                                    <code>DataFlavor.stringFlavor</code>
      */
     public static Object[][] getStringTable(Transferable t, int columnCount)
-    throws UnsupportedFlavorException, IOException {
+            throws UnsupportedFlavorException, IOException {
         List<Object> list = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(DataFlavor.stringFlavor.getReaderForText(t))) {
             String line;

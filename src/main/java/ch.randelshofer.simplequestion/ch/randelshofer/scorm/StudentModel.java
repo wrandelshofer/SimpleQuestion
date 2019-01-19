@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+
 /**
  * StudentModel.
  *
@@ -29,7 +30,7 @@ import java.security.SecureRandom;
  * @version 1.0 August 24, 2003  Created.
  */
 public class StudentModel extends AbstractBean implements Cloneable {
-    public final static long serialVersionUID=1L;
+    public final static long serialVersionUID = 1L;
     private String id, password, lastName, firstName, middleInitial;
     /**
      * The electronic fingerprint of the password.
@@ -38,11 +39,13 @@ public class StudentModel extends AbstractBean implements Cloneable {
      */
     private String passwordDigest;
     private static SecureRandom random;
-    
-    /** Creates a new instance. */
+
+    /**
+     * Creates a new instance.
+     */
     public StudentModel() {
     }
-    
+
     public StudentModel(String id, String lastName, String firstName, String middleInitial) {
         this.id = id;
         this.password = password;
@@ -50,50 +53,58 @@ public class StudentModel extends AbstractBean implements Cloneable {
         this.firstName = firstName;
         this.middleInitial = middleInitial;
     }
-    
+
     public void setID(String newValue) {
         String oldValue = id;
         id = newValue;
         propertySupport.firePropertyChange("id", oldValue, newValue);
     }
-    
+
     public void setPassword(String newValue) {
         String oldValue = password;
         password = newValue;
         propertySupport.firePropertyChange("password", oldValue, newValue);
         passwordDigest = null;
     }
+
     public void setLastName(String newValue) {
         String oldValue = lastName;
         lastName = newValue;
         propertySupport.firePropertyChange("lastName", oldValue, newValue);
     }
+
     public void setFirstName(String newValue) {
         String oldValue = firstName;
         firstName = newValue;
         propertySupport.firePropertyChange("firstName", oldValue, newValue);
     }
+
     public void setMiddleInitial(String newValue) {
         String oldValue = middleInitial;
         middleInitial = newValue;
         propertySupport.firePropertyChange("middleInitial", oldValue, newValue);
     }
+
     public String getID() {
         return id;
     }
+
     public String getFirstName() {
         return firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public String getMiddleInitial() {
         return middleInitial;
     }
-    
+
     public String getPassword() {
         return password;
     }
+
     public void setPasswordDigest(String newValue) {
         String oldValue = passwordDigest;
         passwordDigest = newValue;
@@ -102,6 +113,7 @@ public class StudentModel extends AbstractBean implements Cloneable {
             password = "******";
         }
     }
+
     public String getPasswordDigest() {
         try {
             if (passwordDigest == null && password != null && password.trim().length() != 0) {
@@ -109,10 +121,10 @@ public class StudentModel extends AbstractBean implements Cloneable {
                 if (random == null) {
                     random = new SecureRandom();
                 }
-                
+
                 // Create 32 bits of salt
                 String salt = Integer.toString(random.nextInt(), 16);
-                
+
                 // Compute the message digest for the password
                 // We use UTF-8 encoding because this encoding is supported
                 // by the String.charCodeAt(index) method of JavaScript.
@@ -124,19 +136,19 @@ public class StudentModel extends AbstractBean implements Cloneable {
                 //password = null;
             }
             return passwordDigest;
-            
+
         } catch (NoSuchAlgorithmException e) {
             InternalError t = new InternalError(e.toString());
             t.initCause(e);
             throw t;
         }
     }
-    
+
     public Object clone() {
         try {
-        StudentModel that = (StudentModel) super.clone();
-        that.propertySupport = new PropertyChangeSupport(that);
-        return that;
+            StudentModel that = (StudentModel) super.clone();
+            that.propertySupport = new PropertyChangeSupport(that);
+            return that;
         } catch (CloneNotSupportedException e) {
             InternalError t = new InternalError(e.toString());
             t.initCause(e);

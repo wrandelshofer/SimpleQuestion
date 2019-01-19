@@ -11,6 +11,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+
 /**
  * Represents a SCORM 1.2 LOM 'langstring' element.
  * <p>
@@ -31,13 +32,13 @@ import java.io.IOException;
  * The SCORM Content Aggregation Model. October 1, 2001.
  * Internet (2003-01-20): http://www.adlnet.org
  *
- * @author  Werner Randelshofer
+ * @author Werner Randelshofer
  * @version 1.1 2006-10-11 Parse using XML namespaces.
- * <br>1.0.1  2004-01-19  Comments updated. 
+ * <br>1.0.1  2004-01-19  Comments updated.
  * <br>1.0  2004-01-05  Created.
  */
 public class LangStringElement extends AbstractElement {
-    private final static long serialVersionUID=1L;
+    private final static long serialVersionUID = 1L;
     /**
      * The string.
      */
@@ -46,44 +47,51 @@ public class LangStringElement extends AbstractElement {
      * The language.
      */
     private String language;
-    
-    /** Creates a new instance of LangStringElement */
+
+    /**
+     * Creates a new instance of LangStringElement
+     */
     public LangStringElement() {
     }
-    
+
     /**
      * Parses the specified DOM Element and incorporates its contents into this element.
+     *
      * @param elem An XML element with the tag name 'title'.
      */
     public void parse(Element elem)
-    throws IOException, ParserConfigurationException, SAXException {
-        if (! DOMs.isElement(elem, LOM.NS, "langstring")) {
-            throw new IOException("'langstring' element expected, but found '"+elem.getTagName()+"' element.");
+            throws IOException, ParserConfigurationException, SAXException {
+        if (!DOMs.isElement(elem, LOM.NS, "langstring")) {
+            throw new IOException("'langstring' element expected, but found '" + elem.getTagName() + "' element.");
         }
-        
+
         this.language = DOMs.getAttributeNS(elem, "xml", "lang", null);
-        
+
         // Read the title
         this.text = DOMs.getText(elem);
     }
-    
+
     /**
      * Dumps the contents of this subtree into the provided string buffer.
      */
     public void dump(StringBuffer buf, int depth) {
-        for (int i=0; i < depth; i++) buf.append('.');
-        buf.append("<langstring xml:lang=\""+language+"\">"+text+"</langstring>\n");
+        for (int i = 0; i < depth; i++) {
+            buf.append('.');
+        }
+        buf.append("<langstring xml:lang=\"" + language + "\">" + text + "</langstring>\n");
     }
-    
+
     public String getText() {
         return text;
     }
-    
+
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append("<html><font size=-1 face=SansSerif>");
-        if (! isValid()) buf.append("<font color=red>* </font>");
-        buf.append("<b>LangString</b> lang:"+language+" text:"+text);
+        if (!isValid()) {
+            buf.append("<font color=red>* </font>");
+        }
+        buf.append("<b>LangString</b> lang:" + language + " text:" + text);
         buf.append("</font>");
         return buf.toString();
     }

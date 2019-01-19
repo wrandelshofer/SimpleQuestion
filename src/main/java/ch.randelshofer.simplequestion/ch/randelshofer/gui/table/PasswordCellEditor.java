@@ -51,28 +51,33 @@ public class PasswordCellEditor extends DefaultCellEditor {
 //  Implementing the TreeCellEditor Interface
 //
 
-    /** Implements the <code>TreeCellEditor</code> interface. */
+    /**
+     * Implements the <code>TreeCellEditor</code> interface.
+     */
     public Component getTreeCellEditorComponent(JTree tree, Object value,
-						boolean isSelected,
-						boolean expanded,
-						boolean leaf, int row) {
-	String stringValue = tree.convertValueToText(value, isSelected,
-					    expanded, leaf, row, false);
+                                                boolean isSelected,
+                                                boolean expanded,
+                                                boolean leaf, int row) {
+        String stringValue = tree.convertValueToText(value, isSelected,
+                expanded, leaf, row, false);
 
-	delegate.setValue(stringValue);
+        delegate.setValue(stringValue);
         ((JPasswordField) editorComponent).selectAll();
-	return editorComponent;
+        return editorComponent;
     }
 
 //
 //  Implementing the CellEditor Interface
 //
-    /** Implements the <code>TableCellEditor</code> interface. */
+
+    /**
+     * Implements the <code>TableCellEditor</code> interface.
+     */
     public Component getTableCellEditorComponent(JTable table, Object value,
-						 boolean isSelected,
-						 int row, int column) {
+                                                 boolean isSelected,
+                                                 int row, int column) {
         delegate.setValue(value);
         ((JPasswordField) editorComponent).selectAll();
-	return editorComponent;
+        return editorComponent;
     }
 }

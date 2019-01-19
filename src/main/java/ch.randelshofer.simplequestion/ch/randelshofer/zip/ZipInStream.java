@@ -24,6 +24,7 @@ import java.util.zip.ZipInputStream;
 public class ZipInStream extends ZipInputStream implements ZipIn {
     /**
      * Creates a new ZIP input stream.
+     *
      * @param in the actual input stream
      */
     public ZipInStream(InputStream in) {

@@ -4,11 +4,11 @@
  * and all its contributors.
  * All rights reserved.
  *
- * The copyright of this software is owned by the authors and  
- * contributors of the JHotDraw project ("the copyright holders").  
- * You may not use, copy or modify this software, except in  
- * accordance with the license agreement you entered into with  
- * the copyright holders. For details see accompanying license terms. 
+ * The copyright of this software is owned by the authors and
+ * contributors of the JHotDraw project ("the copyright holders").
+ * You may not use, copy or modify this software, except in
+ * accordance with the license agreement you entered into with
+ * the copyright holders. For details see accompanying license terms.
  */
 package ch.randelshofer.teddy.io;
 
@@ -22,7 +22,7 @@ import java.io.Writer;
  * any one of a line feed ('\n'), a carriage return ('\r'), or a carriage return
  * followed immediately by a linefeed.
  *
- * @author  Werner Randelshofer
+ * @author Werner Randelshofer
  * @version $Id: LFWriter.java 527 2009-06-07 14:28:19Z rawcoder $
  */
 public class LFWriter extends FilterWriter {
@@ -30,10 +30,12 @@ public class LFWriter extends FilterWriter {
      * Line separator string.
      */
     private String lineSeparator = "\n";
-    
-    /** If the next character is a line feed, skip it */
+
+    /**
+     * If the next character is a line feed, skip it
+     */
     private boolean skipLF;
-    
+
     /**
      * Create a new line-numbering writer.
      */
@@ -41,25 +43,25 @@ public class LFWriter extends FilterWriter {
         super(out);
         lineSeparator = System.getProperty("line.separator");
     }
-    
+
     /**
      * Gets the line separator of the println() methods.
      */
     public String getLineSeparator() {
         return lineSeparator;
     }
-    
+
     /**
      * Sets the line separator for the println() methods.
      */
     public void setLineSeparator(String lineSeparator) {
         this.lineSeparator = lineSeparator;
     }
-    
+
     /**
      * Write a single character.
      *
-     * @exception  IOException  If an I/O error occurs
+     * @throws IOException If an I/O error occurs
      */
     public void write(int c) throws IOException {
         switch (c) {
@@ -68,28 +70,29 @@ public class LFWriter extends FilterWriter {
                 skipLF = true;
                 break;
             case '\n':
-                if (!skipLF) out.write(lineSeparator);
+                if (!skipLF) {
+                    out.write(lineSeparator);
+                }
                 skipLF = false;
                 break;
-            default :
+            default:
                 out.write(c);
                 skipLF = false;
                 break;
         }
     }
-    
+
     /**
      * Write a portion of an array of characters.
      *
-     * @param  cbuf  Buffer of characters to be written
-     * @param  off   Offset from which to start reading characters
-     * @param  len   Number of characters to be written
-     *
-     * @exception  IOException  If an I/O error occurs
+     * @param cbuf Buffer of characters to be written
+     * @param off  Offset from which to start reading characters
+     * @param len  Number of characters to be written
+     * @throws IOException If an I/O error occurs
      */
     public void write(char cbuf[], int off, int len) throws IOException {
         int end = off + len;
-        for (int i=off; i < end; i++) {
+        for (int i = off; i < end; i++) {
             switch (cbuf[i]) {
                 case '\r':
                     out.write(cbuf, off, i - off);
@@ -106,22 +109,23 @@ public class LFWriter extends FilterWriter {
                         out.write(lineSeparator);
                     }
                     break;
-                default :
+                default:
                     skipLF = false;
                     break;
             }
         }
-        if (off < end) out.write(cbuf, off, end - off);
+        if (off < end) {
+            out.write(cbuf, off, end - off);
+        }
     }
-    
+
     /**
      * Write a portion of a string.
      *
-     * @param  str  String to be written
-     * @param  off  Offset from which to start reading characters
-     * @param  len  Number of characters to be written
-     *
-     * @exception  IOException  If an I/O error occurs
+     * @param str String to be written
+     * @param off Offset from which to start reading characters
+     * @param len Number of characters to be written
+     * @throws IOException If an I/O error occurs
      */
     public void write(String str, int off, int len) throws IOException {
         write(str.toCharArray(), off, len);

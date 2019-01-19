@@ -6,6 +6,7 @@ package ch.randelshofer.gui;
 import javax.swing.ScrollPaneLayout;
 import java.awt.Container;
 import java.awt.Rectangle;
+
 /**
  * Objects of this class behave essentially like
  * javax.swing.ScrollPaneLayout but treats the top
@@ -15,15 +16,17 @@ import java.awt.Rectangle;
  * is granted to be visible when the vertical scroll bar
  * is visible.
  *
- * @author  werni
+ * @author werni
  */
 public class ScrollPaneLayout2 extends ScrollPaneLayout
-implements javax.swing.plaf.UIResource  {
-    
-    /** Creates a new instance of CornerLayout2 */
+        implements javax.swing.plaf.UIResource {
+
+    /**
+     * Creates a new instance of CornerLayout2
+     */
     public ScrollPaneLayout2() {
     }
-    
+
     /**
      * Same as ScrollPaneLayout.layoutContainer but the top right
      * corner is treated specially.
@@ -32,18 +35,18 @@ implements javax.swing.plaf.UIResource  {
      */
     public void layoutContainer(Container parent) {
         super.layoutContainer(parent);
-        
+
         if (upperRight != null && colHead == null) {
             if (vsb != null && vsb.isVisible()) {
                 Rectangle vsbR = vsb.getBounds();
-                
+
                 upperRight.setBounds(vsbR.x, vsbR.y,
-                vsbR.width, vsbR.width);
-                
+                        vsbR.width, vsbR.width);
+
                 vsb.setBounds(vsbR.x, vsbR.y + vsbR.width,
-                vsbR.width, vsbR.height - vsbR.width);
+                        vsbR.width, vsbR.height - vsbR.width);
             }
         }
-         
+
     }
 }

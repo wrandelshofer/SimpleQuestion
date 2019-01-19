@@ -4,9 +4,9 @@
  * Staldenmattweg 2, CH-6405 Immensee, Switzerland
  * All rights reserved.
  *
- * The copyright of this software is owned by Werner Randelshofer. 
- * You may not use, copy or modify this software, except in  
- * accordance with the license agreement you entered into with  
+ * The copyright of this software is owned by Werner Randelshofer.
+ * You may not use, copy or modify this software, except in
+ * accordance with the license agreement you entered into with
  * Werner Randelshofer. For details see accompanying license terms.
  */
 
@@ -48,22 +48,24 @@ import java.util.prefs.Preferences;
  * SettingsPanel.
  *
  * @author Werner Randelshofer
- * @version 2.1 2008-12-03 The external SCORM template can either be a 
+ * @version 2.1 2008-12-03 The external SCORM template can either be a
  * ZIP-file or a directory.
  * <br>2.0 2007-11-15 SCORM settings and editor settings added.
  * <br>1.0 24. Juli 2006 Created.
  */
 public class SettingsPanel extends javax.swing.JPanel {
-    public final static long serialVersionUID=1L;
+    public final static long serialVersionUID = 1L;
     private Preferences prefs;
     private ResourceBundleUtil labels;
     private JFileChooser fileChooser;
     private JFileChooser htmlExportChooser;
-    
-    private HashMap<String,JRadioButton> giftTemplateChoiceMap;
-    private HashMap<String,JRadioButton> scormTemplateChoiceMap;
-    
-    /** Creates new form. */
+
+    private HashMap<String, JRadioButton> giftTemplateChoiceMap;
+    private HashMap<String, JRadioButton> scormTemplateChoiceMap;
+
+    /**
+     * Creates new form.
+     */
     public SettingsPanel() {
         prefs = Preferences.userNodeForPackage(SimpleQuestionView.class);
         labels = new ResourceBundleUtil(ResourceBundle.getBundle("ch/randelshofer/simplequestion/Labels"));
@@ -71,7 +73,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         editorLabel.setFont(UIManager.getFont("EmphasizedSystemFont"));
         giftTemplateLabel.setFont(UIManager.getFont("EmphasizedSystemFont"));
         scormTemplateLabel.setFont(UIManager.getFont("EmphasizedSystemFont"));
-        
+
         // Editor settings
         String[] ffn = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         Arrays.sort(ffn, Collator.getInstance());
@@ -89,80 +91,89 @@ public class SettingsPanel extends javax.swing.JPanel {
                 prefs.putInt("editorFontSize", (Integer) fontSizeSpinner.getValue());
             }
         });
-        
+
         // GIFT settings
-        giftTemplateChoiceMap = new HashMap<String,JRadioButton>();
-        for (Enumeration<AbstractButton> e=giftTemplateGroup.getElements(); e.hasMoreElements();) {
+        giftTemplateChoiceMap = new HashMap<String, JRadioButton>();
+        for (Enumeration<AbstractButton> e = giftTemplateGroup.getElements(); e.hasMoreElements(); ) {
             JRadioButton b = (JRadioButton) e.nextElement();
             giftTemplateChoiceMap.put(b.getActionCommand(), b);
         }
-        giftTemplateChoiceMap.get(prefs.get("templateChoice","sample")).setSelected(true);
-        giftTemplateFileField.setText(prefs.get("templateFile",""));
+        giftTemplateChoiceMap.get(prefs.get("templateChoice", "sample")).setSelected(true);
+        giftTemplateFileField.setText(prefs.get("templateFile", ""));
         giftTemplateFileField.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {
                 updateGIFTtemplate();
             }
+
             public void removeUpdate(DocumentEvent e) {
                 updateGIFTtemplate();
             }
+
             public void changedUpdate(DocumentEvent e) {
                 updateGIFTtemplate();
             }
+
             private void updateGIFTtemplate() {
                 prefs.put("templateFile", giftTemplateFileField.getText());
             }
         });
         giftTemplateFileField.setTransferHandler(new FileTextFieldTransferHandler());
 
-        
+
         // SCORM settings
         final Preferences scormPrefs = Preferences.userNodeForPackage(SCORMExporter.class);
-        scormTemplateChoiceMap = new HashMap<String,JRadioButton>();
-        for (Enumeration<AbstractButton> e = scormTemplateGroup.getElements(); e.hasMoreElements();) {
+        scormTemplateChoiceMap = new HashMap<String, JRadioButton>();
+        for (Enumeration<AbstractButton> e = scormTemplateGroup.getElements(); e.hasMoreElements(); ) {
             JRadioButton b = (JRadioButton) e.nextElement();
             scormTemplateChoiceMap.put(b.getActionCommand(), b);
         }
-        scormTemplateChoiceMap.get(scormPrefs.get("scormTemplateChoice","internal")).setSelected(true);
-        
-        scormTemplateFileField.setText(scormPrefs.get("scormTemplateFile",""));
+        scormTemplateChoiceMap.get(scormPrefs.get("scormTemplateChoice", "internal")).setSelected(true);
+
+        scormTemplateFileField.setText(scormPrefs.get("scormTemplateFile", ""));
         scormTemplateFileField.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {
                 updateSCORMtemplate();
             }
+
             public void removeUpdate(DocumentEvent e) {
                 updateSCORMtemplate();
             }
+
             public void changedUpdate(DocumentEvent e) {
                 updateSCORMtemplate();
             }
+
             private void updateSCORMtemplate() {
                 scormPrefs.put("scormTemplateFile", scormTemplateFileField.getText());
             }
         });
         scormTemplateFileField.setTransferHandler(new FileTextFieldTransferHandler());
 
-        scormTemplateDirectoryField.setText(scormPrefs.get("scormTemplateDirectory",""));
+        scormTemplateDirectoryField.setText(scormPrefs.get("scormTemplateDirectory", ""));
         scormTemplateDirectoryField.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) {
                 updateSCORMtemplate();
             }
+
             public void removeUpdate(DocumentEvent e) {
                 updateSCORMtemplate();
             }
+
             public void changedUpdate(DocumentEvent e) {
                 updateSCORMtemplate();
             }
+
             private void updateSCORMtemplate() {
                 scormPrefs.put("scormTemplateDirectory", scormTemplateDirectoryField.getText());
             }
         });
         scormTemplateDirectoryField.setTransferHandler(new FileTextFieldTransferHandler(JFileChooser.DIRECTORIES_ONLY));
     }
-    
+
     protected JFileChooser getFileChooser() {
         if (fileChooser == null) {
             fileChooser = new JFileChooser();
-            String templateFile = prefs.get("templateFile","");
+            String templateFile = prefs.get("templateFile", "");
             if (templateFile.length() > 0) {
                 fileChooser.setSelectedFile(new File("templateFile"));
             }
@@ -171,10 +182,11 @@ public class SettingsPanel extends javax.swing.JPanel {
         }
         return fileChooser;
     }
+
     protected JFileChooser getDirectoryChooser() {
         if (fileChooser == null) {
             fileChooser = new JFileChooser();
-            String templateFile = prefs.get("templateDirectory","");
+            String templateFile = prefs.get("templateDirectory", "");
             if (templateFile.length() > 0) {
                 fileChooser.setSelectedFile(new File("templateDirectory"));
             }
@@ -183,8 +195,9 @@ public class SettingsPanel extends javax.swing.JPanel {
         }
         return fileChooser;
     }
-    
-    /** This method is called from within the constructor to
+
+    /**
+     * This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
      * always regenerated by the Form Editor.
@@ -343,90 +356,90 @@ public class SettingsPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(giftTemplateLabel)
-                    .addComponent(scormTemplateLabel)
-                    .addComponent(editorLabel)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(giftTemplateFileChoice)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(giftTemplateFileField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(giftTemplateFileChooseButton))
-                            .addComponent(giftTemplateSampleChoice)
-                            .addComponent(giftTemplateEmptyChoice)
-                            .addGroup(layout.createSequentialGroup()
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(scormTemplateDirectoryChoice)
-                                    .addComponent(scormTemplateFileChoice)
-                                    .addComponent(scormlTemplateInternalChoice))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(scormTemplateExportButton1)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(scormTemplateDirectoryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(scormTemplateDirectoryChooseButton))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(scormTemplateFileField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(scormTemplateFileChooseButton)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(fontLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fontFamilyCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fontSizeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(54, Short.MAX_VALUE))
+                                        .addComponent(giftTemplateLabel)
+                                        .addComponent(scormTemplateLabel)
+                                        .addComponent(editorLabel)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(giftTemplateFileChoice)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(giftTemplateFileField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(giftTemplateFileChooseButton))
+                                                        .addComponent(giftTemplateSampleChoice)
+                                                        .addComponent(giftTemplateEmptyChoice)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(scormTemplateDirectoryChoice)
+                                                                        .addComponent(scormTemplateFileChoice)
+                                                                        .addComponent(scormlTemplateInternalChoice))
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(scormTemplateExportButton1)
+                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                                        .addComponent(scormTemplateDirectoryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(scormTemplateDirectoryChooseButton))
+                                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                                        .addComponent(scormTemplateFileField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                        .addComponent(scormTemplateFileChooseButton)))))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(fontLabel)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(fontFamilyCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(fontSizeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(editorLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fontLabel)
-                    .addComponent(fontFamilyCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fontSizeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(giftTemplateLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(giftTemplateEmptyChoice)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(giftTemplateSampleChoice)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(giftTemplateFileChoice)
-                    .addComponent(giftTemplateFileField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(giftTemplateFileChooseButton))
-                .addGap(18, 18, 18)
-                .addComponent(scormTemplateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(scormlTemplateInternalChoice)
-                    .addComponent(scormTemplateExportButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(scormTemplateFileField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(scormTemplateFileChooseButton)
-                    .addComponent(scormTemplateFileChoice))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(scormTemplateDirectoryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(scormTemplateDirectoryChooseButton)
-                    .addComponent(scormTemplateDirectoryChoice))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(editorLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(fontLabel)
+                                        .addComponent(fontFamilyCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(fontSizeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(giftTemplateLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(giftTemplateEmptyChoice)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(giftTemplateSampleChoice)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(giftTemplateFileChoice)
+                                        .addComponent(giftTemplateFileField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(giftTemplateFileChooseButton))
+                                .addGap(18, 18, 18)
+                                .addComponent(scormTemplateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(scormlTemplateInternalChoice)
+                                        .addComponent(scormTemplateExportButton1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(scormTemplateFileField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(scormTemplateFileChooseButton)
+                                        .addComponent(scormTemplateFileChoice))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(scormTemplateDirectoryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(scormTemplateDirectoryChooseButton)
+                                        .addComponent(scormTemplateDirectoryChoice))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void scormExportButtonPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scormExportButtonPerformed
         if (htmlExportChooser == null) {
             htmlExportChooser = new JFileChooser();
@@ -440,7 +453,7 @@ public class SettingsPanel extends javax.swing.JPanel {
             new Worker() {
                 public Object construct() {
                     Object result = null;
-                    if (! target.getParentFile().exists()) {
+                    if (!target.getParentFile().exists()) {
                         target.getParentFile().mkdirs();
                     }
                     InputStream in = null;
@@ -469,72 +482,73 @@ public class SettingsPanel extends javax.swing.JPanel {
                     }
                     return result;
                 }
+
                 public void finished(Object result) {
-                    
+
                 }
             }.start();
         }
     }//GEN-LAST:event_scormExportButtonPerformed
-        
+
     private void scormTemplateChoicePerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scormTemplateChoicePerformed
         prefs.put("scormTemplateChoice", evt.getActionCommand());
 
-}//GEN-LAST:event_scormTemplateChoicePerformed
-    
+    }//GEN-LAST:event_scormTemplateChoicePerformed
+
     private void scormFileChooseButtonPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scormFileChooseButtonPerformed
         JFileChooser fc = getFileChooser();
         switch (fc.showOpenDialog(this)) {
-            case JFileChooser.APPROVE_OPTION :
+            case JFileChooser.APPROVE_OPTION:
                 scormTemplateFileField.setText(fc.getSelectedFile().getPath());
                 prefs.put("scormTemplateFile", fc.getSelectedFile().getPath());
                 break;
-            default :
+            default:
                 break;
         }
-}//GEN-LAST:event_scormFileChooseButtonPerformed
-    
+    }//GEN-LAST:event_scormFileChooseButtonPerformed
+
     private void giftChooseButtonPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giftChooseButtonPerformed
         JFileChooser fc = getFileChooser();
         switch (fc.showOpenDialog(this)) {
-            case JFileChooser.APPROVE_OPTION :
+            case JFileChooser.APPROVE_OPTION:
                 giftTemplateFileField.setText(fc.getSelectedFile().getPath());
                 prefs.put("templateFile", fc.getSelectedFile().getPath());
                 break;
-            default :
+            default:
                 break;
         }
     }//GEN-LAST:event_giftChooseButtonPerformed
-    
+
     private void giftTemplateFileChoiceStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_giftTemplateFileChoiceStateChanged
         giftTemplateFileField.setEnabled(giftTemplateFileChoice.isSelected());
         giftTemplateFileChooseButton.setEnabled(giftTemplateFileChoice.isSelected());
     }//GEN-LAST:event_giftTemplateFileChoiceStateChanged
-    
+
     private void giftTemplateChoicePerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giftTemplateChoicePerformed
         prefs.put("templateChoice", evt.getActionCommand());
     }//GEN-LAST:event_giftTemplateChoicePerformed
 
     private void scormTemplateChoiceChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_scormTemplateChoiceChanged
-         scormTemplateDirectoryField.setEnabled(scormTemplateDirectoryChoice.isSelected());
+        scormTemplateDirectoryField.setEnabled(scormTemplateDirectoryChoice.isSelected());
         scormTemplateDirectoryChooseButton.setEnabled(scormTemplateDirectoryChoice.isSelected());
         scormTemplateFileField.setEnabled(scormTemplateFileChoice.isSelected());
         scormTemplateFileChooseButton.setEnabled(scormTemplateFileChoice.isSelected());
 
-}//GEN-LAST:event_scormTemplateChoiceChanged
+    }//GEN-LAST:event_scormTemplateChoiceChanged
 
     private void scormDirectoryChooseButtonPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scormDirectoryChooseButtonPerformed
         JFileChooser fc = getDirectoryChooser();
         switch (fc.showOpenDialog(this)) {
-            case JFileChooser.APPROVE_OPTION :
+            case JFileChooser.APPROVE_OPTION:
                 scormTemplateFileField.setText(fc.getSelectedFile().getPath());
                 prefs.put("scormTemplateDirectory", fc.getSelectedFile().getPath());
                 break;
-            default :
+            default:
                 break;
         }
-}//GEN-LAST:event_scormDirectoryChooseButtonPerformed
-    
-    
+    }//GEN-LAST:event_scormDirectoryChooseButtonPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel editorLabel;
     private javax.swing.JComboBox<String> fontFamilyCombo;
@@ -558,5 +572,5 @@ public class SettingsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel scormTemplateLabel;
     private javax.swing.JRadioButton scormlTemplateInternalChoice;
     // End of variables declaration//GEN-END:variables
-    
+
 }

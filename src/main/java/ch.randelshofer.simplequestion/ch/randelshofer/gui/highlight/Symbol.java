@@ -26,9 +26,9 @@ public class Symbol {
     }
 
     public String dump() {
-        return "t:"+type+" "+name;
+        return "t:" + type + " " + name;
     }
-    
+
     /**
      * Return the name of the symbol.
      */
@@ -47,8 +47,9 @@ public class Symbol {
      * Compare the type and name with some other symbol.
      */
     public boolean equals(Object obj) {
-        if (!(obj instanceof Symbol))
+        if (!(obj instanceof Symbol)) {
             return false;
+        }
         Symbol that = (Symbol) obj;
         return name.equals(that.name) && type == that.type;
     }

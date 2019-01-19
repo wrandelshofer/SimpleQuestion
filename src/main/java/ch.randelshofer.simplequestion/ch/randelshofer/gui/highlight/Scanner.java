@@ -72,7 +72,6 @@ import java.util.HashMap;
  * <code>scan</code> so that only a small burst of scanning is done, to prevent
  * the program's user interface from freezing.
  *
- *
  * @version 1.3 2010-09-16 Werner Randelshofer Font Attributes for WHITESPACE
  * were not set.
  * <br>1.2 2006-10-09 Werner Randelshofer Don't repaint for each update.
@@ -84,17 +83,17 @@ public class Scanner implements TokenTypes {
      * The current buffer of text being scanned.
      */
     protected char[] buffer;
-    
+
     /**
      * The current offset within the buffer, at which to scan the next token.
      */
     protected int start;
-    
+
     /**
      * The end offset in the buffer.
      */
     protected int end;
-    
+
     // BEGIN PATCH Werner Randelshofer
     /**
      * The larger context of the current scanner state.
@@ -105,13 +104,13 @@ public class Scanner implements TokenTypes {
      * The current scanner state, as a representative token type.
      */
     protected int state = WHITESPACE;
-    
+
     // The array of tokens forms a gap buffer.  The total length of the text is
     // tracked, and tokens after the gap have (negative) positions relative to
     // the end of the text.  While scanning, the gap represents the area to be
     // scanned, no tokens after the gap can be taken as valid, and in particular
     // the end-of-text sentinel token is after the gap.
-    
+
     private Token[] tokens;
     private int gap, endgap, textLength;
     private boolean scanning;
@@ -122,8 +121,8 @@ public class Scanner implements TokenTypes {
      * <code>symbolTable.put(sym,sym)</code> and extracted with
      * <code>symbolTable.get(sym)</code>.
      */
-    protected HashMap<Symbol,Symbol> symbolTable;
-    
+    protected HashMap<Symbol, Symbol> symbolTable;
+
     /**
      * Create a new Scanner representing an empty text document.  For
      * non-incremental scanning, use change() to report the document size, then
@@ -142,8 +141,8 @@ public class Scanner implements TokenTypes {
         scanning = false;
         position = 0;
     }
-    
-    
+
+
     /**
      * <p>Read one token from the start of the current text buffer, given the
      * start offset, end offset, and current scanner state.  The method moves
@@ -169,25 +168,29 @@ public class Scanner implements TokenTypes {
         if (Character.isWhitespace(c)) {
             type = WHITESPACE;
             while (++start < end) {
-                if (!Character.isWhitespace(buffer[start]))
+                if (!Character.isWhitespace(buffer[start])) {
                     break;
+                }
             }
         } else if (Character.isLetter(c)) {
             type = WORD;
             while (++start < end) {
                 c = buffer[start];
-                if (Character.isLetter(c) || Character.isDigit(c))
+                if (Character.isLetter(c) || Character.isDigit(c)) {
                     continue;
-                if (c == '-' || c == '\'' || c == '_')
+                }
+                if (c == '-' || c == '\'' || c == '_') {
                     continue;
+                }
                 break;
             }
         } else if (Character.isDigit(c)) {
             type = NUMBER;
             while (++start < end) {
                 c = buffer[start];
-                if (!Character.isDigit(c) && c != '.')
+                if (!Character.isDigit(c) && c != '.') {
                     break;
+                }
             }
         } else if (c >= '!' || c <= '~') {
             type = PUNCTUATION;
@@ -196,16 +199,16 @@ public class Scanner implements TokenTypes {
             type = UNRECOGNIZED;
             start++;
         }
-        
+
         // state = WHITESPACE;
         return type;
     }
-    
-    
+
+
     // Move the gap to a new index within the tokens array.  When preparing to
     // pass a token back to a caller, this is used to ensure that the token's
     // position is relative to the start of the text and not the end.
-    
+
     private void moveGap(int newgap) {
         if (scanning) {
             throw new Error("moveGap called while scanning");
@@ -225,7 +228,7 @@ public class Scanner implements TokenTypes {
             }
         }
     }
-    
+
     /**
      * Find the number of available valid tokens, not counting tokens in or
      * after any area yet to be rescanned.
@@ -237,29 +240,33 @@ public class Scanner implements TokenTypes {
             return gap + tokens.length - endgap;
         }
     }
-    
+
     /**
      * Find the n'th token, or null if it is not currently valid.
      */
     public Token getToken(int n) {
-        if (n < 0 || n >= gap && scanning)
+        if (n < 0 || n >= gap && scanning) {
             return null;
-        if (n >= gap)
+        }
+        if (n >= gap) {
             moveGap(n + 1);
+        }
         return tokens[n];
     }
-    
+
     /**
      * Find the index of the valid token starting before, but nearest to, text
      * position p.  This uses an O(log(n)) binary chop search.
      */
     public int find(int p) {
         int start = 0, end, mid, midpos;
-        if (!scanning)
+        if (!scanning) {
             moveGap(gap + tokens.length - endgap);
+        }
         end = gap - 1;
-        if (p > tokens[end].position)
+        if (p > tokens[end].position) {
             return end;
+        }
         while (end > start + 1) {
             mid = (start + end) / 2;
             midpos = tokens[mid].position;
@@ -271,7 +278,7 @@ public class Scanner implements TokenTypes {
         }
         return start;
     }
-    
+
     /**
      * Report the position of an edit, the length of the text being replaced,
      * and the length of the replacement text, to prepare for rescanning.  The
@@ -282,11 +289,11 @@ public class Scanner implements TokenTypes {
         if (start < 0 || len < 0 || newLen < 0 || start + len > textLength) {
             throw new Error("change(" + start + "," + len + "," + newLen + ")");
         }
-        
+
         textLength += newLen - len;
         int newEnd = start + newLen;
         int maxEnd = Math.max(start + len, newEnd);
-        
+
         if (newLen < len) {
             while (gap > 0 && tokens[gap - 1].position > start) {
                 gap--;
@@ -359,7 +366,7 @@ public class Scanner implements TokenTypes {
             }
         }
         scanning = true;
-        
+
         return gap;
         
 /*
@@ -383,30 +390,31 @@ public class Scanner implements TokenTypes {
         return gap;
  */
     }
-    
+
     /**
      * Find out at what text position any remaining scanning work should
      * start, or -1 if scanning is complete.
      */
     public int position() {
-        if (!scanning)
+        if (!scanning) {
             return -1;
-        else
+        } else {
             return position;
+        }
     }
-    
+
     /**
      * Create the initial symbol table.  This can be overridden to enter
      * keywords, for example.  The default implementation does nothing.
      */
     protected void initSymbolTable() {
     }
-    
+
     // Reuse this symbol object to create each new symbol, then look it up in
     // the symbol table, to replace it by a shared version to minimize space.
-    
+
     private Symbol symbol = new Symbol(0, null);
-    
+
     /**
      * Lookup a symbol in the symbol table.  This can be overridden to implement
      * keyword detection, for example.  The default implementation just uses the
@@ -416,12 +424,14 @@ public class Scanner implements TokenTypes {
         symbol.type = type;
         symbol.name = name;
         Symbol sym = (Symbol) symbolTable.get(symbol);
-        if (sym != null)
+        if (sym != null) {
             return sym;
+        }
         sym = new Symbol(type, name);
         symbolTable.put(sym, sym);
         return sym;
     }
+
     /**
      * Returns true, if the provided name is already in the symbol table.
      */
@@ -430,7 +440,7 @@ public class Scanner implements TokenTypes {
         symbol.name = name;
         return symbolTable.containsKey(symbol);
     }
-    
+
     /**
      * Scan or rescan a given read-only segment of text.  The segment is assumed
      * to represent a portion of the document starting at
@@ -449,11 +459,11 @@ public class Scanner implements TokenTypes {
         boolean all = position + length == textLength;
         end = start + length;
         int startGap = gap;
-        
+
         buffer = array;
         start = offset;
         end = start + length;
-        
+
         // BEGIN PATCH Werner Randelshofer
         if (gap > 0) {
             state = tokens[gap - 1].symbol.type;
@@ -463,31 +473,32 @@ public class Scanner implements TokenTypes {
             context = 0;
         }
         // END PATCH Werner Randelshofer
-        
+
         while (start < end) {
             int tokenStart = start;
             // int previousContext = context;
             int type = read();
-            if (start == end && !all)
+            if (start == end && !all) {
                 break;
-            
+            }
+
             //if (type != WHITESPACE) {
             //  String name =
             //          new String(buffer, tokenStart, start - tokenStart);
-            if (tokenStart>=buffer.length||start>buffer.length) {
+            if (tokenStart >= buffer.length || start > buffer.length) {
                 break;
             }
-                String name = type == WHITESPACE ? " "
-                        : new String(buffer, tokenStart, start - tokenStart);
-                Symbol sym = lookup(type, name);
-                Token t = new Token(sym, position);
-                t.context = context;
-                if (gap >= endgap) {
-                    checkCapacity(gap + tokens.length - endgap + 1);
-                }
-                tokens[gap++] = t;
+            String name = type == WHITESPACE ? " "
+                    : new String(buffer, tokenStart, start - tokenStart);
+            Symbol sym = lookup(type, name);
+            Token t = new Token(sym, position);
+            t.context = context;
+            if (gap >= endgap) {
+                checkCapacity(gap + tokens.length - endgap + 1);
+            }
+            tokens[gap++] = t;
             //}
-            
+
             // Try to synchronise
             while (tokens[endgap].position + textLength < position) {
                 endgap++;
@@ -496,9 +507,9 @@ public class Scanner implements TokenTypes {
                 scanning = false;
             } else if (
                     gap > 0
-                    && tokens[endgap].position + textLength == position
-                    && tokens[endgap].symbol.type == type
-                    && tokens[endgap].context == context) {
+                            && tokens[endgap].position + textLength == position
+                            && tokens[endgap].symbol.type == type
+                            && tokens[endgap].context == context) {
                 endgap++;
                 scanning = false;
                 break;
@@ -508,7 +519,7 @@ public class Scanner implements TokenTypes {
         checkCapacity(gap + tokens.length - endgap);
         return gap - startGap;
     }
-    
+
     /**
      * Change the size of the gap buffer, doubling it if it fills up, and
      * halving if it becomes less than a quarter full.
@@ -522,18 +533,20 @@ public class Scanner implements TokenTypes {
         int newCapacity;
         if (capacity > oldCapacity) {
             newCapacity = oldCapacity * 2;
-            if (newCapacity < capacity)
+            if (newCapacity < capacity) {
                 newCapacity = capacity;
-        } else
+            }
+        } else {
             newCapacity = capacity * 2;
-        
+        }
+
         tokens = new Token[newCapacity];
         System.arraycopy(oldTokens, 0, tokens, 0, gap);
         int n = oldCapacity - endgap;
         System.arraycopy(oldTokens, endgap, tokens, newCapacity - n, n);
         endgap = newCapacity - n;
     }
-    
+
     public void print() {
         for (int i = 0; i < tokens.length; i++) {
             if (i >= gap && i < endgap) {
@@ -548,11 +561,11 @@ public class Scanner implements TokenTypes {
         }
         System.out.println();
     }
-    
+
     public String dump() {
         StringBuilder buf = new StringBuilder();
-        
-        for (int i=0; i < tokens.length; i++) {
+
+        for (int i = 0; i < tokens.length; i++) {
             if (i >= gap && i < endgap) {
                 continue;
             }
@@ -566,7 +579,7 @@ public class Scanner implements TokenTypes {
             }
             buf.append('\n');
         }
-        
+
         return buf.toString();
     }
 }

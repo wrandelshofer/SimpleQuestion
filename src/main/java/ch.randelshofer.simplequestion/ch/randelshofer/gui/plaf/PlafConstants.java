@@ -4,8 +4,6 @@
 
 package ch.randelshofer.gui.plaf;
 
-import javax.swing.*;
-
 /**
  *
  * @author  Werner Randelshofer

@@ -13,14 +13,23 @@
 
 package ch.randelshofer.teddy;
 
-import javax.swing.*;
-import org.jhotdraw.app.*;
-import java.util.*;
-import org.jhotdraw.app.action.*;
-import ch.randelshofer.teddy.action.*;
+import ch.randelshofer.teddy.action.ToggleLineNumbersAction;
+import ch.randelshofer.teddy.action.ToggleLineWrapAction;
+import ch.randelshofer.teddy.action.ToggleStatusBarAction;
+import org.jhotdraw.app.Application;
+import org.jhotdraw.app.DefaultApplicationModel;
+import org.jhotdraw.app.MenuBuilder;
+import org.jhotdraw.app.View;
 import org.jhotdraw.gui.JFileURIChooser;
 import org.jhotdraw.gui.URIChooser;
-import org.jhotdraw.util.*;
+import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.JToolBar;
+import java.util.Collections;
+import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * TeddyApplicationModel.

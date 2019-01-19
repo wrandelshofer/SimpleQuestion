@@ -13,7 +13,8 @@
 
 package ch.randelshofer.util;
 
-import java.util.*;
+import java.util.AbstractList;
+import java.util.List;
 /**
  * A ReversedList provides in unmodifiable view on a List in reverse order.
  *

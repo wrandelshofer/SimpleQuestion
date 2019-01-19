@@ -13,12 +13,15 @@
 
 package ch.randelshofer.teddy.action;
 
-import org.jhotdraw.app.*;
-import ch.randelshofer.teddy.*;
-import org.jhotdraw.util.*;
-import java.awt.event.*;
-import org.jhotdraw.app.action.AbstractViewAction;
+import ch.randelshofer.teddy.FindDialog;
+import org.jhotdraw.app.Application;
+import org.jhotdraw.app.OSXApplication;
+import org.jhotdraw.app.View;
 import org.jhotdraw.app.action.edit.AbstractFindAction;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 /**
  * FindAction shows the find dialog.
  *

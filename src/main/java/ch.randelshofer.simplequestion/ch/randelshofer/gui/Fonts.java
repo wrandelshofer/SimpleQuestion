@@ -13,9 +13,9 @@
 
 package ch.randelshofer.gui;
 
-import java.util.*;
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.UIManager;
+import java.awt.Font;
+import java.util.HashMap;
 /**
  * Fonts.
  *

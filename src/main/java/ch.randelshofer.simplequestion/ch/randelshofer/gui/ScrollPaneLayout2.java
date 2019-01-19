@@ -3,8 +3,9 @@
  */
 package ch.randelshofer.gui;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.ScrollPaneLayout;
+import java.awt.Container;
+import java.awt.Rectangle;
 /**
  * Objects of this class behave essentially like
  * javax.swing.ScrollPaneLayout but treats the top

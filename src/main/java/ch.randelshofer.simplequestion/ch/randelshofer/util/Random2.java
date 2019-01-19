@@ -13,7 +13,7 @@
 
 package ch.randelshofer.util;
 
-import java.util.*;
+import java.util.Random;
 /**
  * Random2.
  *

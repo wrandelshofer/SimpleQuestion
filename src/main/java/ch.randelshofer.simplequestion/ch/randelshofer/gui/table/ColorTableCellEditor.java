@@ -6,11 +6,23 @@
 
 package ch.randelshofer.gui.table;
 
-import ch.randelshofer.gui.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.table.*;
+import ch.randelshofer.gui.Colors;
+import ch.randelshofer.gui.PolygonIcon;
+
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
+import javax.swing.JDialog;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.Polygon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  * The editor button that brings up the dialog.
  * We extend DefaultCellEditor for convenience,

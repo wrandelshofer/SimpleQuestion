@@ -12,9 +12,9 @@
  */
 
 package ch.randelshofer.gui.tree;
-import java.util.*;
-import javax.swing.tree.*;
-import ch.randelshofer.util.*;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.AbstractList;
 /**
  * Wraps a default mutable tree node with the List interface.
  *

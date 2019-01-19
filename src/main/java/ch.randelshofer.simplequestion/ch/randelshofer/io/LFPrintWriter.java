@@ -31,7 +31,11 @@
 
 package ch.randelshofer.io;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 
 /**
  * This is a subclass of java.io.PrintWriter. 

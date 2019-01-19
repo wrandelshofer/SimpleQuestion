@@ -14,15 +14,12 @@
 
 package ch.randelshofer.gui.table;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.table.*;
-import javax.swing.event.*;
-import java.util.*;
-import javax.swing.tree.*;
-import java.io.Serializable;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JPasswordField;
+import javax.swing.JTable;
+import javax.swing.JTree;
+import javax.swing.UIManager;
+import java.awt.Component;
 
 /**
  * PassworCellEditor.

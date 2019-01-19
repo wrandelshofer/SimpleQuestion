@@ -13,11 +13,19 @@
 
 package ch.randelshofer.gui.tree;
 
-import ch.randelshofer.gui.datatransfer.*;
-import java.awt.datatransfer.*;
-import java.util.*;
-import javax.swing.tree.*;
-import java.io.*;
+import ch.randelshofer.gui.datatransfer.DefaultTransferable;
+import ch.randelshofer.gui.datatransfer.JVMLocalObjectTransferable;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.io.CharArrayWriter;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 /**
  * TreeModels.
  *

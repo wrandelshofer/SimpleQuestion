@@ -4,10 +4,20 @@
 
 package ch.randelshofer.gui.table;
 
-import ch.randelshofer.gui.datatransfer.*;
-import java.awt.datatransfer.*;
-import java.util.*;
-import java.io.*;
+import ch.randelshofer.gui.datatransfer.CharArrayReaderTransferable;
+import ch.randelshofer.gui.datatransfer.JVMLocalObjectTransferable;
+
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.BufferedReader;
+import java.io.CharArrayWriter;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 /**
  * This class provides static utility operations for
  * <code>MutableTableModel</code>'s.

@@ -4,19 +4,25 @@
 
 package ch.randelshofer.gui.plaf;
 
-import ch.randelshofer.gui.*;
+import ch.randelshofer.gui.VectorIcon;
 
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JSlider;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicSliderUI;
-import java.awt.*;
-import java.awt.geom.*;
-import java.io.*;
-import java.beans.*;
-
-import javax.swing.border.AbstractBorder;
-
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.plaf.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.geom.Rectangle2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * A Java L&F implementation of SliderUI.  

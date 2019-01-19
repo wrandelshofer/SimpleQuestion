@@ -13,10 +13,15 @@
 
 package ch.randelshofer.util.prefs;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.prefs.*;
-import javax.swing.*;
+import javax.swing.JToolBar;
+import java.awt.Dimension;
+import java.awt.GraphicsConfiguration;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Window;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.util.prefs.Preferences;
 /**
  * PreferencesUtil.
  *

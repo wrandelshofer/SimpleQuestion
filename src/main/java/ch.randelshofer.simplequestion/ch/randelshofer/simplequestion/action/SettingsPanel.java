@@ -13,19 +13,36 @@
 package ch.randelshofer.simplequestion.action;
 
 import ch.randelshofer.gift.export.scorm.SCORMExporter;
-import ch.randelshofer.gui.datatransfer.*;
+import ch.randelshofer.gui.datatransfer.FileTextFieldTransferHandler;
 import ch.randelshofer.io.ExtensionFileFilter;
 import ch.randelshofer.simplequestion.SimpleQuestionView;
-import ch.randelshofer.util.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.text.Collator;
-import java.util.*;
-import java.util.prefs.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import ch.randelshofer.util.Files;
+import ch.randelshofer.util.Worker;
 import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.AbstractButton;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
+import javax.swing.JRadioButton;
+import javax.swing.UIManager;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.GraphicsEnvironment;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.Collator;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 /**
  * SettingsPanel.

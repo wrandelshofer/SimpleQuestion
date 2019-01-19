@@ -1,10 +1,22 @@
 package ch.randelshofer.gui.highlight;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.text.*;
-import javax.swing.event.*;
-import java.io.*;
+import javax.swing.Icon;
+import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.Document;
+import javax.swing.text.Segment;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.io.IOException;
+import java.io.Reader;
 
 /**
  * Display text with syntax highlighting.  Highlighting is done with full

@@ -13,7 +13,7 @@
 
 package ch.randelshofer.undo;
 
-import javax.swing.undo.*;
+import javax.swing.undo.AbstractUndoableEdit;
 /**
  * NonUndoableEdit.
  *

@@ -14,16 +14,14 @@
 package ch.randelshofer.scorm.cam;
 
 import ch.randelshofer.scorm.AbstractElement;
-import ch.randelshofer.util.*;
-import ch.randelshofer.xml.*;
-import java.io.*;
-import java.util.*;
+import ch.randelshofer.util.Strings;
+import ch.randelshofer.xml.DOMs;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
-import javax.xml.parsers.*;
-
-import org.xml.sax.*;
-
-import org.w3c.dom.*;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.Set;
 /**
  * Represents a SCORM 1.2 CAM 'adclp:location' element.
  * <p>

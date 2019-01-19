@@ -3,10 +3,13 @@
  */
 package ch.randelshofer.gui.tree;
 
-import java.io.*;
-import java.awt.datatransfer.*;
-import javax.swing.*;
-import javax.swing.tree.*;
+import javax.swing.Action;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeModel;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 
 /**
  * Speficies the requirements for a mutable tree model.

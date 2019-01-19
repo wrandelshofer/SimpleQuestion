@@ -38,27 +38,25 @@
 package ch.randelshofer.gui.table;
 
 
-import java.awt.Component;
-import java.util.*;
-
 import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import javax.swing.table.TableModel;
-import javax.swing.event.TableModelEvent;
-
-// Imports for picking up mouse events from the JTable. 
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.InputEvent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import java.awt.Component;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Date;
+import java.util.Vector;
+
+// Imports for picking up mouse events from the JTable.
 
 /**
  * A sorter for TableModels. The sorter has a model (conforming to TableModel)

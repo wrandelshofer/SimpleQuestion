@@ -13,20 +13,16 @@
 
 package ch.randelshofer.scorm.cam;
 
-import ch.randelshofer.scorm.*;
-import ch.randelshofer.xml.*;
-import java.io.*;
-import java.util.*;
+import ch.randelshofer.scorm.AbstractElement;
+import ch.randelshofer.xml.DOMs;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
-
-import org.w3c.dom.*;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
 /**
  * Represents a nested SCORM 1.2 CAM 'manifest' element.
  * <p>

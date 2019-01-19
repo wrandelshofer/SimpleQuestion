@@ -13,17 +13,19 @@
 package ch.randelshofer.scorm.cam;
 
 import ch.randelshofer.scorm.AbstractElement;
-import ch.randelshofer.util.*;
+import ch.randelshofer.util.Strings;
 import ch.randelshofer.xml.DOMs;
-import java.io.*;
-import java.util.*;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.swing.tree.TreeNode;
-import javax.xml.parsers.*;
-
-import org.xml.sax.*;
-
-import org.w3c.dom.*;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
 /**
  * Represents a SCORM 1.2 CAM 'file' element.
  * <p>

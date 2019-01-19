@@ -5,11 +5,14 @@
 package ch.randelshofer.gui.tree;
 
 
-import java.awt.event.*;
-import javax.swing.event.*;
-import javax.swing.tree.*;
-import javax.swing.undo.*;
-import java.util.*;
+import javax.swing.event.EventListenerList;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.tree.TreePath;
+import javax.swing.undo.StateEdit;
+import javax.swing.undo.StateEditable;
+import javax.swing.undo.UndoableEdit;
+import java.util.Hashtable;
 
 /**
  * Supports UndoableEditListeners.

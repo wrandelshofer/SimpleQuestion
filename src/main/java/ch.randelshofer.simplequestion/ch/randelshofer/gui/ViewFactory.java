@@ -13,7 +13,7 @@
 
 package ch.randelshofer.gui;
 
-import java.awt.*;
+import java.awt.Component;
 
 /**
  * Defines the requirements for a viewer that displays an object. 

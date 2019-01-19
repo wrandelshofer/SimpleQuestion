@@ -4,7 +4,9 @@
 
 package ch.randelshofer.gui.datatransfer;
 
-import java.awt.datatransfer.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 /**
  *

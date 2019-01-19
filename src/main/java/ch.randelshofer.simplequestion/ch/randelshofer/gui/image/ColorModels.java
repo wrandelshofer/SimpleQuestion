@@ -13,9 +13,11 @@
 
 package ch.randelshofer.gui.image;
 
-import java.awt.*;
-import java.awt.image.*;
-import java.util.*;
+import java.awt.Transparency;
+import java.awt.image.ColorModel;
+import java.awt.image.DirectColorModel;
+import java.awt.image.IndexColorModel;
+import java.util.Arrays;
 /**
  * Utility methods for ColorModels.
  *

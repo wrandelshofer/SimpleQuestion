@@ -6,9 +6,9 @@
 
 package ch.randelshofer.simplequestion.action;
 
-import javax.swing.*;
 import org.jhotdraw.util.ResourceBundleUtil;
 
+import javax.swing.JFrame;
 import java.util.ResourceBundle;
 
 /**

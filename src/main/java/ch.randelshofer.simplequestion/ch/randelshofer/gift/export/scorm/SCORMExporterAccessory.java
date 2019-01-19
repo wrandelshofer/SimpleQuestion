@@ -4,16 +4,28 @@
 
 package ch.randelshofer.gift.export.scorm;
 
-import ch.randelshofer.io.*;
+import ch.randelshofer.io.ConfigurableFileFilter;
 import ch.randelshofer.zip.ZipIn;
-import java.awt.*;
-import java.io.*;
-import java.util.*;
-import java.util.prefs.*;
-import java.util.zip.*;
-import javax.swing.*;
-import javax.swing.event.*;
 import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
+import javax.swing.JRadioButton;
+import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.TreeMap;
+import java.util.prefs.Preferences;
+import java.util.zip.ZipEntry;
 
 /**
  * SCORMExporterAccessory.

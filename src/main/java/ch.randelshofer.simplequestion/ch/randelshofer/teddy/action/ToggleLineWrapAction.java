@@ -13,14 +13,15 @@
 
 package ch.randelshofer.teddy.action;
 
-import org.jhotdraw.app.*;
-import org.jhotdraw.app.action.*;
-import ch.randelshofer.teddy.*;
-import org.jhotdraw.util.*;
+import ch.randelshofer.teddy.TeddyView;
+import org.jhotdraw.app.Application;
+import org.jhotdraw.app.View;
+import org.jhotdraw.app.action.AbstractViewAction;
+import org.jhotdraw.util.ResourceBundleUtil;
 
-import java.awt.event.*;
-import java.util.ResourceBundle;
 import javax.swing.Action;
+import java.awt.event.ActionEvent;
+import java.util.ResourceBundle;
 
 /**
  * ToggleLineWrapAction.

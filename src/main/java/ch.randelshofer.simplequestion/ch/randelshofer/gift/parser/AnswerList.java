@@ -12,7 +12,7 @@
 
 package ch.randelshofer.gift.parser;
 
-import java.util.*;
+import java.util.LinkedList;
 /**
  * Holds a list of answers.
  *

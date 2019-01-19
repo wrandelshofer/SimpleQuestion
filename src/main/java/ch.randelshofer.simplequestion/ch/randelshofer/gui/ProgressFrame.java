@@ -13,10 +13,12 @@
 
 package ch.randelshofer.gui;
 
-import java.lang.reflect.*;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.plaf.metal.*;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * The ProgressFrame holds all ProgressView's.

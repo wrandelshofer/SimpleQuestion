@@ -12,8 +12,8 @@
  */
 package ch.randelshofer.gui.event;
 
-import java.awt.ActiveEvent;
 import javax.swing.SwingUtilities;
+import java.awt.ActiveEvent;
 
 /**
  * This is an abstract class that you subclass to

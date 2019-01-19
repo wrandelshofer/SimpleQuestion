@@ -13,8 +13,11 @@
  */
 package ch.randelshofer.text;
 
-import javax.swing.text.*;
-import java.beans.*;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 /**
  * A plain document that can be used like a java bean.
  *

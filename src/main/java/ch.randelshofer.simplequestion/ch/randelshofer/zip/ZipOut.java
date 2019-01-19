@@ -12,8 +12,12 @@
 
 package ch.randelshofer.zip;
 
-import java.io.*;
-import java.util.zip.*;
+import java.io.Closeable;
+import java.io.Flushable;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 
 /**
  * ZipOut.

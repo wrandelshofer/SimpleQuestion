@@ -5,8 +5,8 @@
 //package ch.randelshofer.undo;
 package ch.randelshofer.undo;
 
-import javax.swing.undo.*;
-import java.util.*;
+import javax.swing.undo.CompoundEdit;
+import javax.swing.undo.UndoableEdit;
 /**
  * This is basically the same like javax.swing.undo.CompoundEdit but
  * it has a slightly different behaviour:

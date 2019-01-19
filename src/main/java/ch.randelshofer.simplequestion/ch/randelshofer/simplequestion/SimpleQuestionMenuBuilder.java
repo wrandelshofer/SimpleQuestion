@@ -13,12 +13,13 @@ import ch.randelshofer.simplequestion.action.VerifySyntaxAction;
 import ch.randelshofer.teddy.action.ToggleLineNumbersAction;
 import ch.randelshofer.teddy.action.ToggleLineWrapAction;
 import ch.randelshofer.teddy.action.ToggleStatusBarAction;
-import javax.swing.ActionMap;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JMenu;
 import org.jhotdraw.app.Application;
 import org.jhotdraw.app.DefaultMenuBuilder;
 import org.jhotdraw.app.View;
+
+import javax.swing.ActionMap;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
 
 /**
  * {@code SimpleQuestionMenuBuilder}.

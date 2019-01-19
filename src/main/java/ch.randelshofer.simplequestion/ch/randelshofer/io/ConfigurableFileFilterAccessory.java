@@ -4,9 +4,12 @@
 
 package ch.randelshofer.io;
 
-import java.beans.*;
-import javax.swing.*;
-import javax.swing.filechooser.*;
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 /**
  * ConfigurableFileFilterAccessory changes its content depending on the
  * ConfigurableFileFilter currently in effect on a JFileChooser.

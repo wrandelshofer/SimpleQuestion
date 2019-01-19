@@ -12,16 +12,33 @@
 package ch.randelshofer.gift.export.ilias;
 
 import ch.randelshofer.gift.export.Exporter;
-import ch.randelshofer.gift.parser.*;
-import ch.randelshofer.io.*;
-
-import java.nio.charset.StandardCharsets;
-import java.util.*;
-import java.util.zip.*;
-import java.io.*;
-
+import ch.randelshofer.gift.parser.Answer;
+import ch.randelshofer.gift.parser.AnswerList;
+import ch.randelshofer.gift.parser.AnswerListType;
+import ch.randelshofer.gift.parser.BooleanAnswer;
+import ch.randelshofer.gift.parser.ChoiceAnswer;
+import ch.randelshofer.gift.parser.IntervalAnswer;
+import ch.randelshofer.gift.parser.MatchingPairAnswer;
+import ch.randelshofer.gift.parser.NumberAnswer;
+import ch.randelshofer.gift.parser.Question;
+import ch.randelshofer.io.ConfigurableFileFilter;
+import nanoxml.XMLElement;
 import org.jhotdraw.util.ResourceBundleUtil;
-import nanoxml.*;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Exports a collection of <code>Question</code>'s to an ILIAS question pool.

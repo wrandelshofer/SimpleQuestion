@@ -19,8 +19,10 @@ package ch.randelshofer.gui.highlight;
 
 // A program illustrating the use of the SyntaxHighlighter class.
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import java.awt.Container;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileReader;

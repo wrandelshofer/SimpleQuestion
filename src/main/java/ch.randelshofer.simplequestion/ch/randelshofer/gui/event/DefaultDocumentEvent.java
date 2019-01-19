@@ -4,10 +4,10 @@
 
 package ch.randelshofer.gui.event;
 
-import java.util.*;
-
-import javax.swing.event.*;
-import javax.swing.text.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
+import java.util.EventObject;
 
 /**
  *

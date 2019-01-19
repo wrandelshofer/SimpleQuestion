@@ -13,10 +13,12 @@
 
 package ch.randelshofer.gui.table;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.table.*;
+import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.Component;
 /**
  * LeftAlignedHeaderRenderer.
  * The header renderer. All this does is make the text left aligned.

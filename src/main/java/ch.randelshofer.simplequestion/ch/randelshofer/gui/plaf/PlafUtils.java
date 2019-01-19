@@ -5,10 +5,14 @@
 package ch.randelshofer.gui.plaf;
 
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.*;
+import javax.swing.JComponent;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.Toolkit;
 /**
  * This is a dumping ground for random stuff we want to use in several places.
  * @author  Werner Randelshofer

@@ -13,11 +13,17 @@
 
 package ch.randelshofer.xml;
 
+import nanoxml.XMLElement;
+
 import java.awt.Color;
 import java.awt.Font;
-import java.io.*;
-import java.util.*;
-import nanoxml.XMLElement;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Stack;
 
 /**
  * NanoXMLDOMInput.

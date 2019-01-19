@@ -13,7 +13,10 @@
 
 package ch.randelshofer.teddy;
 
-import org.jhotdraw.app.*;
+import org.jhotdraw.app.Application;
+import org.jhotdraw.app.MDIApplication;
+import org.jhotdraw.app.OSXApplication;
+import org.jhotdraw.app.SDIApplication;
 
 /**
  * Main class.

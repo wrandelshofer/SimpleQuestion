@@ -4,9 +4,8 @@
 
 package ch.randelshofer.io;
 
-import java.beans.*;
-import javax.swing.*;
-import javax.swing.filechooser.*;
+import javax.swing.JComponent;
+import javax.swing.filechooser.FileFilter;
 
 /**
  * FileFilters which can be configured implement this interface.

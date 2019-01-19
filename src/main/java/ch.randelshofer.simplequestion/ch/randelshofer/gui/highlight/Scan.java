@@ -3,7 +3,10 @@ package ch.randelshofer.gui.highlight;
 // Illustrate the use of the scanner by reading in a file and displaying its
 // tokens.
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 
 class Scan {
     // Get the filename from the command line

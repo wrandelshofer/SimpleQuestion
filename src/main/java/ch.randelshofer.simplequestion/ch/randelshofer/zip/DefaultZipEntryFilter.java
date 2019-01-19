@@ -13,8 +13,9 @@
 
 package ch.randelshofer.zip;
 
-import java.util.*;
-import java.util.zip.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.zip.ZipEntry;
 
 /**
  * DefaultZipEntryFilter.

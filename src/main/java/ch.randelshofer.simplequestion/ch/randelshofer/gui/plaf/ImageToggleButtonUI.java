@@ -4,17 +4,22 @@
 
 package ch.randelshofer.gui.plaf;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.plaf.basic.BasicToggleButtonUI;
-
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.*;
-import javax.swing.*;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonModel;
+import javax.swing.JComponent;
+import javax.swing.LookAndFeel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicGraphicsUtils;
-
-import java.io.Serializable;
+import javax.swing.plaf.basic.BasicToggleButtonUI;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.Rectangle;
 
 /**
  * MetalToggleButton implementation

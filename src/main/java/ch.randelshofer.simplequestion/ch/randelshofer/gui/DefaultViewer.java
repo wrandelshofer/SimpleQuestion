@@ -13,7 +13,7 @@
 
 package ch.randelshofer.gui;
 
-import java.awt.*;
+import java.awt.Component;
 
 /**
  * Calls object.toString() and displays this in a JLabel.

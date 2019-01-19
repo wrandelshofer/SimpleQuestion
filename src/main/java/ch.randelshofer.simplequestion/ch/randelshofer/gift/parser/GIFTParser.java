@@ -11,11 +11,19 @@
  */
 package ch.randelshofer.gift.parser;
 
-import java.util.*;
-import java.io.*;
 import org.jhotdraw.io.StreamPosTokenizer;
 import org.jhotdraw.util.ResourceBundleUtil;
-import static org.jhotdraw.io.StreamPosTokenizer.*;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.StringTokenizer;
+
+import static org.jhotdraw.io.StreamPosTokenizer.TT_EOF;
+import static org.jhotdraw.io.StreamPosTokenizer.TT_EOL;
+import static org.jhotdraw.io.StreamPosTokenizer.TT_WORD;
 
 /**
  * A parser for questions in the Moodle GIFT Format.

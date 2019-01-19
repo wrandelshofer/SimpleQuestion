@@ -13,20 +13,33 @@
 
 package ch.randelshofer.gui;
 
-import ch.randelshofer.util.*;
-import ch.randelshofer.gui.tree.*;
-import javax.swing.*;
-import javax.swing.tree.*;
-import javax.swing.event.*;
-import java.awt.*;
-import java.awt.dnd.*;
-import java.awt.image.*;
-import java.awt.geom.*;
-import java.awt.datatransfer.*;
-import java.io.IOException;
-import java.util.*;
-import java.awt.event.*;
+import ch.randelshofer.gui.tree.DefaultMutableTreeModel;
+import ch.randelshofer.gui.tree.MutableTreeModel;
 import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.JButton;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.JViewport;
+import javax.swing.KeyStroke;
+import javax.swing.ScrollPaneLayout;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+import java.awt.Container;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * A JTree that uses a MutableTreeModel. Users can add and remove elements

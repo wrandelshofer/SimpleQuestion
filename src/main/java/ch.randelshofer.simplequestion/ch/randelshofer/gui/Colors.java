@@ -4,7 +4,7 @@
 
 package ch.randelshofer.gui;
 
-import java.awt.*;
+import java.awt.Color;
 /**
  * Colors.
  *

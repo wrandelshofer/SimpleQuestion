@@ -13,7 +13,8 @@
 
 package ch.randelshofer.gui;
 
-import javax.swing.*;
+import javax.swing.BoundedRangeModel;
+import javax.swing.DefaultBoundedRangeModel;
 /**
  * SilentProgressIndicator.
  *

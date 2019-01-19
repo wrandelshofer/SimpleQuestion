@@ -4,8 +4,11 @@
 
 package ch.randelshofer.gui.datatransfer;
 
-import java.io.*;
-import java.awt.datatransfer.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 /**
  * A Transferable which uses a char array or a byte array as its data source.
  *

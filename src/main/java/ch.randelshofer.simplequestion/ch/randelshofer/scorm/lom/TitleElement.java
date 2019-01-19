@@ -5,20 +5,14 @@
 package ch.randelshofer.scorm.lom;
 
 import ch.randelshofer.scorm.AbstractElement;
-import ch.randelshofer.util.*;
-import ch.randelshofer.xml.*;
-import java.io.*;
-import java.util.*;
+import ch.randelshofer.xml.DOMs;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
-
-import org.w3c.dom.*;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.LinkedList;
 /**
  * Represents a SCORM 1.2 LOM 'title' Element.
  * <p>

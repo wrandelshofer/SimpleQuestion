@@ -16,9 +16,9 @@
 
 package ch.randelshofer.gui.highlight;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.FileReader;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

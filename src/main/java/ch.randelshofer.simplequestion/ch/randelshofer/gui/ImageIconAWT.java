@@ -5,17 +5,13 @@
  */
 package ch.randelshofer.gui;
 
-import java.awt.*;
-import java.awt.image.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.Toolkit;
+import java.awt.image.ImageObserver;
 import java.net.URL;
-
-import java.io.Serializable;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.io.IOException;
-
-import java.util.Locale;
-import javax.accessibility.*;
 
 
 /**

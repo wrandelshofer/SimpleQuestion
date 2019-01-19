@@ -13,8 +13,8 @@
 
 package ch.randelshofer.zip;
 
-import java.util.zip.*;
-import java.io.*;
+import java.io.OutputStream;
+import java.util.zip.ZipOutputStream;
 
 /**
  * This is a ZipOutputStream which implemements the ZipOut interface to make

@@ -30,17 +30,35 @@
 
 package ch.randelshofer.scorm;
 
-import ch.randelshofer.scorm.cam.*;
-import java.awt.*;
-import java.awt.print.*;
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import java.text.*;
-import javax.swing.*;
-import javax.swing.text.*;
-import javax.swing.text.html.*;
+import ch.randelshofer.scorm.cam.ItemElement;
+import ch.randelshofer.scorm.cam.OrganizationElement;
+import ch.randelshofer.scorm.cam.ResourceElement;
+
+import javax.swing.JTextPane;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.Document;
+import javax.swing.text.EditorKit;
+import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.tree.TreeNode;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Pageable;
+import java.awt.print.Paper;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Enumeration;
 
 /**
  * CourseModelPrinter.

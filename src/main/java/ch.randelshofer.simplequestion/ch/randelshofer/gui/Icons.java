@@ -4,12 +4,12 @@
 
 package ch.randelshofer.gui;
 
-import ch.randelshofer.gui.*;
-
-import java.awt.*;
-import java.awt.geom.*;
-
-import javax.swing.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.Polygon;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 
 /**
  * Provides constants for commonly used Icons.

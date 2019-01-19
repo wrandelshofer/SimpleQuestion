@@ -13,7 +13,8 @@
 package ch.randelshofer.gift.parser;
 
 import java.text.Normalizer;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.StringTokenizer;
 /**
  * Question.
  * 

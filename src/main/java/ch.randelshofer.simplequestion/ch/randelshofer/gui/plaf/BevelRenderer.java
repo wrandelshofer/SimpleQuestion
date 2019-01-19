@@ -4,11 +4,17 @@
 
 package ch.randelshofer.gui.plaf;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import java.awt.image.*;
-import javax.swing.plaf.basic.*;
+import java.awt.Component;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.MediaTracker;
+import java.awt.Rectangle;
+import java.awt.TexturePaint;
+import java.awt.Transparency;
+import java.awt.image.BufferedImage;
 
 /**
  * Takes an image and insets. The image must show a 

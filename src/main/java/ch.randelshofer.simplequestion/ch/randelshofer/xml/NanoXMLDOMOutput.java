@@ -13,10 +13,16 @@
 
 package ch.randelshofer.xml;
 
-import java.awt.*;
-import java.util.*;
-import java.io.*;
-import nanoxml.*;
+import nanoxml.XMLElement;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Stack;
 /**
  * DOMOutput using Nano XML.
  *

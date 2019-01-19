@@ -14,12 +14,14 @@
 
 package ch.randelshofer.scorm;
 
-import ch.randelshofer.beans.*;
-import java.beans.*;
+import ch.randelshofer.beans.AbstractBean;
+import ch.randelshofer.util.ArrayUtil;
+
+import java.beans.PropertyChangeSupport;
 import java.nio.charset.StandardCharsets;
-import java.security.*;
-import ch.randelshofer.util.*;
-import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 /**
  * StudentModel.
  *

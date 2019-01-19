@@ -12,7 +12,9 @@
  */
 package ch.randelshofer.util.regex;
 
-import javax.swing.text.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.Segment;
 
 /**
  * Searches for an occurence of a case (in)sensitive text on a document.

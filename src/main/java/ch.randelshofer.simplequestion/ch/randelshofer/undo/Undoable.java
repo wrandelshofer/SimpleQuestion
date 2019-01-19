@@ -13,7 +13,7 @@
 
 package ch.randelshofer.undo;
 
-import javax.swing.event.*;
+import javax.swing.event.UndoableEditListener;
 
 /**
  * This interface is implemented by components, which support undo

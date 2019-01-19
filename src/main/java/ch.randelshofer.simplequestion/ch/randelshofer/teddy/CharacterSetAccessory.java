@@ -13,12 +13,18 @@
 
 package ch.randelshofer.teddy;
 
-import org.jhotdraw.gui.*;
-import java.nio.charset.*;
-import javax.swing.*;
-import java.util.*;
-import java.util.prefs.*;
+import org.jhotdraw.gui.Worker;
 import org.jhotdraw.util.prefs.PreferencesUtil;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
+import javax.swing.UIManager;
+import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.SortedMap;
+import java.util.prefs.Preferences;
 /**
  * CharacterSetAccessory.
  *

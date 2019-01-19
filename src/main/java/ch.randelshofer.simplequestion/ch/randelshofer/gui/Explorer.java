@@ -13,13 +13,16 @@
 
 package ch.randelshofer.gui;
 
-import ch.randelshofer.gui.tree.*;
-import ch.randelshofer.undo.*;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.tree.*;
-import javax.swing.undo.*;
+import ch.randelshofer.gui.tree.UndoableTreeSelectionModel;
+import ch.randelshofer.undo.Undoable;
+
+import javax.swing.JPanel;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
+import javax.swing.undo.UndoManager;
+import java.awt.Component;
 /**
  * This panel acts like an Explorer Window as commonly used
  * on Windows.

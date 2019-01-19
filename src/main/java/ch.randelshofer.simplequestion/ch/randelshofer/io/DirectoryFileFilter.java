@@ -4,10 +4,9 @@
 
 package ch.randelshofer.io;
 
-import java.io.*;
-import javax.swing.*;
-import javax.swing.filechooser.*;
-import java.util.*;
+import javax.swing.JComponent;
+import java.io.File;
+import java.util.HashMap;
 /**
  * Filters all files except directories.
  *

@@ -13,38 +13,71 @@
 
 package ch.randelshofer.scorm;
 
-import ch.randelshofer.gui.datatransfer.*;
-import ch.randelshofer.gui.tree.*;
-import ch.randelshofer.scorm.cam.*;
+import ch.randelshofer.gui.ProgressIndicator;
+import ch.randelshofer.gui.datatransfer.CompositeTransferable;
+import ch.randelshofer.gui.tree.MutableTreeModel;
+import ch.randelshofer.gui.tree.TreeModels;
+import ch.randelshofer.io.LFPrintWriter;
+import ch.randelshofer.scorm.cam.IMSManifestDocument;
+import ch.randelshofer.scorm.cam.OrganizationElement;
+import ch.randelshofer.scorm.cam.OrganizationsElement;
+import ch.randelshofer.scorm.cam.ResourceElement;
+import ch.randelshofer.text.PlainDocumentBean;
+import ch.randelshofer.util.Files;
+import ch.randelshofer.util.IdentifierGenerator;
+import ch.randelshofer.util.SequentialDispatcher;
+import ch.randelshofer.util.Strings;
+import ch.randelshofer.xml.DOMs;
+import ch.randelshofer.zip.DefaultZipEntryFilter;
+import ch.randelshofer.zip.ZipFiles;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
-import ch.randelshofer.gui.*;
-import ch.randelshofer.io.*;
-import ch.randelshofer.util.*;
-import ch.randelshofer.text.*;
-import ch.randelshofer.xml.*;
-import ch.randelshofer.zip.*;
+import javax.swing.Action;
+import javax.swing.SwingUtilities;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 //import java.awt.*;
 //import java.awt.event.*;
-import java.awt.datatransfer.*;
-import java.beans.*;
-import java.lang.reflect.*;
-import java.io.*;
-import java.util.*;
-import java.util.zip.*;
-import java.text.*;
-import javax.swing.*;
 //import javax.swing.text.*;
 //import javax.swing.event.*;
-import javax.swing.tree.*;
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-
-import org.xml.sax.*;
-
-import org.w3c.dom.*;
 
 /**
  * The model of a SCORM Course.

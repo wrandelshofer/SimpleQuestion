@@ -14,27 +14,33 @@
 
 package ch.randelshofer.scorm;
 
-import ch.randelshofer.gui.datatransfer.*;
-import ch.randelshofer.gui.table.*;
-import ch.randelshofer.util.*;
-import ch.randelshofer.xml.*;
-
-import java.awt.datatransfer.*;
-import java.io.*;
-import java.util.*;
-
-import javax.swing.*;
-import javax.swing.table.*;
-
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-
+import ch.randelshofer.gui.datatransfer.CompositeTransferable;
+import ch.randelshofer.gui.datatransfer.DefaultTransferable;
+import ch.randelshofer.gui.table.MutableTableModel;
+import ch.randelshofer.gui.table.TableModels;
+import ch.randelshofer.util.Strings;
+import ch.randelshofer.xml.DOMs;
 import org.jhotdraw.util.ResourceBundleUtil;
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
-import org.w3c.dom.*;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
+import javax.swing.Action;
+import javax.swing.table.AbstractTableModel;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.ResourceBundle;
 
 /**
  * StudentsTableModel.

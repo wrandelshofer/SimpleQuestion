@@ -16,7 +16,6 @@ import org.jhotdraw.app.Application;
 import org.jhotdraw.app.DefaultApplicationModel;
 import org.jhotdraw.app.OSXApplication;
 import org.jhotdraw.app.SDIApplication;
-import org.jhotdraw.util.ResourceBundleUtil;
 
 /**
  * Main.

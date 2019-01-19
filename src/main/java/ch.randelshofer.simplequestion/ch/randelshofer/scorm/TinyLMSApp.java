@@ -13,8 +13,11 @@
 
 package ch.randelshofer.scorm;
 
-import java.lang.reflect.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 /**
  * Launcher for the TinyLMS application.
  * If the launcher is invoked without command line parameters, it will start

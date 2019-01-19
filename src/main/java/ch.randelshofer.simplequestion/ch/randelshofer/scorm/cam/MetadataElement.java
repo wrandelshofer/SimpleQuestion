@@ -13,21 +13,15 @@
 package ch.randelshofer.scorm.cam;
 
 import ch.randelshofer.scorm.AbstractElement;
-import ch.randelshofer.scorm.lom.*;
-import ch.randelshofer.util.*;
-import ch.randelshofer.xml.*;
-import java.io.*;
-import java.util.*;
+import ch.randelshofer.scorm.lom.LOM;
+import ch.randelshofer.scorm.lom.LOMElement;
+import ch.randelshofer.xml.DOMs;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
-
-import org.w3c.dom.*;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 /**
  * Represents a SCORM 1.2 CAM 'metadata' Element.
  * <p>

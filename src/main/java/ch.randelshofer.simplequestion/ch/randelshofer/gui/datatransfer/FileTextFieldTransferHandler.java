@@ -12,12 +12,22 @@
  */
 package ch.randelshofer.gui.datatransfer;
 
-import java.awt.datatransfer.*;
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.JPasswordField;
+import javax.swing.TransferHandler;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.EditorKit;
+import javax.swing.text.JTextComponent;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.im.InputContext;
-import java.io.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.text.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.List;
 
 /**
  * The FileTextFieldTransferHandler can be used to add drag and drop

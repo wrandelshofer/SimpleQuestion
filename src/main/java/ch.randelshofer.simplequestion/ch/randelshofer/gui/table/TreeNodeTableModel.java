@@ -12,13 +12,18 @@
  */
 package ch.randelshofer.gui.table;
 
-import ch.randelshofer.gui.tree.*;
-import java.awt.datatransfer.*;
-import java.io.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
-import javax.swing.tree.*;
+import ch.randelshofer.gui.tree.DefaultMutableTreeModel;
+import ch.randelshofer.gui.tree.MutableTreeModel;
+
+import javax.swing.Action;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.tree.MutableTreeNode;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 /**
  * Wraps a TreeNode of a MutableTreeModel into a MutableTableModel.
  *

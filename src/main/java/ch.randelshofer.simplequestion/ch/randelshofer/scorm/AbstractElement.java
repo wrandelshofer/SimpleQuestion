@@ -14,14 +14,15 @@
 
 package ch.randelshofer.scorm;
 
-import ch.randelshofer.scorm.cam.*;
-import java.io.*;
-import java.util.*;
-
-
-
-import javax.swing.tree.*;
+import ch.randelshofer.scorm.cam.IMSManifestDocument;
 import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * Represents a SCORM CAM element.

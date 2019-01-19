@@ -39,9 +39,10 @@
 //package com.sun.j2ee.blueprints.admin.client;
 package ch.randelshofer.gui.table;
 
-import javax.swing.table.*;
-import javax.swing.event.TableModelListener;
 import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  * In a chain of data manipulators some behaviour is common. TableMap

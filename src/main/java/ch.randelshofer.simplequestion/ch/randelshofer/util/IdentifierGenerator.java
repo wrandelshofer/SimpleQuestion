@@ -4,7 +4,7 @@
 
 package ch.randelshofer.util;
 
-import java.util.*;
+import java.util.HashMap;
 
 /**
  * @author werni

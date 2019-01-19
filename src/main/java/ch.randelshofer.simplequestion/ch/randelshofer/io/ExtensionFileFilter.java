@@ -4,10 +4,13 @@
 
 package ch.randelshofer.io;
 
-import java.io.*;
-import javax.swing.*;
-import javax.swing.filechooser.*;
-import java.util.*;
+import javax.swing.JComponent;
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 /**
  * Filters files by their extensions.
  *

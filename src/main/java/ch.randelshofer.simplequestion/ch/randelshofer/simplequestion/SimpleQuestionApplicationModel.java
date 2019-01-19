@@ -12,27 +12,35 @@
 package ch.randelshofer.simplequestion;
 
 import ch.randelshofer.gift.export.ilias.ILIASQuestionPoolExporter;
-import ch.randelshofer.gift.export.scorm.SCORMExporter;
-import ch.randelshofer.gift.export.scorm.SCORMExporterAccessory;
 import ch.randelshofer.io.ConfigurableFileFilter;
 import ch.randelshofer.io.ConfigurableFileFilterAccessory;
-import ch.randelshofer.io.DirectoryFileFilter;
 import ch.randelshofer.io.ExtensionFileFilter;
 import ch.randelshofer.simplequestion.action.SettingsAction;
 import ch.randelshofer.simplequestion.action.VerifySyntaxAction;
 import ch.randelshofer.teddy.CharacterSetAccessory;
-import javax.swing.*;
-import org.jhotdraw.app.*;
-import java.util.*;
-import ch.randelshofer.teddy.action.*;
-import java.io.File;
-import java.util.prefs.Preferences;
-import javax.swing.filechooser.FileFilter;
+import ch.randelshofer.teddy.action.ToggleLineNumbersAction;
+import ch.randelshofer.teddy.action.ToggleLineWrapAction;
+import ch.randelshofer.teddy.action.ToggleStatusBarAction;
+import org.jhotdraw.app.Application;
+import org.jhotdraw.app.DefaultApplicationModel;
+import org.jhotdraw.app.MenuBuilder;
+import org.jhotdraw.app.View;
 import org.jhotdraw.app.action.edit.DuplicateAction;
 import org.jhotdraw.app.action.file.ExportFileAction;
 import org.jhotdraw.gui.JFileURIChooser;
 import org.jhotdraw.gui.URIChooser;
-import org.jhotdraw.util.*;
+import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.ActionMap;
+import javax.swing.JFileChooser;
+import javax.swing.JToolBar;
+import javax.swing.filechooser.FileFilter;
+import java.io.File;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 /**
  * SimpleQuestionApplicationModel.

@@ -14,7 +14,7 @@
 
 package ch.randelshofer.zip;
 
-import java.util.zip.*;
+import java.util.zip.ZipEntry;
 /**
  * ZipEntryFilter.
  *

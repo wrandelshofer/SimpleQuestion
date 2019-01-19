@@ -6,10 +6,15 @@
 
 package ch.randelshofer.gui.table;
 
-import ch.randelshofer.gui.*;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.table.*;
+import ch.randelshofer.gui.Colors;
+import ch.randelshofer.gui.PolygonIcon;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Polygon;
 /**
  *
  * @author  werni

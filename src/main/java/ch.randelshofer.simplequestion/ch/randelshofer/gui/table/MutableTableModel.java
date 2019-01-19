@@ -3,10 +3,12 @@
  */
 package ch.randelshofer.gui.table;
 
-import java.awt.datatransfer.*;
-import java.io.*;
 import javax.swing.Action;
 import javax.swing.table.TableModel;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 
 /**
  * Specifies the requirements for a mutable table model.

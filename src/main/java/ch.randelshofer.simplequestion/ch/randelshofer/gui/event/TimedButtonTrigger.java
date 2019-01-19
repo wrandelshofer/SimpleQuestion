@@ -13,9 +13,10 @@
 
 package ch.randelshofer.gui.event;
 
-import java.awt.event.*;
-import javax.swing.event.*;
-import javax.swing.*;
+import javax.swing.AbstractButton;
+import javax.swing.Timer;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 /**

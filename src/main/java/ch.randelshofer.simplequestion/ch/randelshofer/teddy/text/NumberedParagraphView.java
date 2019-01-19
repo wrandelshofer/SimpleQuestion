@@ -13,8 +13,12 @@
 
 package ch.randelshofer.teddy.text;
 
-import java.awt.*;
-import javax.swing.text.*;
+import javax.swing.text.Element;
+import javax.swing.text.ParagraphView;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 /**
  * NumberedParagraphView.
  *

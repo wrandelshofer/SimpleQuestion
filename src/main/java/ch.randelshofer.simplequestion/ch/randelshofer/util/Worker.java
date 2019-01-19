@@ -12,7 +12,6 @@
  */
 package ch.randelshofer.util;
 
-import java.awt.ActiveEvent;
 import javax.swing.SwingUtilities;
 
 /**

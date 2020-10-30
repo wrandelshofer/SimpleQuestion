@@ -198,7 +198,9 @@
                    outdir="${dist.dir}/bundles" outfile="${name}">
             <fx:application name="${name}"
                             module="ch.randelshofer.simplequestion"
-                            mainClass="ch.randelshofer.simplequestion.Main"/>
+                            mainClass="ch.randelshofer.simplequestion.Main"
+                            version="${version}"
+            />
             <fx:resources>
                 <fx:fileset dir="${dist.dir}/modules" includes="*.jar"/>
             </fx:resources>

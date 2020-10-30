@@ -95,6 +95,16 @@ What is the value of pi (to 3 decimal places)? {#3.141..3.142}.
 //    =1822:0
 //    =%50%1822:2}
 
+
+// ===Essay===
+
+// An essay question is simply a question with an empty answer field.
+// Nothing is permitted between the curly braces at all.
+
+Write a short biography of Dag Hammarskjöld. {}
+
+
+
 // OPTIONS 
 
 // ===Line Comments===

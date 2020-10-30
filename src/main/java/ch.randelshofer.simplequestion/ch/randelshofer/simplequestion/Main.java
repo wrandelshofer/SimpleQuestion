@@ -21,13 +21,11 @@ import org.jhotdraw.app.SDIApplication;
  * Main.
  *
  * @author Werner Randelshofer
- * @version 1.0.1 2011-06-06 It is 2011 now.
- * <br>1.0 2009-09-06 Created.
  */
 public class Main {
 
     public final static String NAME = "SimpleQuestion";
-    public final static String COPYRIGHT = "© 2009-2019 by Werner Randelshofer";
+    public final static String COPYRIGHT = "© 2009-2020 by Werner Randelshofer, MIT License";
 
     /**
      * Launches the application.

@@ -20,14 +20,6 @@ import java.util.StringTokenizer;
  * Question.
  *
  * @author Werner Randelshofer
- * @version 1.4.1 2010-04-05 Removed dependency to IBM ICU Unicode library.
- * <br>1.4 2008-12-03 Add support for 'Description' questions, which have
- * no answer list.
- * <br>1.3 2006-12-12 Added question id attribute.
- * <br>1.2 2006-09-13 Methods isIncomplete, setStartPosition,
- * getStartPosition, setEndPosition, getEndPosition added.
- * <br>1.1 2006-07-11 Method getDescriptiveTitle() added.
- * <br>1.0 19. April 2006 Created.
  */
 public class Question {
     private String id;

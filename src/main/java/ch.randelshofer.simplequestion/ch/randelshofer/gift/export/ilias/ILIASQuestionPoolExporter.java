@@ -180,20 +180,23 @@ public class ILIASQuestionPoolExporter implements Exporter {
             } else {
                 XMLElement item;
                 switch (iliasType) {
-                    case CLOZE:
-                        item = createClozeItem(q);
-                        break;
-                    case MATCHING_PAIR:
-                        item = createMatchingPairItem(q);
-                        break;
-                    case MULTIPLE_CHOICE:
-                        item = createMultipleChoiceItem(q);
-                        break;
-                    case SINGLE_CHOICE:
-                        item = createSingleChoiceItem(q);
-                        break;
-                    default:
-                        throw new IOException("ILIASQuestionPoolExporter Illegal type " + iliasType + " for: " + q);
+                case CLOZE:
+                    item = createClozeItem(q);
+                    break;
+                case MATCHING_PAIR:
+                    item = createMatchingPairItem(q);
+                    break;
+                case MULTIPLE_CHOICE:
+                    item = createMultipleChoiceItem(q);
+                    break;
+                case SINGLE_CHOICE:
+                    item = createSingleChoiceItem(q);
+                    break;
+                case ESSAY:
+                    item = createEssayItem(q);
+                    break;
+                default:
+                    throw new IOException("ILIASQuestionPoolExporter Illegal type " + iliasType + " for: " + q);
                 }
                 if (item == null) {
                     throw new IOException("ILIASQuestionPoolExporter ILIAS does not support the question.<br>" + q);
@@ -221,48 +224,11 @@ public class ILIASQuestionPoolExporter implements Exporter {
         // Item-Metadata
         XMLElement itemmetadata = dom.createElement("itemmetadata");
         XMLElement qtimetadata = dom.createElement("qtimetadata");
-        XMLElement qtimetadatafield = dom.createElement("qtimetadatafield");
-        XMLElement fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("ILIAS_VERSION");
-        qtimetadatafield.addChild(fieldlabel);
-        XMLElement fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent("3.8.3 2007-09-23");
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
-        qtimetadatafield = dom.createElement("qtimetadatafield");
-        fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("QUESTIONTYPE");
-        qtimetadatafield.addChild(fieldlabel);
-        fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent("CLOZE QUESTION");
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
-        qtimetadatafield = dom.createElement("qtimetadatafield");
-        fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("AUTHOR");
-        qtimetadatafield.addChild(fieldlabel);
-        fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent(author);
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
-
-        qtimetadatafield = dom.createElement("qtimetadatafield");
-        fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("textgaprating");
-        qtimetadatafield.addChild(fieldlabel);
-        fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent("ci");
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
-
-        qtimetadatafield = dom.createElement("qtimetadatafield");
-        fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("fixedTextLength");
-        qtimetadatafield.addChild(fieldlabel);
-        fieldentry = dom.createElement("fieldentry");
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
-
+        addQtiMetaDataField(qtimetadata, "ILIAS_VERSION", "3.8.3 2007-09-23");
+        addQtiMetaDataField(qtimetadata, "QUESTIONTYPE", "CLOZE QUESTION");
+        addQtiMetaDataField(qtimetadata, "AUTHOR", author);
+        addQtiMetaDataField(qtimetadata, "textgaprating", "ci");
+        addQtiMetaDataField(qtimetadata, "fixedTextLength", null);
         itemmetadata.addChild(qtimetadata);
         item.addChild(itemmetadata);
 
@@ -292,144 +258,148 @@ public class ILIASQuestionPoolExporter implements Exporter {
                 AnswerListType type = al.getType();
                 if (type != null) {
                     switch (type) {
-                        case BOOL: {
-                            XMLElement response_str = dom.createElement("response_str");
-                            response_str.setAttribute("ident", getOid(al));
-                            response_str.setAttribute("rcardinality", "Single");
+                    case BOOL: {
+                        XMLElement response_str = dom.createElement("response_str");
+                        response_str.setAttribute("ident", getOid(al));
+                        response_str.setAttribute("rcardinality", "Single");
 
-                            XMLElement render_choice = dom.createElement("render_choice");
-                            // Never shuffle boolean answers
-                            render_choice.setAttribute("shuffle", "No");
+                        XMLElement render_choice = dom.createElement("render_choice");
+                        // Never shuffle boolean answers
+                        render_choice.setAttribute("shuffle", "No");
 
-                            BooleanAnswer ba = (BooleanAnswer) al.answers().getFirst();
-                            wrongAnswerMap.put(ba, new Object());
+                        BooleanAnswer ba = (BooleanAnswer) al.answers().getFirst();
+                        wrongAnswerMap.put(ba, new Object());
 
-                            // Create choice for "TRUE" answer
-                            XMLElement response_label = dom.createElement("response_label");
-                            response_label.setAttribute("ident", "0");
-                            XMLElement material = dom.createElement("material");
-                            XMLElement mattext = dom.createElement("mattext");
-                            mattext.setAttribute("texttype", "text/plain");
-                            mattext.setContent(labels.getString("exporter.booleanAnswerTrue"));
-                            material.addChild(mattext);
-                            response_label.addChild(material);
-                            render_choice.addChild(response_label);
+                        // Create choice for "TRUE" answer
+                        XMLElement response_label = dom.createElement("response_label");
+                        response_label.setAttribute("ident", "0");
+                        XMLElement material = dom.createElement("material");
+                        XMLElement mattext = dom.createElement("mattext");
+                        mattext.setAttribute("texttype", "text/plain");
+                        mattext.setContent(labels.getString("exporter.booleanAnswerTrue"));
+                        material.addChild(mattext);
+                        response_label.addChild(material);
+                        render_choice.addChild(response_label);
 
-                            // Create choice for "FALSE" answer
-                            response_label = dom.createElement("response_label");
-                            response_label.setAttribute("ident", "1");
-                            material = dom.createElement("material");
-                            mattext = dom.createElement("mattext");
-                            mattext.setAttribute("texttype", "text/plain");
-                            mattext.setContent(labels.getString("exporter.booleanAnswerFalse"));
-                            material.addChild(mattext);
-                            response_label.addChild(material);
-                            render_choice.addChild(response_label);
+                        // Create choice for "FALSE" answer
+                        response_label = dom.createElement("response_label");
+                        response_label.setAttribute("ident", "1");
+                        material = dom.createElement("material");
+                        mattext = dom.createElement("mattext");
+                        mattext.setAttribute("texttype", "text/plain");
+                        mattext.setContent(labels.getString("exporter.booleanAnswerFalse"));
+                        material.addChild(mattext);
+                        response_label.addChild(material);
+                        render_choice.addChild(response_label);
 
-                            response_str.addChild(render_choice);
-                            flow.addChild(response_str);
+                        response_str.addChild(render_choice);
+                        flow.addChild(response_str);
 
-                            break;
+                        break;
+                    }
+                    case CLOZE: {
+                        XMLElement response_str = dom.createElement("response_str");
+                        response_str.setAttribute("ident", getOid(al));
+                        response_str.setAttribute("rcardinality", "Single");
+
+                        XMLElement render_fib = dom.createElement("render_fib");
+                        render_fib.setAttribute("fibtype", "String");
+                        render_fib.setAttribute("prompt", "Box");
+
+                        XMLElement response_label = dom.createElement("response_label");
+                        response_label.setAttribute("ident", getOid(al.answers().getFirst()));
+
+                        render_fib.addChild(response_label);
+
+                        response_str.addChild(render_fib);
+                        flow.addChild(response_str);
+
+                        break;
+                    }
+                    case NUMERIC: {
+                        if (al.answers().size() != 1) {
+                            throw new IOException("ILIAS does not support multiple numeric answers in a cloze question.<br>" + q);
                         }
-                        case CLOZE: {
-                            XMLElement response_str = dom.createElement("response_str");
-                            response_str.setAttribute("ident", getOid(al));
-                            response_str.setAttribute("rcardinality", "Single");
 
-                            XMLElement render_fib = dom.createElement("render_fib");
-                            render_fib.setAttribute("fibtype", "String");
-                            render_fib.setAttribute("prompt", "Box");
+                        XMLElement response_num = dom.createElement("response_num");
+                        response_num.setAttribute("ident", getOid(al));
+                        response_num.setAttribute("numtype", "Decimal");
+                        response_num.setAttribute("rcardinality", "Single");
 
-                            XMLElement response_label = dom.createElement("response_label");
-                            response_label.setAttribute("ident", getOid(al.answers().getFirst()));
+                        XMLElement render_fib = dom.createElement("render_fib");
+                        render_fib.setAttribute("fibtype", "Decimal");
+                        render_fib.setAttribute("prompt", "Box");
 
-                            render_fib.addChild(response_label);
-
-                            response_str.addChild(render_fib);
-                            flow.addChild(response_str);
-
-                            break;
+                        Answer answer = al.answers().get(0);
+                        if (answer instanceof IntervalAnswer) {
+                            IntervalAnswer ia = (IntervalAnswer) answer;
+                            render_fib.setAttribute("columns", Math.max(5, 1 + Math.max(Double.toString(ia.getMin()).length(), Double.toString(ia.getMax()).length())));
+                            render_fib.setAttribute("minnumber", Double.toString(ia.getMin()));
+                            render_fib.setAttribute("maxnumber", Double.toString(ia.getMax()));
+                        } else if (answer instanceof NumberAnswer) {
+                            NumberAnswer ia = (NumberAnswer) answer;
+                            render_fib.setAttribute("columns", Math.max(5, 1 + Double.toString(ia.getNumber()).length()));
+                            render_fib.setAttribute("minnumber", Double.toString(ia.getNumber() - Math.abs(ia.getErrorMargin())));
+                            render_fib.setAttribute("maxnumber", Double.toString(ia.getNumber() + Math.abs(ia.getErrorMargin())));
+                        } else {
+                            throw new IOException("ILIAS does not support this numerical answer type in a cloze question.<br>" + q);
                         }
-                        case NUMERIC: {
-                            if (al.answers().size() != 1) {
-                                throw new IOException("ILIAS does not support multiple numeric answers in a cloze question.<br>" + q);
-                            }
 
-                            XMLElement response_num = dom.createElement("response_num");
-                            response_num.setAttribute("ident", getOid(al));
-                            response_num.setAttribute("numtype", "Decimal");
-                            response_num.setAttribute("rcardinality", "Single");
+                        response_num.addChild(render_fib);
+                        flow.addChild(response_num);
 
-                            XMLElement render_fib = dom.createElement("render_fib");
-                            render_fib.setAttribute("fibtype", "Decimal");
-                            render_fib.setAttribute("prompt", "Box");
+                        break;
+                    }
+                    case MATCHING_PAIR:
+                        // Not supported
+                        throw new IOException(labels.getFormatted("exporter.unsupportedMatchingPairInClozeQuestion", q));
+                        //break; not reached
+                    case ESSAY:
+                        // Not supported
+                        throw new IOException(labels.getFormatted("exporter.unsupportedEssayInClozeQuestion", q));
+                        //break; not reached
+                    case MULTIPLE_CHOICE:
+                        // Not supported
+                        throw new IOException(labels.getFormatted("exporter.unsupportedMultipleChoiceInClozeQuestion", q));
+                        //break; not reached
+                    case SINGLE_CHOICE: {
+                        XMLElement response_str = dom.createElement("response_str");
+                        response_str.setAttribute("ident", getOid(al));
+                        response_str.setAttribute("rcardinality", "Single");
 
-                            Answer answer = al.answers().get(0);
-                            if (answer instanceof IntervalAnswer) {
-                                IntervalAnswer ia = (IntervalAnswer) answer;
-                                render_fib.setAttribute("columns", Math.max(5, 1 + Math.max(Double.toString(ia.getMin()).length(), Double.toString(ia.getMax()).length())));
-                                render_fib.setAttribute("minnumber", Double.toString(ia.getMin()));
-                                render_fib.setAttribute("maxnumber", Double.toString(ia.getMax()));
-                            } else if (answer instanceof NumberAnswer) {
-                                NumberAnswer ia = (NumberAnswer) answer;
-                                render_fib.setAttribute("columns", Math.max(5, 1 + Double.toString(ia.getNumber()).length()));
-                                render_fib.setAttribute("minnumber", Double.toString(ia.getNumber() - Math.abs(ia.getErrorMargin())));
-                                render_fib.setAttribute("maxnumber", Double.toString(ia.getNumber() + Math.abs(ia.getErrorMargin())));
+                        XMLElement render_choice = dom.createElement("render_choice");
+                        render_choice.setAttribute("shuffle", isShuffleAnswers ? "Yes" : "No");
+
+                        int index = 0;
+                        for (Answer a : al.answers()) {
+                            if (a instanceof ChoiceAnswer) {
+                                ChoiceAnswer ta = (ChoiceAnswer) a;
+
+                                XMLElement response_label = dom.createElement("response_label");
+                                //response_label.setAttribute("ident", getOid(ta));
+                                response_label.setAttribute("ident", Integer.toString(index));
+                                XMLElement material = dom.createElement("material");
+                                XMLElement mattext = dom.createElement("mattext");
+                                mattext.setAttribute("texttype", "text/plain");
+                                mattext.setContent(encodeMattext(ta.getText()));
+
+                                material.addChild(mattext);
+                                response_label.addChild(material);
+                                render_choice.addChild(response_label);
                             } else {
-                                throw new IOException("ILIAS does not support this numerical answer type in a cloze question.<br>" + q);
+                                throw new IOException("ILIAS does not support all multiple choice answer types in a cloze text.<br>" + q);
+                                //System.out.println("ILIASQuestionPoolExporter: Warning cloze question does not support all multiple choice answer types.");
                             }
-
-                            response_num.addChild(render_fib);
-                            flow.addChild(response_num);
-
-                            break;
+                            index++;
                         }
-                        case MATCHING_PAIR:
-                            // Not supported
-                            throw new IOException(labels.getFormatted("exporter.unsupportedMatchingPairInClozeText", q));
-                            //break; not reached
-                        case MULTIPLE_CHOICE:
-                            // Not supported
-                            throw new IOException("ILIAS does not support a multiple choice question with multiple answers in a cloze text.<br>" + q);
-                            //break; not reached
-                        case SINGLE_CHOICE: {
-                            XMLElement response_str = dom.createElement("response_str");
-                            response_str.setAttribute("ident", getOid(al));
-                            response_str.setAttribute("rcardinality", "Single");
 
-                            XMLElement render_choice = dom.createElement("render_choice");
-                            render_choice.setAttribute("shuffle", isShuffleAnswers ? "Yes" : "No");
+                        response_str.addChild(render_choice);
+                        flow.addChild(response_str);
 
-                            int index = 0;
-                            for (Answer a : al.answers()) {
-                                if (a instanceof ChoiceAnswer) {
-                                    ChoiceAnswer ta = (ChoiceAnswer) a;
-
-                                    XMLElement response_label = dom.createElement("response_label");
-                                    //response_label.setAttribute("ident", getOid(ta));
-                                    response_label.setAttribute("ident", Integer.toString(index));
-                                    XMLElement material = dom.createElement("material");
-                                    XMLElement mattext = dom.createElement("mattext");
-                                    mattext.setAttribute("texttype", "text/plain");
-                                    mattext.setContent(encodeMattext(ta.getText()));
-
-                                    material.addChild(mattext);
-                                    response_label.addChild(material);
-                                    render_choice.addChild(response_label);
-                                } else {
-                                    throw new IOException("ILIAS does not support all multiple choice answer types in a cloze text.<br>" + q);
-                                    //System.out.println("ILIASQuestionPoolExporter: Warning cloze question does not support all multiple choice answer types.");
-                                }
-                                index++;
-                            }
-
-                            response_str.addChild(render_choice);
-                            flow.addChild(response_str);
-
-                            break;
-                        }
-                        default:
-                            throw new IOException("ILIAS does not support this cloze question.<br>" + q);
+                        break;
+                    }
+                    default:
+                        throw new IOException("ILIAS does not support this cloze question.<br>" + q);
                     }
                 }
             }
@@ -577,6 +547,143 @@ public class ILIASQuestionPoolExporter implements Exporter {
         return item;
     }
 
+    private void addQtiMetaDataField(XMLElement parent, String label, String value) {
+        XMLElement qtimetadatafield = dom.createElement("qtimetadatafield");
+        XMLElement fieldlabel = dom.createElement("fieldlabel");
+        XMLElement fieldentry = dom.createElement("fieldentry");
+        fieldlabel.setContent(label);
+        fieldentry.setContent(value);
+
+        qtimetadatafield.addChild(fieldlabel);
+        qtimetadatafield.addChild(fieldentry);
+        parent.addChild(qtimetadatafield);
+    }
+
+    private XMLElement createEssayItem(Question q) throws IOException {
+        XMLElement item = dom.createElement("item");
+        addCommonElementsToItem(q, item);
+
+        // Item-Metadata
+        XMLElement itemmetadata = dom.createElement("itemmetadata");
+        XMLElement qtimetadata = dom.createElement("qtimetadata");
+        addQtiMetaDataField(qtimetadata, "ILIAS_VERSION", "3.8.3 2007-09-23");
+        addQtiMetaDataField(qtimetadata, "QUESTIONTYPE", "TEXT QUESTION");
+        addQtiMetaDataField(qtimetadata, "AUTHOR", author);
+        itemmetadata.addChild(qtimetadata);
+        item.addChild(itemmetadata);
+
+        // ------------
+        // Presentation
+        // ------------
+        XMLElement presentation = dom.createElement("presentation");
+        presentation.setAttribute("label", q.getDescriptiveTitle());
+        XMLElement flow = dom.createElement("flow");
+
+        // We need this to properly create the code for the result processing
+        HashMap<BooleanAnswer, Object> wrongAnswerMap = new HashMap<>();
+
+        for (Object o : q.getBody()) {
+            if (o instanceof String) {
+                String str = (String) o;
+                XMLElement material = dom.createElement("material");
+                XMLElement mattext = dom.createElement("mattext");
+                mattext.setAttribute("texttype", "text/plain");
+                mattext.setContent(encodeMattext(str));
+                material.addChild(mattext);
+                flow.addChild(material);
+
+            } else if (o instanceof AnswerList) {
+                AnswerList al = (AnswerList) o;
+
+                AnswerListType type = al.getType();
+                if (type != null) {
+                    switch (type) {
+                    case ESSAY: {
+                        XMLElement response_str = dom.createElement("response_str");
+                        response_str.setAttribute("ident", getOid(al));
+                        response_str.setAttribute("rcardinality", "Ordered");
+
+                        XMLElement render_fib = dom.createElement("render_fib");
+                        render_fib.setAttribute("fibtype", "String");
+                        render_fib.setAttribute("prompt", "Box");
+
+                        XMLElement response_label = dom.createElement("response_label");
+                        response_label.setAttribute("ident", getOid(new Object()));
+
+                        render_fib.addChild(response_label);
+
+                        response_str.addChild(render_fib);
+                        flow.addChild(response_str);
+
+                        break;
+                    }
+                    default:
+                        throw new IOException("ILIAS does not support this essay question.<br>" + q);
+                    }
+                }
+            }
+        }
+        presentation.addChild(flow);
+        item.addChild(presentation);
+
+        // -----------------
+        // Result processing
+        // -----------------
+        XMLElement resprocessing = dom.createElement("resprocessing");
+        resprocessing.setAttribute("scoremodel", "HumanRater");
+        XMLElement outcomes = dom.createElement("outcomes");
+        XMLElement decvar = dom.createElement("decvar");
+        decvar.setAttribute("varname", "WritingScore");
+        decvar.setAttribute("vartype", "Integer");
+        decvar.setAttribute("minvalue", "0");
+        decvar.setAttribute("maxvalue", "1");
+        XMLElement itemfeedback = null;
+        outcomes.addChild(decvar);
+        resprocessing.addChild(outcomes);
+
+        for (Object o : q.getBody()) {
+            if (o instanceof AnswerList) {
+                AnswerList al = (AnswerList) o;
+
+                // Create response condition for the correct answer
+                XMLElement respcondition = dom.createElement("respcondition");
+                respcondition.setAttribute("continue", "Yes");
+                XMLElement conditionvar = dom.createElement("conditionvar");
+                XMLElement varequal = dom.createElement("varequal");
+                varequal.setAttribute("respident", "points");
+                conditionvar.addChild(varequal);
+                respcondition.addChild(conditionvar);
+                XMLElement displayfeedback = dom.createElement("displayfeedback");
+                displayfeedback.setAttribute("feedbacktype", "Response");
+                displayfeedback.setAttribute("linkrefid", "response_allcorrect");
+                respcondition.addChild(displayfeedback);
+                resprocessing.addChild(respcondition);
+
+                // Create response condition for the wrong answer
+                respcondition = dom.createElement("respcondition");
+                respcondition.setAttribute("continue", "Yes");
+                conditionvar = dom.createElement("conditionvar");
+                XMLElement not = dom.createElement("not");
+                varequal = dom.createElement("varequal");
+                varequal.setAttribute("respident", "points");
+                not.addChild(varequal);
+                conditionvar.addChild(not);
+                respcondition.addChild(conditionvar);
+                displayfeedback = dom.createElement("displayfeedback");
+                displayfeedback.setAttribute("feedbacktype", "Response");
+                displayfeedback.setAttribute("linkrefid", "response_onenotcorrect");
+                respcondition.addChild(displayfeedback);
+                resprocessing.addChild(respcondition);
+            }
+        }
+
+        item.addChild(resprocessing);
+        if (itemfeedback != null) {
+            item.addChild(itemfeedback);
+        }
+        return item;
+    }
+
     private void addCommonElementsToItem(Question q, XMLElement item) {
         item.setAttribute("ident", oidMap.get(q));
 
@@ -600,30 +707,11 @@ public class ILIASQuestionPoolExporter implements Exporter {
         // Item-Metadata
         XMLElement itemmetadata = dom.createElement("itemmetadata");
         XMLElement qtimetadata = dom.createElement("qtimetadata");
-        XMLElement qtimetadatafield = dom.createElement("qtimetadatafield");
-        XMLElement fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("ILIAS_VERSION");
-        qtimetadatafield.addChild(fieldlabel);
-        XMLElement fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent("3.4.5 2005-09-27");
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
-        qtimetadatafield = dom.createElement("qtimetadatafield");
-        fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("QUESTIONTYPE");
-        qtimetadatafield.addChild(fieldlabel);
-        fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent("MATCHING QUESTION");
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
-        qtimetadatafield = dom.createElement("qtimetadatafield");
-        fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("AUTHOR");
-        qtimetadatafield.addChild(fieldlabel);
-        fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent(author);
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
+        addQtiMetaDataField(qtimetadata, "ILIAS_VERSION", "3.8.3 2007-09-23");
+        addQtiMetaDataField(qtimetadata, "QUESTIONTYPE", "MATCHING QUESTION");
+        addQtiMetaDataField(qtimetadata, "AUTHOR", author);
+        addQtiMetaDataField(qtimetadata, "textgaprating", "ci");
+        addQtiMetaDataField(qtimetadata, "fixedTextLength", null);
         itemmetadata.addChild(qtimetadata);
         item.addChild(itemmetadata);
 
@@ -753,30 +841,9 @@ public class ILIASQuestionPoolExporter implements Exporter {
         // Item-Metadata
         XMLElement itemmetadata = dom.createElement("itemmetadata");
         XMLElement qtimetadata = dom.createElement("qtimetadata");
-        XMLElement qtimetadatafield = dom.createElement("qtimetadatafield");
-        XMLElement fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("ILIAS_VERSION");
-        qtimetadatafield.addChild(fieldlabel);
-        XMLElement fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent("3.4.5 2005-09-27");
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
-        qtimetadatafield = dom.createElement("qtimetadatafield");
-        fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("QUESTIONTYPE");
-        qtimetadatafield.addChild(fieldlabel);
-        fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent("MULTIPLE CHOICE QUESTION");
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
-        qtimetadatafield = dom.createElement("qtimetadatafield");
-        fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("AUTHOR");
-        qtimetadatafield.addChild(fieldlabel);
-        fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent(author);
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
+        addQtiMetaDataField(qtimetadata, "ILIAS_VERSION", "3.4.5 2005-09-27");
+        addQtiMetaDataField(qtimetadata, "QUESTIONTYPE", "MULTIPLE CHOICE QUESTION");
+        addQtiMetaDataField(qtimetadata, "AUTHOR", author);
         itemmetadata.addChild(qtimetadata);
         item.addChild(itemmetadata);
 
@@ -976,30 +1043,9 @@ public class ILIASQuestionPoolExporter implements Exporter {
         // Item-Metadata
         XMLElement itemmetadata = dom.createElement("itemmetadata");
         XMLElement qtimetadata = dom.createElement("qtimetadata");
-        XMLElement qtimetadatafield = dom.createElement("qtimetadatafield");
-        XMLElement fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("ILIAS_VERSION");
-        qtimetadatafield.addChild(fieldlabel);
-        XMLElement fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent("3.4.5 2005-09-27");
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
-        qtimetadatafield = dom.createElement("qtimetadatafield");
-        fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("QUESTIONTYPE");
-        qtimetadatafield.addChild(fieldlabel);
-        fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent("MULTIPLE CHOICE QUESTION");
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
-        qtimetadatafield = dom.createElement("qtimetadatafield");
-        fieldlabel = dom.createElement("fieldlabel");
-        fieldlabel.setContent("AUTHOR");
-        qtimetadatafield.addChild(fieldlabel);
-        fieldentry = dom.createElement("fieldentry");
-        fieldentry.setContent(author);
-        qtimetadatafield.addChild(fieldentry);
-        qtimetadata.addChild(qtimetadatafield);
+        addQtiMetaDataField(qtimetadata, "ILIAS_VERSION", "3.4.5 2005-09-27");
+        addQtiMetaDataField(qtimetadata, "QUESTIONTYPE", "MULTIPLE CHOICE QUESTION");
+        addQtiMetaDataField(qtimetadata, "AUTHOR", author);
         itemmetadata.addChild(qtimetadata);
         item.addChild(itemmetadata);
 
@@ -1210,20 +1256,20 @@ public class ILIASQuestionPoolExporter implements Exporter {
                 (body.getLast() instanceof AnswerList)) {
             AnswerList al = (AnswerList) body.getLast();
             switch (al.getType()) {
-                case BOOL:
-                    return AnswerListType.SINGLE_CHOICE;
-                case CLOZE:
-                    return AnswerListType.CLOZE;
-                case NUMERIC:
-                    return AnswerListType.CLOZE;
-                case MATCHING_PAIR:
-                    return AnswerListType.MATCHING_PAIR;
-                case MULTIPLE_CHOICE:
-                    return AnswerListType.MULTIPLE_CHOICE;
-                case SINGLE_CHOICE:
-                    return AnswerListType.SINGLE_CHOICE;
-                default:
-                    return null;
+            case BOOL:
+            case SINGLE_CHOICE:
+                return AnswerListType.SINGLE_CHOICE;
+            case CLOZE:
+            case NUMERIC:
+                return AnswerListType.CLOZE;
+            case MATCHING_PAIR:
+                return AnswerListType.MATCHING_PAIR;
+            case MULTIPLE_CHOICE:
+                return AnswerListType.MULTIPLE_CHOICE;
+            case ESSAY:
+                return AnswerListType.ESSAY;
+            default:
+                return null;
             }
         }
 
@@ -1235,44 +1281,26 @@ public class ILIASQuestionPoolExporter implements Exporter {
             if (o instanceof AnswerList) {
                 AnswerList al = (AnswerList) o;
                 switch (al.getType()) {
-                    case BOOL:
-                        if (type == null || type == AnswerListType.CLOZE) {
-                            type = AnswerListType.CLOZE;
-                        } else {
-                            return null;
-                        }
-                        break;
-                    case CLOZE:
-                    case NUMERIC:
-                        if (type == null || type == AnswerListType.CLOZE) {
-                            type = AnswerListType.CLOZE;
-                        } else {
-                            return null;
-                        }
-                        break;
-                    case MATCHING_PAIR:
-                        if (type == null) {
-                            type = AnswerListType.MATCHING_PAIR;
-                        } else {
-                            return null;
-                        }
-                        break;
-                    case MULTIPLE_CHOICE:
-                        if (type == null || type == AnswerListType.CLOZE) {
-                            type = AnswerListType.CLOZE;
-                        } else {
-                            return null;
-                        }
-                        break;
-                    case SINGLE_CHOICE:
-                        if (type == null || type == AnswerListType.CLOZE) {
-                            type = AnswerListType.CLOZE;
-                        } else {
-                            return null;
-                        }
-                        break;
-                    default:
+                case BOOL:
+                case CLOZE:
+                case NUMERIC:
+                case MULTIPLE_CHOICE:
+                case SINGLE_CHOICE:
+                    if (type == null || type == AnswerListType.CLOZE) {
+                        type = AnswerListType.CLOZE;
+                    } else {
                         return null;
+                    }
+                    break;
+                case MATCHING_PAIR:
+                    if (type == null) {
+                        type = AnswerListType.MATCHING_PAIR;
+                    } else {
+                        return null;
+                    }
+                    break;
+                default:
+                    return null;
                 }
             }
         }

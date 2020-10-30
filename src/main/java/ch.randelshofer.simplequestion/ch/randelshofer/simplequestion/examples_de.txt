@@ -100,6 +100,7 @@ Was ist der Wert von PI (auf 3 Dezimalstellen)? {#3.141..3.142}
 ::Hauptstädte::
 Die Hauptstadt von Italien ist {=Rom} und die Hauptstadt von Russland ist {=Moskau =Mockba}.
 
+Die Hauptstadt von Italien ist {} und die Hauptstadt von Russland ist {}.
 
 //====================================================
 // Zuordnungsfragen
@@ -124,6 +125,15 @@ Ordnen Sie die Hauptstädte den Ländern zu:
 Rom ist die Hauptstadt von Frankreich. {FALSE}
 
 Moskau ist die Hauptstadt von Russland. {TRUE}
+
+//====================================================
+// Freitextfrage (Essay)
+//====================================================
+
+// Eine Freitextfrage muss von Hand bewertet werden.
+
+Schreiben Sie eine Kurzbiographie über Dag Hammarskjöld. {}
+
 
 //====================================================
 // Externes SCORM Objekt einbinden

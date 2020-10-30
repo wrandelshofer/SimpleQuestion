@@ -53,7 +53,7 @@ public class AnswerList {
 
     public AnswerListType getType() {
         if (answers.size() == 0) {
-            return null;
+            return AnswerListType.ESSAY;
         }
         Answer answer = answers.getFirst();
         if (answer instanceof BooleanAnswer) {

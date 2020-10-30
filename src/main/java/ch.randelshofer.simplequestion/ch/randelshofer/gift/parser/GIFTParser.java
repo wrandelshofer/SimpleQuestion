@@ -188,9 +188,7 @@ public class GIFTParser {
                         text.setLength(0);
                     }
                     AnswerList answerList = parseAnswerList(st);
-                    if (answerList.answers().size() == 0) {
-                        throw new ch.randelshofer.io.ParseException(labels.getFormatted("parser.emptyAnswerList", st.lineno()), startpos, st.getEndPosition());
-                    }
+                    // If the answer list is empty, we have an essay question
                     question.addAnswerList(answerList);
                     break;
                 case '}':

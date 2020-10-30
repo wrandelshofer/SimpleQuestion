@@ -342,6 +342,10 @@ public class GIFTScanner extends Scanner implements GIFTTokenTypes {
                                 case '~':
                                     context = CONTEXT_TEXTUAL_ANSWERBEGIN;
                                     break;
+                                case '}':
+                                    // essay question have an empty answer { }
+                                    context = CONTEXT_QUESTION;
+                                    break;
                                 default:
                                     context = CONTEXT_TEXTUAL_ANSWERLIST;
                                     type = bad(type);

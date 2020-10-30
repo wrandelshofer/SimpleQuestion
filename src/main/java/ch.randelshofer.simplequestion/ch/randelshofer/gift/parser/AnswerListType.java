@@ -27,6 +27,7 @@ public enum AnswerListType {
     BOOL,
     NUMERIC,
     EXTERNAL,
+    ESSAY,
 
     /**
      * Questions without an answer list use this type. This type can be used

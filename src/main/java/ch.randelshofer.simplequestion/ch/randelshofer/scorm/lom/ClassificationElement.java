@@ -1,5 +1,6 @@
-/* @(#)ClassificationElement.java
- * Copyright © Werner Randelshofer, Switzerland. MIT License.
+/*
+ * @(#)ClassificationElement.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 
 

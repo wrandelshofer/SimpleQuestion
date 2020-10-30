@@ -1,3 +1,8 @@
+/*
+ * @(#)Scan.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
 package ch.randelshofer.gui.highlight;
 
 // Illustrate the use of the scanner by reading in a file and displaying its

@@ -1,13 +1,6 @@
-/* @(#)PlainTextTransferable.java
- *
- * Copyright (c) 2007-2009 Werner Randelshofer
- * Hausmatt 10, CH-6405 Immensee, Switzerland
- * All rights reserved.
- *
- * The copyright of this software is owned by Werner Randelshofer.
- * You may not use, copy or modify this software, except in
- * accordance with the license agreement you entered into with
- * Werner Randelshofer. For details see accompanying license terms.
+/*
+ * @(#)PlainTextTransferable.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.gui.datatransfer;

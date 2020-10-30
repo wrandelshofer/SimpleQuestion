@@ -1,5 +1,6 @@
-/* @(#)DataFromLMSElement.java
- * Copyright © Werner Randelshofer, Switzerland. MIT License.
+/*
+ * @(#)DataFromLMSElement.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.scorm.cam;

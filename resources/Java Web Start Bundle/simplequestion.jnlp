@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ @(#)simplequestion.jnlp
+  ~ Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+  -->
+
 <!-- JNLP File for the SimpleQuestion application -->
 <jnlp
   spec="1.5.0+"

@@ -1,5 +1,6 @@
-/* @(#)ConfigurableFileFilter.java
- * Copyright © Werner Randelshofer, Switzerland. MIT License.
+/*
+ * @(#)ConfigurableFileFilter.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.io;

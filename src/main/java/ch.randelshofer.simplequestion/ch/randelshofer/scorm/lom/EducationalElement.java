@@ -1,5 +1,6 @@
-/* @(#)EducationalElement.java
- * Copyright © Werner Randelshofer, Switzerland. MIT License.
+/*
+ * @(#)EducationalElement.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 
 

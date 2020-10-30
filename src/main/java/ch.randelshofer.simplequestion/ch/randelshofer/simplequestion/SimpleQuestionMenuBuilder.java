@@ -1,11 +1,6 @@
-/* @(#)SimpleQuestionMenuBuilder.java
- *
- * Copyright (c) 2012 Werner Randelshofer, Immensee, Switzerland.
- * All rights reserved.
- *
- * You may not use, copy or modify this file, except in compliance with the
- * license agreement you entered into with Werner Randelshofer.
- * For details see accompanying license terms.
+/*
+ * @(#)SimpleQuestionMenuBuilder.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 package ch.randelshofer.simplequestion;
 

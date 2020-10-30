@@ -1,3 +1,8 @@
+/*
+ * @(#)TextScanner.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
 package org.ghinkle.jarjunkie.view.content.java;
 
 // This does exactly the same job as the Scanner class, but uses a table driven

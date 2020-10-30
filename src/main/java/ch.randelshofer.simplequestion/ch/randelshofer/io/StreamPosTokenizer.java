@@ -1,12 +1,6 @@
-/* @(#)StreamisTokenizer.java
- * !!ATTENTION!! LATEST VERSION IS IN MULTISHOW
- *
- * Copyright (c) 1999 Werner Randelshofer, Immensee, Switzerland.
- * All rights reserved.
- *
- * You may not use, copy or modify this file, except in compliance with the
- * license agreement you entered into with Werner Randelshofer.
- * For details see accompanying license terms.
+/*
+ * @(#)StreamPosTokenizer.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 package ch.randelshofer.io;
 

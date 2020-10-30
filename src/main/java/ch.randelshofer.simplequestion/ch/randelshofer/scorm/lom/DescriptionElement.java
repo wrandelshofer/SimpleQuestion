@@ -1,5 +1,6 @@
-/* @(#)DescriptionElement.java
- * Copyright © Werner Randelshofer, Switzerland. MIT License.
+/*
+ * @(#)DescriptionElement.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 
 

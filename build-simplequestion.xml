@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ @(#)build-simplequestion.xml
+  ~ Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+  -->
+
 <project name="SimpleQuestion" default="all" basedir="."
          xmlns:if="ant:if"
          xmlns:unless="ant:unless"

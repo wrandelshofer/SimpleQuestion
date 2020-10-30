@@ -1,4 +1,9 @@
 
+/*
+ * @(#)Scanner.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
 package org.ghinkle.jarjunkie.view.content.java;
 
 import java.util.HashMap;

@@ -1,4 +1,9 @@
 /*
+ * @(#)ColorTableCellEditor.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
+/*
  * ColorTableCellEditor.java
  *
  * Created on August 2, 2001, 5:00 PM

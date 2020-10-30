@@ -1,5 +1,6 @@
-/* @(#)VerifySyntaxAction.java
- * Copyright © Werner Randelshofer, Switzerland. MIT License.
+/*
+ * @(#)VerifySyntaxAction.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.simplequestion.action;

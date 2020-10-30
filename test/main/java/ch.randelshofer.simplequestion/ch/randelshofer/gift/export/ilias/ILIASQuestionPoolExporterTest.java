@@ -1,3 +1,8 @@
+/*
+ * @(#)ILIASQuestionPoolExporterTest.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
 package ch.randelshofer.gift.export.ilias;
 
 import ch.randelshofer.gift.parser.GIFTParser;

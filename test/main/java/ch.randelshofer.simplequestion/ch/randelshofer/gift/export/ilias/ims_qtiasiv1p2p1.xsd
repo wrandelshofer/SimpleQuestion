@@ -1,4 +1,9 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
+<!--
+  ~ @(#)ims_qtiasiv1p2p1.xsd
+  ~ Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+  -->
+
 <xs:schema xmlns = "http://www.imsglobal.org/xsd/ims_qtiasiv1p2"
 	 targetNamespace = "http://www.imsglobal.org/xsd/ims_qtiasiv1p2"
 	 xmlns:xs = "http://www.w3.org/2001/XMLSchema"

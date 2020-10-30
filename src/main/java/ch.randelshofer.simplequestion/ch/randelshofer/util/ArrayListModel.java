@@ -1,4 +1,9 @@
 /*
+ * @(#)ArrayListModel.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
+/*
  * ArrayListModel.java
  *
  * Created on July 1, 2003, 9:00 PM

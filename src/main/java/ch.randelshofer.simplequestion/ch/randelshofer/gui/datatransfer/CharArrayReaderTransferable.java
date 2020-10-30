@@ -1,5 +1,6 @@
-/* @(#)CharArrayReaderTransferable.java
- * Copyright © Werner Randelshofer, Switzerland. MIT License.
+/*
+ * @(#)CharArrayReaderTransferable.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.gui.datatransfer;

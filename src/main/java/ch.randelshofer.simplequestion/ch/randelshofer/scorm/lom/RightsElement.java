@@ -1,5 +1,6 @@
-/* @(#)RightsElement.java
- * Copyright © Werner Randelshofer, Switzerland. MIT License.
+/*
+ * @(#)RightsElement.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.scorm.lom;
@@ -12,33 +13,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
-/**
- * Represents a SCORM 1.2 LOM 'rights' Element.
- * <p>
- * This data element describes the conditions of use of the resource.
- * <p>
- * A 'rights' element has a structure as shown below.
- * Square brackets [ ] denote zero or one occurences.
- * Braces { } denote zero or more occurences.
- * Text in <b>bold</b> denotes non-terminal symbols.
- * <pre>
- * <b>rights</b> ::= &lt;rights&gt;
- *            [<b>cost</b>]
- *            [<b>copyrightandotherrestrictions</b>]
- *            [<b>description</b>]
- *            &lt;/rights&gt;
- * </pre>
- * Reference:
- * ADL (2001). Advanced Distributed Learning.
- * Sharable Content Object Reference Model (SCORM(TM)) Version 1.2.
- * The SCORM Content Aggregation Model. October 1, 2001.
- * Internet (2003-01-20): http://www.adlnet.org
- *
- * @author Werner Randelshofer
- * @version 1.1 2006-10-11 Parse using XML namespaces.
- * <br>1.0.1 2004-01-19  Comments updated.
- * <br>1.0 5. Januar 2004  Created.
- */
 public class RightsElement extends AbstractElement {
     private final static long serialVersionUID = 1L;
     /*

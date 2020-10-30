@@ -1,4 +1,9 @@
 /*
+ * @(#)ColorTableCellRenderer.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
+/*
  * ColorModelCellRenderer.java
  *
  * Created on August 2, 2001, 7:05 PM

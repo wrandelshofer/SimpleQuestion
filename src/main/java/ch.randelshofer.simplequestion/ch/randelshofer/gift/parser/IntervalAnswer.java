@@ -1,5 +1,6 @@
-/* @(#)Answer.java
- * Copyright © Werner Randelshofer, Switzerland. MIT License.
+/*
+ * @(#)IntervalAnswer.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.gift.parser;

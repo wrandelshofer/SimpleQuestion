@@ -1,3 +1,8 @@
+/*
+ * @(#)SyntaxHighlighter.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
 package ch.randelshofer.gui.highlight;
 
 import javax.swing.Icon;

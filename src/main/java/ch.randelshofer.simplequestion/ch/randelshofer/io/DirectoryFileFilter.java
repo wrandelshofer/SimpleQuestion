@@ -1,5 +1,6 @@
-/* @(#)DirectoryFileFilter.java
- * Copyright © Werner Randelshofer, Switzerland. MIT License.
+/*
+ * @(#)DirectoryFileFilter.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.io;

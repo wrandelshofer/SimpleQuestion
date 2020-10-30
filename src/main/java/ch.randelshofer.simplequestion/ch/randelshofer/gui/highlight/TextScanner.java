@@ -1,3 +1,8 @@
+/*
+ * @(#)TextScanner.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
 package ch.randelshofer.gui.highlight;
 
 // This does exactly the same job as the Scanner class, but uses a table driven

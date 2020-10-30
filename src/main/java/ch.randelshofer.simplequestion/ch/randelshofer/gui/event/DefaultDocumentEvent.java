@@ -1,5 +1,6 @@
-/* @(#)DefaultDocumentEvent.java
- * Copyright © Werner Randelshofer, Switzerland. MIT License.
+/*
+ * @(#)DefaultDocumentEvent.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 
 package ch.randelshofer.gui.event;

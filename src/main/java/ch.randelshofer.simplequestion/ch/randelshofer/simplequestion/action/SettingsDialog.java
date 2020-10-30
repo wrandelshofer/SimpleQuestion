@@ -1,4 +1,9 @@
 /*
+ * @(#)SettingsDialog.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
+/*
  * SettingsDialog.java
  *
  * Created on 24. Juli 2006, 13:29

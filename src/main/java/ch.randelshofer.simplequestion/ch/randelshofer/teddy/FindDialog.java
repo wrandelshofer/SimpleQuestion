@@ -1,4 +1,9 @@
 /*
+ * @(#)FindDialog.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
+/*
  * FindDialog.java
  *
  * Created on 8. Oktober 2005, 13:25

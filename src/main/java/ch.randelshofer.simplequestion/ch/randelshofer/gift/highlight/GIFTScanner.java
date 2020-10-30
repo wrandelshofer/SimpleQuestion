@@ -1,13 +1,6 @@
-/* @(#)GIFTScanner.java
- *
- * Copyright (c) 2006-2008 Hochschule Luzern, Fachstelle Neue Lernmedien,
- * Zentralstrasse 18, Postfach 2858, CH-6002 Lucerne, Switzerland
- * All rights reserved.
- *
- * The copyright of this software is owned by Hochschule Luzern (HSLU).
- * You may not use, copy or modify this software except in accordanc with
- * the license agreement you entered into with HSLU. For details see
- * accompanying license terms.
+/*
+ * @(#)GIFTScanner.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
  */
 package ch.randelshofer.gift.highlight;
 

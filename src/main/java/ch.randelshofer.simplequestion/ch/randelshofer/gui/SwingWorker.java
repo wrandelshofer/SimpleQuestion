@@ -1,3 +1,8 @@
+/*
+ * @(#)SwingWorker.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
 package ch.randelshofer.gui;
 
 import javax.swing.SwingUtilities;

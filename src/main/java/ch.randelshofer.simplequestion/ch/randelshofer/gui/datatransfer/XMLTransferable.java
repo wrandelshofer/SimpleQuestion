@@ -1,4 +1,9 @@
 /*
+ * @(#)XMLTransferable.java
+ * Copyright © 2020 Werner Randelshofer, Switzerland. MIT License.
+ */
+
+/*
  * XMLTransferable.java
  *
  * Created on October 20, 2001, 12:03 AM

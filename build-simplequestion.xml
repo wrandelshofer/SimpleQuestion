@@ -105,6 +105,7 @@
                 <arg line="-f &quot;${dist.dir}/modules/@{module}.jar&quot;"/>
                 <arg line="-u"/>
                 <arg line="-e @{mainclass}"/>
+                <arg line="--module-version ${version}"/>
             </exec>
 
             <jar destfile="${dist.dir}/sources/@{module}-src.jar"
@@ -185,7 +186,9 @@
                     <arg value="${version}"/>
                     <arg value="--vendor"/>
                     <arg value="${author}"/>
-
+                    <arg value="--type"/>
+                    <arg value="msi"/>
+                    <arg value="--win-shortcut"/>
                 </exec>
             </sequential>
         </sequential>

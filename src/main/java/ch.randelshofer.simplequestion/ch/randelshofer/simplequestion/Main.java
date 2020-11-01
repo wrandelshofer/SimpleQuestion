@@ -31,8 +31,16 @@ public class Main {
         DefaultApplicationModel tam = new SimpleQuestionApplicationModel();
         tam.setCopyright(COPYRIGHT);
         tam.setName(NAME);
-        tam.setViewFactory(ch.randelshofer.simplequestion.SimpleQuestionView::new);
         tam.setVersion(Main.class.getPackage().getImplementationVersion());
+        tam.setViewFactory(ch.randelshofer.simplequestion.SimpleQuestionView::new);
+
+        String version;
+        if (Main.class.getModule()!=null&&Main.class.getModule().getDescriptor().version().isPresent()) {
+            version=Main.class.getModule().getDescriptor().version().get().toString();
+        } else {
+            version=Main.class.getPackage().getImplementationVersion();
+        }
+        tam.setVersion(version);
 
         Application app;
         if (System.getProperty("os.name").toLowerCase().startsWith("mac os x")) {

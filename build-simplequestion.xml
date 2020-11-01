@@ -13,7 +13,6 @@
         <!-- gobal build properties -->
         <property file="build.properties"/>
 
-
         <!-- properties for copyright and versioning -->
         <property name="name" value="${ant.project.name}"/>
 
@@ -26,10 +25,10 @@
         <property name="javadoc" value="dist/SimpleQuestion ${version}/javadoc"/>
         <property name="modulepath" value="${lib}/JHotDraw-7.6"/>
 
-        <condition property="jdk" value="${jdk10.win}">
+        <condition property="jdk" value="${jdk.win}">
             <os family="windows" />
         </condition>
-        <condition property="jdk" value="${jdk10.mac}">
+        <condition property="jdk" value="${jdk.mac}">
             <os family="unix" />
         </condition>
     </target>
@@ -139,27 +138,27 @@
         <attribute name="title"/>
         <attribute name="mainclass" default=""/>
         <sequential>
-            <mkdir dir="${dist.dir}/bundles"/>
-            <exec executable="${jpackager.mac}">
-                <env key="JAVA_HOME" path="${jdk11.mac}"/>
-                <arg value="create-installer"/>
-                <arg value="--output"/>
-                <arg path="${dist.dir}/bundles"/>
-                <arg value="--name"/>
-                <arg value="@{title}"/>
-                <arg value="--module-path"/>
-                <arg path="${dist.dir}/modules"/>
-                <arg value="--identifier"/>
-                <arg value="@{module}"/>
-                <arg value="--module"/>
-                <arg value="@{module}"/>
-                <arg value="--mac-bundle-name"/>
-                <arg value="@{title}"/>
-                <arg value="--version"/>
-                <arg value="${version}"/>
-                <arg value="--icon"/>
-                <arg value="${app.icon.mac}"/>
-            </exec>
+            <available file="${jpackage.mac}" property="jpackage.mac.exists"/>
+            <sequential if:true="${jpackage.mac.exists}">
+                <mkdir dir="${dist.dir}/bundles"/>
+                <exec executable="${jpackage.mac}">
+                    <env key="JAVA_HOME" path="${jdk.mac}"/>
+                    <arg value="--dest"/>
+                    <arg path="${dist.dir}/bundles"/>
+                    <arg value="--name"/>
+                    <arg value="@{title}"/>
+                    <arg value="--module-path"/>
+                    <arg path="${dist.dir}/modules"/>
+                    <arg value="--module"/>
+                    <arg value="@{module}"/>
+                    <arg value="--app-version"/>
+                    <arg value="${version}"/>
+                    <arg value="--icon"/>
+                    <arg value="${app.icon.mac}"/>
+                    <arg value="--vendor"/>
+                    <arg value="${author}"/>
+                </exec>
+            </sequential>
         </sequential>
     </macrodef>
 
@@ -168,63 +167,46 @@
         <attribute name="title"/>
         <attribute name="mainclass" default=""/>
         <sequential>
-            <mkdir dir="C:/bundles"/>
-            <property environment="env"/>
-            <exec executable="${jpackager.win}">
-                <env key="Path" value="${env.Path};${wix.win}"/>
-                <arg value="create-installer"/>
-                <arg value="--verbose"/>
-                <arg value="--output"/>
-                <arg path="${dist.dir}/bundles"/>
-                <arg value="--name"/>
-                <arg value="@{title}"/>
-                <arg value="--module-path"/>
-                <arg path="${dist.dir}/modules"/>
-                <arg value="--identifier"/>
-                <arg value="@{module}"/>
-                <arg value="--module"/>
-                <arg value="@{module}"/>
-                <arg value="--version"/>
-                <arg value="${version}"/>
-                <arg value="--icon"/>
-                <arg value="${app.icon.mac}"/>
-            </exec>
+            <available file="${jpackage.win}" property="jpackage.win.exists"/>
+            <sequential if:true="${jpackage.win.exists}">
+                <mkdir dir="C:/bundles"/>
+                <property environment="env"/>
+                <exec executable="${jpackage.win}">
+                    <env key="Path" value="${env.Path};${wix.win}"/>
+                    <arg value="--dest"/>
+                    <arg path="${dist.dir}/bundles"/>
+                    <arg value="--name"/>
+                    <arg value="@{title}"/>
+                    <arg value="--module-path"/>
+                    <arg path="${dist.dir}/modules"/>
+                    <arg value="--module"/>
+                    <arg value="@{module}"/>
+                    <arg value="--app-version"/>
+                    <arg value="${version}"/>
+                    <arg value="--vendor"/>
+                    <arg value="${author}"/>
+
+                </exec>
+            </sequential>
         </sequential>
     </macrodef>
 
     <target name="do-bundle-win" depends="init">
-        <property environment="env"/>
-        <echo message="env.path=${env.Path}"/>
-        <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
-                 uri="javafx:com.sun.javafx.tools.ant"
-                 classpath="${jdk10.win}/lib/ant-javafx.jar"/>
-        <fx:deploy width="800" height="600"
-                   nativeBundles="all"
-                   outdir="${dist.dir}/bundles" outfile="${name}">
-            <fx:application name="${name}"
-                            module="ch.randelshofer.simplequestion"
-                            mainClass="ch.randelshofer.simplequestion.Main"
-                            version="${version}"
-            />
-            <fx:resources>
-                <fx:fileset dir="${dist.dir}/modules" includes="*.jar"/>
-            </fx:resources>
-            <fx:info title="${name}" vendor="${author}"/>
-            <fx:runtime>
-                <fx:module-path value="${dist.dir}/modules"/>
-            </fx:runtime>
-        </fx:deploy>
+        <modular-bundle-win
+                mainclass="ch.randelshofer.simplequestion.Main"
+                module="ch.randelshofer.simplequestion"
+                title="${name}"/>
     </target>
 
-    <target name="do-bundle-win-broken" depends="init">
-        <modular-bundle-win module="ch.randelshofer.simplequestion" title="${name}"/>
-    </target>
     <target name="do-bundle-mac" depends="init">
-        <modular-bundle-mac module="ch.randelshofer.simplequestion" title="${name}"/>
+        <modular-bundle-mac
+                mainclass="ch.randelshofer.simplequestion.Main"
+                module="ch.randelshofer.simplequestion"
+                title="${name}"/>
     </target>
 
 
-    <target name="bundle" depends="jar,do-bundle-mac">
+    <target name="bundle" depends="jar,do-bundle-mac,do-bundle-win">
     </target>
 
     <target name="dist" depends="bundle">
